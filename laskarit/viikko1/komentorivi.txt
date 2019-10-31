@@ -2,21 +2,21 @@ osiipola@melkinpaasi:~$ tree kurssit/ot2019/
 kurssit/ot2019/
 └── viikko1
     └── Unicafe
-		        ├── pom.xml
-						        └── src
-										    ├── main
-												│   └── java
-												│       └── com
-												│           └── mycompany
-												│               └── unicafe
-												│                   ├── Kassapaate.java
-												│                   ├── Maksukortti.java
-												│                   └── Paaohjelma.java
-												└── test
-														└── java
-																└── com
-																		└── mycompany
-																				└── unicafe
-																						└── MaksukorttiTest.java
+	├── pom.xml
+	└── src
+		├── main
+		│   └── java
+		│       └── com
+		│           └── mycompany
+		│               └── unicafe
+		│                   ├── Kassapaate.java
+		│                   ├── Maksukortti.java
+		│                   └── Paaohjelma.java
+		└── test
+			└── java
+				└── com
+					└── mycompany
+						└── unicafe
+							└── MaksukorttiTest.java
 
 
