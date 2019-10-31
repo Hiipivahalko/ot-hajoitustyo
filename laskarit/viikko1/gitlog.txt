@@ -1,0 +1,65 @@
+commit 56af470074c84cea169ad639a0461a6b36796fb1
+Author: Ossi <ossi.siipola@helsinki.fi>
+Date:   Thu Oct 31 10:48:21 2019 +0200
+
+    file1 poistettu ja file2 nimi muutettu
+
+commit 7ef0d6a88e5becf8d3e4ef628a9306efd48ca46e
+Author: Ossi <ossi.siipola@helsinki.fi>
+Date:   Thu Oct 31 10:45:15 2019 +0200
+
+    tiedostoja luotu, file1 file2 file 3
+
+commit 2d7d44821d1166d032ce3c3b99ae97b4eedf9706
+Author: Ossi <ossi.siipola@helsinki.fi>
+Date:   Thu Oct 31 10:39:37 2019 +0200
+
+    muutoksia eka- ja kolmast.txt
+
+commit 6ada2a82b03537df500527b88b2e413baada816e
+Author: Ossi <ossi.siipola@helsinki.fi>
+Date:   Thu Oct 31 10:37:46 2019 +0200
+
+    tiedosto.txt nimi vaihdettu -> eka.txt
+
+commit 68cf14a661e17d4425617e9735d92b9329efb7b2
+Author: Ossi <ossi.siipola@helsinki.fi>
+Date:   Thu Oct 31 10:36:04 2019 +0200
+
+    toinen.txt poisto
+
+commit 1fa04ed9837236cd8130afd741657498fa1bf44c
+Author: Ossi <ossi.siipola@helsinki.fi>
+Date:   Thu Oct 31 10:31:52 2019 +0200
+
+    muutoksia toinen.txt
+
+commit f47b85d40a28c95ed046405d2022afb9f7e045d3
+Author: Ossi <ossi.siipola@helsinki.fi>
+Date:   Thu Oct 31 10:30:53 2019 +0200
+
+    lisää tekstiä
+
+commit 92aff74cc4b345571781e8b848949e89ecf20a3c
+Author: Ossi <ossi.siipola@helsinki.fi>
+Date:   Thu Oct 31 10:27:15 2019 +0200
+
+    hakemisto stuff lisätty ja muokattu toinen ja kolmas tiedostoja
+
+commit 74587a3646ffb7cd49b1cc4fe297b7bfd6a7f4e5
+Author: Ossi <ossi.siipola@helsinki.fi>
+Date:   Thu Oct 31 10:25:31 2019 +0200
+
+    lisätty kolmas
+
+commit 8756d9b87e31649d78ac7275167f68897799ec7c
+Author: Ossi <ossi.siipola@helsinki.fi>
+Date:   Thu Oct 31 10:24:01 2019 +0200
+
+    lisäys ja muutos
+
+commit 5220cc1dc1987ae5b73b325aac683e1b0f32161f
+Author: Ossi <ossi.siipola@helsinki.fi>
+Date:   Thu Oct 31 10:21:55 2019 +0200
+
+    tiedosto.txt luotu
