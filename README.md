@@ -2,6 +2,11 @@
 
 Helsingin yliopiston Ohjelmistotekniikka kurssin harjoitustyö
 
+## Dokumentaatio
+
+* [Työaikakirjanpito]()
+
+* [Määrittelydokumentti]()
 
 ## Tehtävät
 
