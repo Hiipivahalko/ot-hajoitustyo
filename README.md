@@ -4,9 +4,9 @@ Helsingin yliopiston Ohjelmistotekniikka kurssin harjoitustyö
 
 ## Dokumentaatio
 
-* [Työaikakirjanpito]()
+* [Työaikakirjanpito](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/working_hours.md)
 
-* [Määrittelydokumentti]()
+* [Määrittelydokumentti](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/definition.md)
 
 ## Tehtävät
 
