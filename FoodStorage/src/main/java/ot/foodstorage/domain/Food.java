@@ -44,6 +44,10 @@ public class Food {
         return id;
     }
 
+    public String getDueDate() {
+        return dueDate;
+    }
+
     ///// SETTERIT
     public void setName(String name) {
         this.name = name;

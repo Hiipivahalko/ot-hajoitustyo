@@ -7,7 +7,10 @@ package ot.foodstorage.ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -28,46 +31,24 @@ import ot.foodstorage.service.AppService;
  *
  * @author osiipola
  */
-public class MainSceneController implements Initializable {
-    
-    @FXML
-    private Label welcome;
+public class MainSceneController extends Controller {
     
     private ObservableList<Food> allFoods;
     
     private Main application;
-    private AppService appService;
+    //private AppService appService;
     
     @FXML private TableView<Food> tableview;
-
-    /**
-     * Initializes the controller class.
-     */
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }    
-    
-    public void setApplication(Main application) {
-        this.application = application;
-    }
-
-    public void setAppService(AppService appService) {
-        this.appService = appService;
-    }
     
     
     @FXML
     public void addNewFood(ActionEvent event) throws IOException {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/fxml/NewFoodScene.fxml"));
-            Scene dashboard = new Scene(root);
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(dashboard);
-            window.show();
-        } catch (IOException ex) {
-            System.out.println(ex.getMessage());
-        }
+        super.changeSide(event, "/fxml/NewFoodScene.fxml");
+    }
+
+    public void setFoods() throws SQLException {
+        allFoods = FXCollections.observableArrayList(getAppService().getAllFoods());
+        tableview.setItems(allFoods);
     }
     
 }

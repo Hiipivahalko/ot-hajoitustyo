@@ -6,6 +6,8 @@
 package ot.foodstorage.main;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,7 +27,7 @@ public class Main extends Application{
     private Database db;
     private Scene mainScene;
     private Stage mainStage;
-    private MainSceneController conroller;
+    private MainSceneController mainConroller;
     private AppService appService;
 
 
@@ -37,14 +39,16 @@ public class Main extends Application{
     }
     
     @Override
-    public void init() throws IOException {
+    public void init() throws IOException, SQLException {
         this.db = new Database("jdbc:sqlite:foodStorage.db");
         FoodDao foodDao = new FoodDao(db, "Food");
         this.appService = new AppService(foodDao);
+        
         FXMLLoader mainPageLoader = new FXMLLoader(getClass().getResource("/fxml/MainScene.fxml"));
         Parent root = mainPageLoader.load();
-        conroller = mainPageLoader.getController();
-        
+        mainConroller = mainPageLoader.getController();
+        mainConroller.setAppService(appService);
+        mainConroller.setFoods();
         this.mainScene = new Scene(root);
     }
 
@@ -55,7 +59,7 @@ public class Main extends Application{
        //Scene scene = new Scene(root);
        stage.setTitle("RuokaVarasto");
        stage.setScene(mainScene);
-       this.conroller.setApplication(this);
+       //this.conroller.setApplication(this);
        stage.show();
     }
 

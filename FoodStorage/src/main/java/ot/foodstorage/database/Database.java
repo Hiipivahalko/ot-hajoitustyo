@@ -20,7 +20,9 @@ public class Database {
         try {
             Connection conn = DriverManager.getConnection(this.databaseAddress);
             Statement stmt = conn.createStatement();
-
+            createTables(stmt);
+            stmt.close();
+            conn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -31,14 +33,18 @@ public class Database {
         return DriverManager.getConnection(databaseAddress);
     }
 
+    private void createTables(Statement stmt) throws SQLException {
+        stmt.execute(createFoodTable());
+    }
+
     private String createFoodTable() {
-        return "CREATE TABLE IF NOT EXIST" +
+        return "CREATE TABLE IF NOT EXISTS" +
                 " Food(" +
-                " id INTEGER NOT NULL PRIMARY KEY AUTOINCREAMENT," +
-                " name TEXT NOT NULL" +
-                " manufacturer TEXT NOT NULL" +
-                " preservation TEXT NOT NULL" +
-                " weight INTEGER NOT NULL" +
+                " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                " name TEXT NOT NULL," +
+                " manufacturer TEXT NOT NULL," +
+                " preservation TEXT NOT NULL," +
+                " weight INTEGER NOT NULL," +
                 " dueDate TEXT NOT NULL" +
                 ");";
     }
