@@ -15,8 +15,7 @@ import java.util.List;
 public interface Dao<T, K> {
     T findOne(K key) throws SQLException;
     List<T> findAll() throws SQLException;
-    void save(T object) throws SQLException;
-    T update(T object) throws SQLException;
+    void saveOrUpdate(T object) throws SQLException;
     void delete(K key) throws SQLException;
     List<T> filterFromAll(String filter) throws SQLException;
 }

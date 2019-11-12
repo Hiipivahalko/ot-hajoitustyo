@@ -16,7 +16,8 @@ import javafx.stage.Stage;
 import ot.foodstorage.dao.FoodDao;
 import ot.foodstorage.database.Database;
 import ot.foodstorage.service.AppService;
-import ot.foodstorage.ui.MainSceneController;
+import ot.foodstorage.ui.FrontPageSceneController;
+import ot.foodstorage.ui.AllFoodsSceneController;
 
 /**
  *
@@ -27,7 +28,8 @@ public class Main extends Application{
     private Database db;
     private Scene mainScene;
     private Stage mainStage;
-    private MainSceneController mainConroller;
+    private AllFoodsSceneController mainConroller;
+    private FrontPageSceneController controller;
     private AppService appService;
 
 
@@ -44,22 +46,17 @@ public class Main extends Application{
         FoodDao foodDao = new FoodDao(db, "Food");
         this.appService = new AppService(foodDao);
         
-        FXMLLoader mainPageLoader = new FXMLLoader(getClass().getResource("/fxml/MainScene.fxml"));
+        FXMLLoader mainPageLoader = new FXMLLoader(getClass().getResource("/fxml/FrontPageScene.fxml"));
         Parent root = mainPageLoader.load();
-        mainConroller = mainPageLoader.getController();
-        mainConroller.setAppService(appService);
-        mainConroller.setFoods();
+        controller = mainPageLoader.getController();
+        controller.setAppService(appService);
         this.mainScene = new Scene(root);
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-       
-       
-       //Scene scene = new Scene(root);
        stage.setTitle("RuokaVarasto");
        stage.setScene(mainScene);
-       //this.conroller.setApplication(this);
        stage.show();
     }
 

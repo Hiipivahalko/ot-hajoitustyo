@@ -48,9 +48,15 @@ public class FoodDao  implements Dao<Food, Integer>{
                     rs.getString("preservation"),
                     rs.getInt("weight"),
                     rs.getString("dueDate"),
-                    rs.getInt("id"));
+                    rs.getInt("id"),
+                    rs.getInt("amount"));
             foods.add(food);
         }
+
+        rs.close();
+        stmt.close();
+        conn.close();
+
         return foods;
     }
 
@@ -60,32 +66,63 @@ public class FoodDao  implements Dao<Food, Integer>{
      * @throws SQLException
      */
     @Override
-    public void save(Food food) throws SQLException {
+    public void saveOrUpdate(Food food) throws SQLException {
         Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName +
-                "(name, manufacturer, preservation, weight, dueDate) VALUES (?,?,?,?,?)");
+        PreparedStatement stmt;
+        stmt = conn.prepareStatement("INSERT INTO " + tableName +
+                "(name, manufacturer, preservation, weight, dueDate, amount) VALUES (?,?,?,?,?,?)");
         stmt.setString(1, food.getName());
         stmt.setString(2, food.getManufacturer());
         stmt.setString(3, food.getPreservation());
         stmt.setInt(4, food.getWeight());
         stmt.setString(5,food.getDueDate());
+        stmt.setInt(6, food.getAmount());
         stmt.executeUpdate();
         stmt.close();
         conn.close();
     }
-    
-    @Override
-    public Food update(Food object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
     @Override
     public void delete(Integer key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Connection conn = db.getConnection();
+        Statement stmt = conn.createStatement();
+        stmt.execute("DELETE FROM " + tableName + " WHERE id = " + key);
     }
 
     @Override
     public List<Food> filterFromAll(String filter) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return selectQuery("SELECT * FROM " + tableName +
+                " WHERE name LIKE '%" + filter + "%' OR manufacturer LIKE '%" + filter + "%' ORDER BY name;");
+    }
+
+    public List<Food> preservationFilter(String filter) throws SQLException {
+        return selectQuery("SELECT * FROM " + tableName +
+                " WHERE preservation = '" + filter + "' ORDER BY name;");
+    }
+
+    private List<Food> selectQuery(String query) throws SQLException {
+        List<Food> foods = new ArrayList<>();
+
+        Connection conn = db.getConnection();
+        PreparedStatement stmt = conn.prepareStatement(query);
+
+        ResultSet rs = stmt.executeQuery();
+
+        while(rs.next()) {
+            Food food = new Food(rs.getString("name"),
+                    rs.getString("manufacturer"),
+                    rs.getString("preservation"),
+                    rs.getInt("weight"),
+                    rs.getString("dueDate"),
+                    rs.getInt("id"),
+                    rs.getInt("amount"));
+            foods.add(food);
+        }
+
+        rs.close();
+        stmt.close();
+        conn.close();
+
+        return foods;
     }
 }

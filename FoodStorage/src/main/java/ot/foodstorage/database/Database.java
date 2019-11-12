@@ -45,7 +45,18 @@ public class Database {
                 " manufacturer TEXT NOT NULL," +
                 " preservation TEXT NOT NULL," +
                 " weight INTEGER NOT NULL," +
-                " dueDate TEXT NOT NULL" +
+                " dueDate TEXT NOT NULL," +
+                " amount INTEGER NOT NULL" +
+                ");";
+    }
+
+    private String createFoodTemplateTable() {
+        return "CREATE TABLE IF NOT EXISTS" +
+                " FoodTemplate(" +
+                "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                " name TEXT NOT NULL," +
+                " manufacturer TEXT NOT NULL," +
+                " preservation TEXT NOT NULL" +
                 ");";
     }
 
