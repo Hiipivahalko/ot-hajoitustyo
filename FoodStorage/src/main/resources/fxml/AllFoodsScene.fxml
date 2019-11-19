@@ -8,82 +8,80 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ot.foodstorage.ui.AllFoodsSceneController">
    <children>
-      <VBox layoutX="14.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0">
-              <buttons>
+      <BorderPane prefHeight="503.0" prefWidth="744.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox prefHeight="400.0" prefWidth="126.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#addNewFood" prefHeight="53.0" prefWidth="126.0" text="Lisää raaka-aine" />
+                  <Button mnemonicParsing="false" onAction="#setAllFoods" prefHeight="38.0" prefWidth="126.0" text="Kaikki ruoat" />
+                  <Button mnemonicParsing="false" onAction="#filterDryFoods" prefHeight="30.0" prefWidth="126.0" text="Kuivakaappi" />
+                  <Button mnemonicParsing="false" onAction="#filterFridgeFoods" prefHeight="30.0" prefWidth="126.0" text="Jääkaappi" />
+                  <Button mnemonicParsing="false" onAction="#filterFreezerFoods" prefHeight="29.0" prefWidth="126.0" text="Pakastin" />
+                  <Pane prefHeight="28.0" prefWidth="126.0" />
+                  <Label prefHeight="24.0" prefWidth="123.0" text="Hae ruokia:" />
+                  <TextField fx:id="filterField" promptText="haku" />
+                  <Button mnemonicParsing="false" onAction="#filterByNameOrManufacturer" prefHeight="26.0" prefWidth="126.0" text="hae" />
+               </children>
+            </VBox>
+         </left>
+         <top>
+            <ButtonBar prefHeight="42.0" prefWidth="744.0" BorderPane.alignment="CENTER">
+               <buttons>
                 <Button mnemonicParsing="false" text="näytä reseptit" />
                   <Button mnemonicParsing="false" text="ostoslista" />
-              </buttons>
+               </buttons>
             </ButtonBar>
-            <HBox prefHeight="463.0" prefWidth="744.0">
-               <children>
-                  <VBox prefHeight="400.0" prefWidth="126.0">
-                     <children>
-                        <Button mnemonicParsing="false" onAction="#addNewFood" prefHeight="53.0" prefWidth="126.0" text="Lisää raaka-aine" />
-                        <Button mnemonicParsing="false" onAction="#setAllFoods" prefHeight="38.0" prefWidth="126.0" text="Kaikki ruoat" />
-                        <Button mnemonicParsing="false" onAction="#filterDryFoods" prefHeight="30.0" prefWidth="126.0" text="Kuivakaappi" />
-                        <Button mnemonicParsing="false" onAction="#filterFridgeFoods" prefHeight="30.0" prefWidth="126.0" text="Jääkaappi" />
-                        <Button mnemonicParsing="false" onAction="#filterFreezerFoods" prefHeight="29.0" prefWidth="126.0" text="Pakastin" />
-                        <Pane prefHeight="28.0" prefWidth="126.0" />
-                        <Label prefHeight="24.0" prefWidth="123.0" text="Hae ruokia:" />
-                        <TextField fx:id="filterField" promptText="haku" />
-                        <Button mnemonicParsing="false" onAction="#filterByNameOrManufacturer" prefHeight="26.0" prefWidth="126.0" text="hae" />
-                     </children>
-                  </VBox>
-                  <VBox prefHeight="463.0" prefWidth="619.0">
-                     <children>
-                        <TableView fx:id="tableview" prefHeight="427.0" prefWidth="619.0">
-                          <columns>
-                            <TableColumn prefWidth="100.0" text="Nimi">
-                                <cellValueFactory>
-                                    <PropertyValueFactory property="name" />
-                                </cellValueFactory>
-                            </TableColumn>
-                              <TableColumn prefWidth="113.0" text="Valmistaja">
-                                  <cellValueFactory>
-                                      <PropertyValueFactory property="manufacturer" />
-                                  </cellValueFactory>
-                              </TableColumn>
-                              <TableColumn prefWidth="90.0" text="Eräpäivä">
-                                  <cellValueFactory>
-                                      <PropertyValueFactory property="dueDate" />
-                                  </cellValueFactory>
-                              </TableColumn>
-                              <TableColumn prefWidth="82.0" text="Paino (kg)">
-                                  <cellValueFactory>
-                                      <PropertyValueFactory property="weight" />
-                                  </cellValueFactory>
-                              </TableColumn>
-                              <TableColumn prefWidth="87.0" text="Säilytys">
-                                  <cellValueFactory>
-                                      <PropertyValueFactory property="preservation" />
-                                  </cellValueFactory>
-                              </TableColumn>
-                              <TableColumn prefWidth="87.0" text="Määrä">
-                                  <cellValueFactory>
-                                      <PropertyValueFactory property="amount" />
-                                  </cellValueFactory>
-                              </TableColumn>
-                          </columns>
-                        </TableView>
-                        <ButtonBar prefHeight="40.0" prefWidth="200.0">
-                          <buttons>
-                            <Button mnemonicParsing="false" text="Näytä tarkemmin" />
-                              <Button mnemonicParsing="false" onAction="#deleteFood" text="poista" />
-                          </buttons>
-                        </ButtonBar>
-                     </children>
-                  </VBox>
-               </children>
-            </HBox>
-         </children>
-      </VBox>
+         </top>
+         <center>
+            <TableView fx:id="tableview" prefHeight="427.0" prefWidth="619.0" BorderPane.alignment="CENTER">
+              <columns>
+                <TableColumn prefWidth="100.0" text="Nimi">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="name" />
+                    </cellValueFactory>
+                </TableColumn>
+                  <TableColumn prefWidth="113.0" text="Valmistaja">
+                      <cellValueFactory>
+                          <PropertyValueFactory property="manufacturer" />
+                      </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="90.0" text="Eräpäivä">
+                      <cellValueFactory>
+                          <PropertyValueFactory property="dueDate" />
+                      </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="82.0" text="Paino (kg)">
+                      <cellValueFactory>
+                          <PropertyValueFactory property="weight" />
+                      </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="87.0" text="Säilytys">
+                      <cellValueFactory>
+                          <PropertyValueFactory property="preservation" />
+                      </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="87.0" text="Määrä">
+                      <cellValueFactory>
+                          <PropertyValueFactory property="amount" />
+                      </cellValueFactory>
+                  </TableColumn>
+              </columns>
+            </TableView>
+         </center>
+         <bottom>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <buttons>
+                <Button mnemonicParsing="false" text="Näytä tarkemmin" />
+                  <Button mnemonicParsing="false" onAction="#deleteFood" text="poista" />
+               </buttons>
+            </ButtonBar>
+         </bottom>
+      </BorderPane>
    </children>
 </AnchorPane>

@@ -26,11 +26,7 @@ public class FrontPageSceneController extends Controller {
             mainController = pageLoader.getController();
             mainController.setAppService(getAppService());
             mainController.setAllFoods();
-
-            Scene dashboard = new Scene(root);
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(dashboard);
-            window.show();
+            ((Node) event.getSource()).getScene().setRoot(root);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
-
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ot.foodstorage.ui.FrontPageSceneController">
    <children>
-      <Label layoutX="104.0" layoutY="44.0" prefHeight="67.0" prefWidth="404.0" text="Tervetuloa RuokaVarastolle">
-         <font>
-            <Font name="System Bold" size="24.0" />
-         </font>
-      </Label>
-      <Button layoutX="65.0" layoutY="167.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="119.0" text="Luo ostoslista" />
-      <Button layoutX="212.0" layoutY="167.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="129.0" text="Valmista ruokia" />
-      <Button layoutX="356.0" layoutY="167.0" mnemonicParsing="false" onAction="#goBackToFoodList" prefHeight="48.0" prefWidth="194.0" text="Tarkastele ruokavarastoa" />
+      <BorderPane layoutX="235.0" layoutY="100.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <Label prefHeight="67.0" prefWidth="404.0" text="Tervetuloa RuokaVarastolle" BorderPane.alignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </top>
+         <center>
+            <HBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="119.0" text="Luo ostoslista" />
+                  <Button mnemonicParsing="false" prefHeight="48.0" prefWidth="129.0" text="Valmista ruokia" />
+                  <Button mnemonicParsing="false" onAction="#goBackToFoodList" prefHeight="48.0" prefWidth="194.0" text="Tarkastele ruokavarastoa" />
+               </children>
+               <BorderPane.margin>
+                  <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+               </BorderPane.margin>
+            </HBox>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>

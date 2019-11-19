@@ -33,8 +33,26 @@ public class Database {
         return DriverManager.getConnection(databaseAddress);
     }
 
+    public void initializeDatabase() {
+        try {
+            Connection conn = DriverManager.getConnection(databaseAddress);
+            Statement stmt = conn.createStatement();
+            stmt.execute("DROP TABLE Food");
+            stmt.execute("DROP TABLE Layout");
+            createTables(stmt);
+
+            stmt.close();
+            conn.close();
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.getStackTrace();
+        }
+    }
+
     private void createTables(Statement stmt) throws SQLException {
         stmt.execute(createFoodTable());
+        stmt.execute(createLayoutTable());
     }
 
     private String createFoodTable() {
@@ -50,9 +68,9 @@ public class Database {
                 ");";
     }
 
-    private String createFoodTemplateTable() {
+    private String createLayoutTable() {
         return "CREATE TABLE IF NOT EXISTS" +
-                " FoodTemplate(" +
+                " Layout(" +
                 "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 " name TEXT NOT NULL," +
                 " manufacturer TEXT NOT NULL," +

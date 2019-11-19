@@ -8,18 +8,20 @@ Helsingin yliopiston Ohjelmistotekniikka kurssin harjoitustyö
 
 * [Määrittelydokumentti](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/definition.md)
 
-## Tehtävät
+## Komentorivitoiminnot
 
-### Viikko 1
+### Testaus
 
-[gitlog.txt](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/laskarit/viikko1/gitlog.txt)
+Testit suoritetaan komennolla
 
-[komentorivi.txt](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/laskarit/viikko1/komentorivi.txt)
+```
+mvn test
+```
 
-### Viikko 2
+Testikattavuusraportti luodaan komennolla
 
-[maksukortti](https://github.com/Hiipivahalko/ot-hajoitustyo/tree/master/laskarit/viikko2/Maksukortti)
+```
+mvn jacoco:report
+```
 
-[unicafe](https://github.com/Hiipivahalko/ot-hajoitustyo/tree/master/laskarit/viikko2/Unicafe)
-
-[jacoco testReport](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/laskarit/viikko2/testReport.png)
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto target/site/jacoco/index.html

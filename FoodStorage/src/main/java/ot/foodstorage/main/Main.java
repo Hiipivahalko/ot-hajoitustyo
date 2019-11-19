@@ -50,7 +50,7 @@ public class Main extends Application{
         Parent root = mainPageLoader.load();
         controller = mainPageLoader.getController();
         controller.setAppService(appService);
-        this.mainScene = new Scene(root);
+        this.mainScene = new Scene(root, 1000, 1000);
     }
 
     @Override

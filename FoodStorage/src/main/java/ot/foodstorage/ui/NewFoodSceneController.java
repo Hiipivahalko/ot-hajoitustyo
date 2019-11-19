@@ -30,9 +30,12 @@ public class NewFoodSceneController extends Controller {
 
     private AllFoodsSceneController mainController;
     private FoodLayoutSceneController layoutController;
+    private Stage stage;
 
 
-
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
 
     /**
      * Tapahtumankäsittelijä "Takaisin" napille, jolla päästään takaisin ruokalistaan
@@ -47,10 +50,7 @@ public class NewFoodSceneController extends Controller {
             mainController = pageLoader.getController();
             mainController.setAppService(getAppService());
             mainController.setAllFoods();
-            Scene dashboard = new Scene(root);
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(dashboard);
-            window.show();
+            ((Node) event.getSource()).getScene().setRoot(root);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -64,11 +64,7 @@ public class NewFoodSceneController extends Controller {
             Parent root = pageLoader.load();
             layoutController = pageLoader.getController();
             layoutController.setAppService(getAppService());
-            layoutController.set
-            Scene dashboard = new Scene(root);
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(dashboard);
-            window.show();
+            ((Node) event.getSource()).getScene().setRoot(root);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -94,7 +90,8 @@ public class NewFoodSceneController extends Controller {
                     date,
                     Integer.parseInt(amount.getText()));
         } else System.out.println("it was null");
-        goBackToFoodList(event);
+        //goBackToFoodList(event);
+        stage.close();
     }
     
 }

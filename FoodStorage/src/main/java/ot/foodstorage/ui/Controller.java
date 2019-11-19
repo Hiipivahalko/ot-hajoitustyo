@@ -26,14 +26,10 @@ public class Controller {
     public void changeSide(ActionEvent event, String file) {
         try {
             FXMLLoader pageLoader = new FXMLLoader(getClass().getResource(file));
-            //Parent root = FXMLLoader.load(getClass().getResource(file));
             Parent root = pageLoader.load();
             controller = pageLoader.getController();
             controller.setAppService(getAppService());
-            Scene dashboard = new Scene(root);
-            Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            window.setScene(dashboard);
-            window.show();
+            ((Node) event.getSource()).getScene().setRoot(root);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
