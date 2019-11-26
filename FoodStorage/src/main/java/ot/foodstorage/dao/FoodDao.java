@@ -12,7 +12,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FoodDao  implements Dao<Food, Integer>{
+public class FoodDao  implements Dao<Food, Integer> {
 
     private Database db;
     private String tableName;
@@ -42,7 +42,7 @@ public class FoodDao  implements Dao<Food, Integer>{
 
         ResultSet rs = stmt.executeQuery();
 
-        while(rs.next()) {
+        while (rs.next()) {
             Food food = new Food(rs.getString("name"),
                     rs.getString("manufacturer"),
                     rs.getString("preservation"),
@@ -75,7 +75,7 @@ public class FoodDao  implements Dao<Food, Integer>{
         stmt.setString(2, food.getManufacturer());
         stmt.setString(3, food.getPreservation());
         stmt.setInt(4, food.getWeight());
-        stmt.setString(5,food.getDueDate());
+        stmt.setString(5, food.getDueDate());
         stmt.setInt(6, food.getAmount());
         stmt.executeUpdate();
         stmt.close();
@@ -113,7 +113,7 @@ public class FoodDao  implements Dao<Food, Integer>{
 
         ResultSet rs = stmt.executeQuery();
 
-        while(rs.next()) {
+        while (rs.next()) {
             Food food = new Food(rs.getString("name"),
                     rs.getString("manufacturer"),
                     rs.getString("preservation"),

@@ -32,7 +32,7 @@ public class LayoutDao implements Dao<Layout, Integer> {
 
         ResultSet rs = stmt.executeQuery();
 
-        while(rs.next()) {
+        while (rs.next()) {
             Layout layout = new Layout(rs.getInt("id"),
                     rs.getString("name"),
                     rs.getString("manufacturer"),
@@ -50,7 +50,7 @@ public class LayoutDao implements Dao<Layout, Integer> {
     @Override
     public void saveOrUpdate(Layout object) throws SQLException {
         Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName+
+        PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName +
                 " (name, manufacturer, preservation) VALUES (?,?,?)");
         stmt.setString(1, object.getName());
         stmt.setString(2, object.getManufacturer());

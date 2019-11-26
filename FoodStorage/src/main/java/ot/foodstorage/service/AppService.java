@@ -71,7 +71,7 @@ public class AppService {
     }
 
     public void checkIfLayoutExistAndCreate(String name, String manufacture, String preservation) throws SQLException {
-        List<Food> temp = foodDao.findByNameAndManufacture(name,manufacture);
+        List<Food> temp = foodDao.findByNameAndManufacture(name, manufacture);
         if (temp.size() < 1) {
             Layout newLayout = new Layout(-1, name, manufacture, preservation);
             layoutDao.saveOrUpdate(newLayout);

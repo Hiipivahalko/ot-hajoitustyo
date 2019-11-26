@@ -24,7 +24,7 @@ import ot.foodstorage.ui.AllFoodsSceneController;
  *
  * @author osiipola
  */
-public class Main extends Application{
+public class Main extends Application {
 
     private Database db;
     private Scene mainScene;

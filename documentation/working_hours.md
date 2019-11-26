@@ -6,4 +6,5 @@
 | 06.11. | 4    | javaFX testailua/harjoittelua |
 | 07.11. | 2    | raaka-aineen lisäys + etusivu |
 | 19.11. | 2    | ui näkymän prannusta + testausta + pientä refaktorointia |
-| yth.   | 9    |  |
+| 26.11. | 6    | ostoskori käyttöliittymän luonti, dokumentaation parannusta, ruokamalli generointi raaka-aineen yhteydessä, mahdollisuus lisätä ruokia ruokamallin avulla  sekä pieniä korjauksia ja refaktorointia|
+| yth.   | 15    |  |
