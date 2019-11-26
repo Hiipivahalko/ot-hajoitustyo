@@ -33,6 +33,10 @@ public class AppService {
         return layouts;
     }
 
+    public List<Food> getAllFoods() throws SQLException {
+        return foodDao.findAll();
+    }
+
     /**
      * Luo uuden ruoka-olion ja tallentaa sen tietokantaan
      * @param name - nimi
@@ -42,15 +46,15 @@ public class AppService {
      * @param dueDate - eräpäivä
      * @throws SQLException
      */
-    public void saveNewFood(String name, String manufacturer, String preservation, int weight, String dueDate, int amount) throws SQLException {
-        Food newFood = new Food(name.toLowerCase(), manufacturer.toLowerCase(), preservation.toLowerCase(),
-                weight, dueDate, -1, amount);
-        checkIfLayoutExistAndCreate(name, manufacturer, preservation);
-        foodDao.saveOrUpdate(newFood);
-    }
-
-    public List<Food> getAllFoods() throws SQLException {
-        return foodDao.findAll();
+    public void saveNewFood(String name, String manufacturer, String preservation, int weight, String dueDate, int amount) {
+        try {
+            Food newFood = new Food(name.toLowerCase(), manufacturer.toLowerCase(), preservation.toLowerCase(),
+                    weight, dueDate, -1, amount);
+            checkIfLayoutExistAndCreate(name, manufacturer, preservation);
+            foodDao.saveOrUpdate(newFood);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     public List<Food> filterFoods(String filter, int option) throws SQLException {

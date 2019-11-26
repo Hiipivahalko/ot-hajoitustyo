@@ -28,6 +28,10 @@ public class FoodDaoTest {
     public void findOne() {
     }
 
+    /**
+     * Testataan että tietokanta palauttaa kaikki ruokarivit sitä pyydettäessä
+     * @throws SQLException
+     */
     @Test
     public void findAll() throws SQLException {
 

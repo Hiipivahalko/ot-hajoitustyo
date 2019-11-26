@@ -10,4 +10,5 @@
     <suppress files="ot.foodstorage.ui.LayoutSceneController" checks="[a-zA-Z0-9]*"/>
     <suppress files="ot.foodstorage.ui.FrontPageSceneController" checks="[a-zA-Z0-9]*"/>
     <suppress files="ot.foodstorage.ui.AllFoodsSceneController" checks="[a-zA-Z0-9]*"/>
+    <suppress files="ot.foodstorage.ui.ShoppingBasketSceneController" checks="[a-zA-Z0-9]*"/>
 </suppressions>
