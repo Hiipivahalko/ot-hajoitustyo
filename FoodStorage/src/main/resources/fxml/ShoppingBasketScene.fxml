@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="536.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ot.foodstorage.ui.ShoppingBasketSceneController">
+   <children>
+      <BorderPane layoutX="181.0" layoutY="75.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <buttons>
+                <Button mnemonicParsing="false" onAction="#goBackToFoodList" text="Ruoka Varastoon" />
+                  <Button mnemonicParsing="false" text="Reseptit listaukseen" />
+              </buttons>
+            </ButtonBar>
+         </top>
+         <center>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                         <Label alignment="CENTER" contentDisplay="CENTER" text="Ostoskori" textAlignment="CENTER">
+                             <font>
+                                 <Font name="System Bold" size="13.0" />
+                             </font>
+                         </Label>
+                        <TableView fx:id="basketView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="nimi" />
+                            <TableColumn prefWidth="83.0" text="valmistaja" />
+                              <TableColumn prefWidth="89.0" text="säilytys" />
+                              <TableColumn prefWidth="78.0" text="määrä" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                     <children>
+                         <Label text="Raaka-aineet">
+                             <font>
+                                 <Font name="System Bold" size="13.0" />
+                             </font>
+                         </Label>
+                        <TableView fx:id="layoutView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="nimi" />
+                            <TableColumn prefWidth="95.0" text="valmistaja" />
+                              <TableColumn prefWidth="95.0" text="säilytys" />
+                          </columns>
+                        </TableView>
+                         <Label text="Reseptit">
+                             <font>
+                                 <Font name="System Bold" size="13.0" />
+                             </font>
+                         </Label>
+                        <TableView fx:id="recepiView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="nimi" />
+                            <TableColumn maxWidth="1.7976931348623157E308" prefWidth="75.0" text="kuvaus" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </center>
+         <left>
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+         </left>
+         <bottom>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <buttons>
+                <Button mnemonicParsing="false" onAction="#addLayoutToBasket" text="lisää raaka-aine koriin" />
+                  <Button mnemonicParsing="false" text="lisää resepti koriin" />
+              </buttons>
+            </ButtonBar>
+         </bottom>
+         <right>
+            <Pane prefHeight="320.0" prefWidth="23.0" BorderPane.alignment="CENTER" />
+         </right>
+      </BorderPane>
+   </children>
+</AnchorPane>

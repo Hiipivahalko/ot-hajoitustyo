@@ -34,7 +34,7 @@
             <ButtonBar prefHeight="42.0" prefWidth="744.0" BorderPane.alignment="CENTER">
                <buttons>
                 <Button mnemonicParsing="false" text="näytä reseptit" />
-                  <Button mnemonicParsing="false" text="ostoslista" />
+                  <Button mnemonicParsing="false" onAction="#goShoppingBasket" text="ostoslista" />
                </buttons>
             </ButtonBar>
          </top>
@@ -82,6 +82,9 @@
                </buttons>
             </ButtonBar>
          </bottom>
+         <right>
+            <Pane prefHeight="421.0" prefWidth="39.0" BorderPane.alignment="CENTER" />
+         </right>
       </BorderPane>
    </children>
 </AnchorPane>

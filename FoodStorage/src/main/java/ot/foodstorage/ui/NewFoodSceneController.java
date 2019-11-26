@@ -12,7 +12,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -29,12 +28,25 @@ public class NewFoodSceneController extends Controller {
     @FXML private ChoiceBox<String> preservationChoice;
 
     private AllFoodsSceneController mainController;
-    private FoodLayoutSceneController layoutController;
+    private LayoutSceneController layoutController;
     private Stage stage;
 
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public void setNameField(String nameField) {
+        this.nameField.setText(nameField);
+    }
+
+    public void setManufacturerField(String manufacturerField) {
+        this.manufacturerField.setText(manufacturerField);
+    }
+
+    public void setPreservationChoice(String preservationChoice) {
+        this.preservationChoice.setValue(preservationChoice);
+        System.out.println(this.preservationChoice.getValue().toString());
     }
 
     /**
@@ -60,7 +72,7 @@ public class NewFoodSceneController extends Controller {
     @FXML
     public void goBackToLayoutList(ActionEvent event) {
         try {
-            FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/fxml/FoodLayoutScene.fxml"));
+            FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/fxml/LayoutScene.fxml"));
             Parent root = pageLoader.load();
             layoutController = pageLoader.getController();
             layoutController.setAppService(getAppService());
@@ -83,14 +95,18 @@ public class NewFoodSceneController extends Controller {
         String preservation = preservationChoice.getValue();
 
         if (getAppService() != null) {
-            getAppService().saveNewFood(nameField.getText(),
-                    manufacturerField.getText(),
-                    preservation,
+            getAppService().saveNewFood(nameField.getText().toLowerCase(),
+                    manufacturerField.getText().toLowerCase(),
+                    preservation.toLowerCase(),
                     weigth,
                     date,
                     Integer.parseInt(amount.getText()));
         } else System.out.println("it was null");
-        //goBackToFoodList(event);
+        stage.close();
+    }
+
+    @FXML
+    public void closeWindow(ActionEvent event) {
         stage.close();
     }
     

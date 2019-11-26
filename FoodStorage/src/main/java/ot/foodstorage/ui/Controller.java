@@ -14,14 +14,18 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ot.foodstorage.service.AppService;
 
+import java.sql.SQLException;
+
 /**
  *
  * @author osiipola
  */
 public class Controller {
     
-    private AppService appService;
-    private Controller controller;
+    AppService appService;
+    Controller controller;
+    ShoppingBasketSceneController shopController;
+    AllFoodsSceneController allFoodsController;
     
     public void changeSide(ActionEvent event, String file) {
         try {
@@ -53,7 +57,29 @@ public class Controller {
     }
 
     @FXML
-    public void goBackToFoodList(ActionEvent event) {
+    public void goBackToFoodList(ActionEvent event) throws SQLException {
         changeSide(event, "/fxml/AllFoodsScene.fxml");
+        allFoodsController = (AllFoodsSceneController) controller;
+        allFoodsController.setAllFoods();
     }
+
+    /**
+     *
+     * @param event
+     */
+    @FXML
+    public void goShoppingBasket(ActionEvent event) {
+        try {
+            FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/fxml/ShoppingBasketScene.fxml"));
+            Parent root = pageLoader.load();
+            shopController = pageLoader.getController();
+            shopController.setAppService(getAppService());
+            ((Node) event.getSource()).getScene().setRoot(root);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
 }

@@ -14,6 +14,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ot.foodstorage.dao.FoodDao;
+import ot.foodstorage.dao.LayoutDao;
 import ot.foodstorage.database.Database;
 import ot.foodstorage.service.AppService;
 import ot.foodstorage.ui.FrontPageSceneController;
@@ -44,7 +45,8 @@ public class Main extends Application{
     public void init() throws IOException, SQLException {
         this.db = new Database("jdbc:sqlite:foodStorage.db");
         FoodDao foodDao = new FoodDao(db, "Food");
-        this.appService = new AppService(foodDao);
+        LayoutDao layoutDao = new LayoutDao(db, "Layout");
+        this.appService = new AppService(foodDao, layoutDao);
         
         FXMLLoader mainPageLoader = new FXMLLoader(getClass().getResource("/fxml/FrontPageScene.fxml"));
         Parent root = mainPageLoader.load();

@@ -8,7 +8,6 @@ package ot.foodstorage.ui;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -20,7 +19,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import ot.foodstorage.domain.Food;
-import ot.foodstorage.main.Main;
 
 /**
  * FXML Controller class
@@ -32,6 +30,8 @@ public class AllFoodsSceneController extends Controller implements Initializable
     private ObservableList<Food> foodList;
     @FXML private TextField filterField;
     @FXML private TableView<Food> tableview;
+
+    private LayoutSceneController layoutController;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -45,7 +45,9 @@ public class AllFoodsSceneController extends Controller implements Initializable
      */
     @FXML
     public void addNewFood(ActionEvent event) throws IOException {
-        super.changeSide(event, "/fxml/FoodLayoutScene.fxml");
+        super.changeSide(event, "/fxml/LayoutScene.fxml");
+        layoutController = (LayoutSceneController) controller;
+        layoutController.setUpController(appService);
     }
 
     /**

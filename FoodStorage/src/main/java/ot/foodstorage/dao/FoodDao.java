@@ -95,6 +95,11 @@ public class FoodDao  implements Dao<Food, Integer>{
                 " WHERE name LIKE '%" + filter + "%' OR manufacturer LIKE '%" + filter + "%' ORDER BY name;");
     }
 
+    public List<Food> findByNameAndManufacture(String name, String manufacture) throws SQLException {
+        return selectQuery("SELECT * FROM " + tableName +
+                " WHERE name = '" + name + "' AND manufacturer = '" + manufacture + "';");
+    }
+
     public List<Food> preservationFilter(String filter) throws SQLException {
         return selectQuery("SELECT * FROM " + tableName +
                 " WHERE preservation = '" + filter + "' ORDER BY name;");

@@ -11,6 +11,7 @@ import javafx.stage.Stage;
 public class FrontPageSceneController extends Controller {
 
     private AllFoodsSceneController mainController;
+    private ShoppingBasketSceneController shopController;
 
 
     /**
@@ -32,5 +33,7 @@ public class FrontPageSceneController extends Controller {
             e.printStackTrace();
         }
     }
+
+
 
 }

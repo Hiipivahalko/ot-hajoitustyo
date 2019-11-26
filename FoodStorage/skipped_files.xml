@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<!DOCTYPE suppressions PUBLIC
+        "-//Puppy Crawl//DTD Suppressions 1.1//EN"
+        "http://www.puppycrawl.com/dtds/suppressions_1_1.dtd">
+
+<suppressions>
+    <suppress files="ot.foodstorage.ui.Controller.java" checks="[a-zA-Z0-9]*"/>
+    <suppress files="ot.foodstorage.ui.NewFoodSceneController" checks="[a-zA-Z0-9]*"/>
+    <suppress files="ot.foodstorage.ui.LayoutSceneController" checks="[a-zA-Z0-9]*"/>
+    <suppress files="ot.foodstorage.ui.FrontPageSceneController" checks="[a-zA-Z0-9]*"/>
+    <suppress files="ot.foodstorage.ui.AllFoodsSceneController" checks="[a-zA-Z0-9]*"/>
+</suppressions>
