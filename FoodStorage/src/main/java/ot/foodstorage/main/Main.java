@@ -57,9 +57,9 @@ public class Main extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-       stage.setTitle("RuokaVarasto");
-       stage.setScene(mainScene);
-       stage.show();
+        stage.setTitle("RuokaVarasto");
+        stage.setScene(mainScene);
+        stage.show();
     }
 
     

@@ -66,20 +66,24 @@ public class FoodDao  implements Dao<Food, Integer> {
      * @throws SQLException
      */
     @Override
-    public void saveOrUpdate(Food food) throws SQLException {
-        Connection conn = db.getConnection();
-        PreparedStatement stmt;
-        stmt = conn.prepareStatement("INSERT INTO " + tableName +
-                "(name, manufacturer, preservation, weight, dueDate, amount) VALUES (?,?,?,?,?,?)");
-        stmt.setString(1, food.getName());
-        stmt.setString(2, food.getManufacturer());
-        stmt.setString(3, food.getPreservation());
-        stmt.setInt(4, food.getWeight());
-        stmt.setString(5, food.getDueDate());
-        stmt.setInt(6, food.getAmount());
-        stmt.executeUpdate();
-        stmt.close();
-        conn.close();
+    public void saveOrUpdate(Food food) {
+        try {
+            Connection conn = db.getConnection();
+            PreparedStatement stmt;
+            stmt = conn.prepareStatement("INSERT INTO " + tableName +
+                    "(name, manufacturer, preservation, weight, dueDate, amount) VALUES (?,?,?,?,?,?)");
+            stmt.setString(1, food.getName());
+            stmt.setString(2, food.getManufacturer());
+            stmt.setString(3, food.getPreservation());
+            stmt.setInt(4, food.getWeight());
+            stmt.setString(5, food.getDueDate());
+            stmt.setInt(6, food.getAmount());
+            stmt.executeUpdate();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
@@ -90,44 +94,66 @@ public class FoodDao  implements Dao<Food, Integer> {
     }
 
     @Override
-    public List<Food> filterFromAll(String filter) throws SQLException {
+    public List<Food> filterFromAll(String filter)  {
         return selectQuery("SELECT * FROM " + tableName +
                 " WHERE name LIKE '%" + filter + "%' OR manufacturer LIKE '%" + filter + "%' ORDER BY name;");
     }
 
-    public List<Food> findByNameAndManufacture(String name, String manufacture) throws SQLException {
+    /**
+     * Etsitään tietokannasta raaka-aineita tietyn nimen ja valmistajan perusteella
+     * @param name - nimi
+     * @param manufacture - valmistaja
+     * @return - lista raaka-aineita
+     */
+    public List<Food> findByNameAndManufacture(String name, String manufacture) {
         return selectQuery("SELECT * FROM " + tableName +
                 " WHERE name = '" + name + "' AND manufacturer = '" + manufacture + "';");
     }
 
-    public List<Food> preservationFilter(String filter) throws SQLException {
+    /**
+     * Hakee tietokannasta rivit joilla on tietty sama säilytysmuoto
+     * @param filter - säilytysmuoto
+     * @return - raaka-aineet
+     */
+    public List<Food> preservationFilter(String filter)  {
         return selectQuery("SELECT * FROM " + tableName +
                 " WHERE preservation = '" + filter + "' ORDER BY name;");
     }
 
-    private List<Food> selectQuery(String query) throws SQLException {
+    /**
+     * Apufunktio totetuttamaan haluttu kysely tietokantaan
+     * @param query - tietokantaan tehtävä kysely
+     * @return - lista raaka-aine olioita
+     */
+    private List<Food> selectQuery(String query) {
         List<Food> foods = new ArrayList<>();
 
-        Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement(query);
+        Connection conn; //= db.getConnection();
+        PreparedStatement stmt;// = conn.prepareStatement(query);
+        ResultSet rs;
 
-        ResultSet rs = stmt.executeQuery();
+        try {
+            conn = db.getConnection();
+            stmt = conn.prepareStatement(query);
+            rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            Food food = new Food(rs.getString("name"),
-                    rs.getString("manufacturer"),
-                    rs.getString("preservation"),
-                    rs.getInt("weight"),
-                    rs.getString("dueDate"),
-                    rs.getInt("id"),
-                    rs.getInt("amount"));
-            foods.add(food);
+            while (rs.next()) {
+                Food food = new Food(rs.getString("name"),
+                        rs.getString("manufacturer"),
+                        rs.getString("preservation"),
+                        rs.getInt("weight"),
+                        rs.getString("dueDate"),
+                        rs.getInt("id"),
+                        rs.getInt("amount"));
+                foods.add(food);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
-        rs.close();
-        stmt.close();
-        conn.close();
-
         return foods;
     }
 }

@@ -48,16 +48,20 @@ public class LayoutDao implements Dao<Layout, Integer> {
     }
 
     @Override
-    public void saveOrUpdate(Layout object) throws SQLException {
-        Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName +
-                " (name, manufacturer, preservation) VALUES (?,?,?)");
-        stmt.setString(1, object.getName());
-        stmt.setString(2, object.getManufacturer());
-        stmt.setString(3, object.getPreservation());
-        stmt.executeUpdate();
-        stmt.close();
-        conn.close();
+    public void saveOrUpdate(Layout object) {
+        try {
+            Connection conn = db.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName +
+                    " (name, manufacturer, preservation) VALUES (?,?,?)");
+            stmt.setString(1, object.getName());
+            stmt.setString(2, object.getManufacturer());
+            stmt.setString(3, object.getPreservation());
+            stmt.executeUpdate();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override

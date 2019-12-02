@@ -14,7 +14,11 @@ public class FoodDaoTest {
 
     private Database database;
     private FoodDao foodDao;
-    private Food food = new Food("milk", "valio", "jääkaappi", 1, "20.08.2040", 1, 1);
+    private Food food1 = new Food("milk", "valio", "jääkaappi", 1, "20.08.2040", 1, 1);
+    private Food food2 = new Food("milk2", "arla", "jääkaappi", 1, "20.08.2025", 1, 1);
+    private Food food3 = new Food("milk3", "arla", "kuivakaappi", 1, "20.08.2040", 1, 3);
+    private Food food4 = new Food("milk4", "valio", "jääkaappi", 1, "20.08.2022", 1, 1);
+    private Food food5 = new Food("jäätelö", "valio", "pakastin", 1, "20.08.2022", 1, 2);
 
     @Before
     public void setUp() throws Exception {
@@ -22,6 +26,17 @@ public class FoodDaoTest {
         foodDao = new FoodDao(database, "Food");
         database.initializeDatabase();
         assertEquals(0, foodDao.findAll().size());
+    }
+
+    /**
+     * apufuntio testeille, jossa tallennetaan pieni määrä raaka-aine olioita kantaan
+     */
+    private void saveFoods() {
+        foodDao.saveOrUpdate(food1);
+        foodDao.saveOrUpdate(food2);
+        foodDao.saveOrUpdate(food3);
+        foodDao.saveOrUpdate(food4);
+        foodDao.saveOrUpdate(food5);
     }
 
     @Test
@@ -34,11 +49,10 @@ public class FoodDaoTest {
      */
     @Test
     public void findAll() throws SQLException {
-
         Food food2 = new Food("juusto", "valio", "jääkaappi", 1, "20.09.2040", 2, 1);
         Food food3 = new Food("leipä", "fazer", "kuivakaappi", 2, "20.10.2040", 1, 3);
 
-        foodDao.saveOrUpdate(food);
+        foodDao.saveOrUpdate(food1);
         foodDao.saveOrUpdate(food2);
         foodDao.saveOrUpdate(food3);
 
@@ -56,7 +70,7 @@ public class FoodDaoTest {
      */
     @Test
     public void saveOrUpdate() throws SQLException {
-        foodDao.saveOrUpdate(food);
+        foodDao.saveOrUpdate(food1);
         List<Food> all = foodDao.findAll();
         assertEquals(1, all.size());
         assertEquals("milk", all.get(0).getName());
@@ -67,11 +81,93 @@ public class FoodDaoTest {
     public void delete() {
     }
 
+    /**
+     * testataan raaka-aineiden filtteröintiä,
+     * kun haetaan raaka-aineita merkkijonolla 'milk'
+     */
     @Test
     public void filterFromAll() {
+        saveFoods();
+        List<Food> foods = foodDao.filterFromAll("milk");
+
+        assertTrue(foods.size() == 4);
+        for (Food f : foods) {
+            assertTrue(f.getName().contains("milk"));
+        }
     }
 
+    /**
+     * testataan raaka-aineiden filtteröintiä,
+     * kun haetaan raaka-aineita merkkijonolla 'arla'
+     */
+    @Test
+    public void filterFromAll2() {
+        saveFoods();
+        List<Food> foods = foodDao.filterFromAll("arla");
+
+        assertTrue(foods.size() == 2);
+        for (Food f : foods) {
+            assertTrue(f.getManufacturer().contains("arla"));
+        }
+    }
+
+    /**
+     * Tarkastetaan että saadaan raaka-aineet, joiden säilytys on jääkaapissa
+     */
     @Test
     public void preservationFilter() {
+        saveFoods();
+        List<Food> foods = foodDao.preservationFilter("jääkaappi");
+
+        assertTrue(foods.size() == 3);
+        for (Food f :foods) assertTrue(f.getPreservation().equals("jääkaappi"));
     }
+
+    /**
+     * Tarkastetaan että saadaan raaka-aineet, joiden säilytys on kuivakaapissa
+     */
+    @Test
+    public void preservationFilter2() {
+        saveFoods();
+        List<Food> foods = foodDao.preservationFilter("kuivakaappi");
+
+        assertTrue(foods.size() == 1);
+        for (Food f :foods) assertTrue(f.getPreservation().equals("kuivakaappi"));
+    }
+
+    /**
+     * Tarkastetaan että saadaan raaka-aineet, joiden säilytys on pakastimessa
+     */
+    @Test
+    public void preservationFilter3() {
+        saveFoods();
+        List<Food> foods = foodDao.preservationFilter("pakastin");
+
+        assertTrue(foods.size() == 1);
+        for (Food f :foods) assertTrue(f.getPreservation().equals("pakastin"));
+    }
+
+    /**
+     * Tarkastetaan että findByNameAndManufacture funktio palauttaa, vain yhden tietin olion
+     */
+    @Test
+    public void findByNameAndManufacture() {
+        saveFoods();
+        List<Food> foods = foodDao.findByNameAndManufacture("milk", "valio");
+        assertTrue(foods.size() == 1);
+        assertEquals("milk", foods.get(0).getName());
+        assertEquals("valio", foods.get(0).getManufacturer());
+    }
+
+    /**
+     * Tarkastetaan että findByNameAndManufacture funktio ei löydä yhtään oliota
+     */
+    @Test
+    public void findByNameAndManufacture2() {
+        saveFoods();
+        List<Food> foods = foodDao.findByNameAndManufacture("karkki", "haribo");
+        assertTrue(foods.size() == 0);
+    }
+
+
 }
