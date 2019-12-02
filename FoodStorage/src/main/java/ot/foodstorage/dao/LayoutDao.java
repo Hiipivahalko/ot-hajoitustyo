@@ -24,26 +24,29 @@ public class LayoutDao implements Dao<Layout, Integer> {
     }
 
     @Override
-    public List<Layout> findAll() throws SQLException {
+    public List<Layout> findAll() {
         List<Layout> layouts = new ArrayList<>();
 
-        Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " ORDER BY name;");
+        try {
+            Connection conn = db.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " ORDER BY name;");
 
-        ResultSet rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            Layout layout = new Layout(rs.getInt("id"),
-                    rs.getString("name"),
-                    rs.getString("manufacturer"),
-                    rs.getString("preservation"));
-            layouts.add(layout);
+            while (rs.next()) {
+                Layout layout = new Layout(rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("manufacturer"),
+                        rs.getString("preservation"));
+                layouts.add(layout);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
-        rs.close();
-        stmt.close();
-        conn.close();
-
         return layouts;
     }
 

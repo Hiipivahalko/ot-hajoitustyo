@@ -27,6 +27,36 @@ public class FoodDao  implements Dao<Food, Integer> {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    public Food findOne(Food food) {
+        Food f = null;//new Food("", "", "", -1, "00.00.0000",-1, -1);
+        try {
+            Connection conn = db.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName +
+                    " WHERE name = '" + food.getName() + "' AND manufacturer = '" + food.getManufacturer() + "' " +
+                    "AND preservation = '" + food.getPreservation() + "' AND weight = '" + food.getWeight() + "';");
+
+            ResultSet rs = stmt.executeQuery();
+
+            while (rs.next()) {
+                f = new Food(rs.getString("name"),
+                        rs.getString("manufacturer"),
+                        rs.getString("preservation"),
+                        rs.getInt("weight"),
+                        rs.getString("dueDate"),
+                        rs.getInt("id"),
+                        rs.getInt("amount"));
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return f;
+    }
+
     /**
      * Hakee tietokantataulusta Food kaikki rivit.
      * Rivit on järjestetty aakkosittain nimen mukaan.
@@ -61,12 +91,21 @@ public class FoodDao  implements Dao<Food, Integer> {
     }
 
     /**
-     * Tallentaa uuden rivin ruoan tietokantatauluun Food
-     * @param food
-     * @throws SQLException
+     * Tallentaa uuden rivin ruoan tietokantatauluun Food tai päivittää määrän jos on jo olemassa
+     * @param food - tallennettava ruoka
      */
     @Override
     public void saveOrUpdate(Food food) {
+        Food old = findOne(food);
+        if (findOne(food) == null) {
+            save(food);
+        } else  {
+            update(food, food.getAmount() + old.getAmount());
+        }
+
+    }
+
+    public void save(Food food) {
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt;
@@ -78,6 +117,21 @@ public class FoodDao  implements Dao<Food, Integer> {
             stmt.setInt(4, food.getWeight());
             stmt.setString(5, food.getDueDate());
             stmt.setInt(6, food.getAmount());
+            stmt.executeUpdate();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void update(Food food, int newValue) {
+        try {
+            Connection conn = db.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE " + tableName + " SET amount = " + newValue +
+                    " WHERE name = '" + food.getName() + "' AND manufacturer = '" + food.getManufacturer() + "' " +
+                    "AND preservation = '" + food.getPreservation() + "' AND weight = '" + food.getWeight() + "';");
+
             stmt.executeUpdate();
             stmt.close();
             conn.close();

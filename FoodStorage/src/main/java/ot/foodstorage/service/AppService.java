@@ -51,7 +51,6 @@ public class AppService {
                 weight, dueDate, -1, amount);
         checkIfLayoutExistAndCreate(name, manufacturer, preservation);
         foodDao.saveOrUpdate(newFood);
-
     }
 
     /**
@@ -73,11 +72,22 @@ public class AppService {
         return foods;
     }
 
+    /**
+     * Tarkastaa löytyykö jo kyseistä raaka-aine mallia
+     * @param name - nimi
+     * @param manufacture - valmistaja
+     * @param preservation - säilytys
+     */
     public void checkIfLayoutExistAndCreate(String name, String manufacture, String preservation) {
         List<Food> temp = foodDao.findByNameAndManufacture(name, manufacture);
+
         if (temp.size() < 1) {
             Layout newLayout = new Layout(-1, name, manufacture, preservation);
-            layoutDao.saveOrUpdate(newLayout);
+            boolean already = false;
+            for  (Layout l : layouts) {
+                if (l.getName().equals(name) && l.getManufacturer().equals(manufacture)) already = true;
+            }
+            if (!already) layoutDao.saveOrUpdate(newLayout);
         }
     }
 
