@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 import ot.foodstorage.dao.FoodDao;
 import ot.foodstorage.dao.LayoutDao;
+import ot.foodstorage.dao.RecipeDao;
+import ot.foodstorage.dao.ShoppingBasketDao;
 import ot.foodstorage.database.Database;
 import ot.foodstorage.domain.Food;
 import ot.foodstorage.domain.Layout;
@@ -20,6 +22,8 @@ public class AppServiceTest {
     private Database db = new Database("jdbc:sqlite:test.db");
     FoodDao foodDao = new FoodDao(db, "food");
     LayoutDao layoutDao = new LayoutDao(db, "layout");
+    RecipeDao recipeDao = new RecipeDao(db, "recipe");
+    ShoppingBasketDao shoppingBasketDao = new ShoppingBasketDao(db, "shoppingbasket");
 
     private Food food1 = new Food("food1", "manu1", "jääkaappi", 1, -1, 1);
     private Food food2 = new Food("food2", "manu2", "jääkaappi", 300, -1, 4);
@@ -46,7 +50,7 @@ public class AppServiceTest {
 
     @Before
     public void setUp() throws Exception {
-        this.appService = new AppService(foodDao, layoutDao);
+        this.appService = new AppService(foodDao, layoutDao, recipeDao, shoppingBasketDao);
         db.initializeDatabase();
         assertEquals(0, foodDao.findAll().size());
         assertEquals(0, layoutDao.findAll().size());

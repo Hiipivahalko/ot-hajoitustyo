@@ -94,8 +94,8 @@ public class NewFoodSceneController extends Controller {
         int weigth = Integer.parseInt(weightField.getText());
         String preservation = preservationChoice.getValue();
 
-        if (getAppService() != null) {
-            getAppService().saveNewFood(nameField.getText().toLowerCase(),
+        if (appService != null) {
+            appService.saveNewFood(nameField.getText().toLowerCase(),
                     manufacturerField.getText().toLowerCase(),
                     preservation.toLowerCase(),
                     weigth,

@@ -16,7 +16,7 @@ Sovelluksella on vain yksi käyttäjä. Käyttäjän ei tarvitse kirjautua eriks
 * (tehty) raaka-aineen puolesta) Käyttäjä pystyy poistamaan raaka-aineen/aterian varastosta 
 * (tehty) Käyttäjä pystyy hakemaan raaka-aineita varastosta
 * (tehty) Käyttäjä pystyy järjestelemään raaka-aineiden listaus järjestystä
-* Käyttäjä pystyy rakentamaan seuraavan kerran ostoslistaa
+* (tehty) Käyttäjä pystyy rakentamaan seuraavan kerran ostoslistaa
 * Kaupassa käynnin jälkeen käyttäjä voi lisätä suoraan ostoslistan tuotteet varastoon
 * Käyttäjä voi lisätä valmiita reseptejä myös ostoslistalle, jolloin tuotteet jotka puuttuvat, lisätään listalle
 

@@ -1,5 +1,6 @@
 package ot.foodstorage.dao;
 
+import ot.foodstorage.database.Database;
 import ot.foodstorage.domain.Recipe;
 
 import java.sql.SQLException;
@@ -7,7 +8,13 @@ import java.util.List;
 
 public class RecipeDao implements Dao<Recipe, Integer> {
 
+    private Database db;
+    private String tableName;
 
+    public RecipeDao(Database db, String tableName) {
+        this.db = db;
+        this.tableName = tableName;
+    }
 
     @Override
     public Recipe findOne(Integer key) throws SQLException {

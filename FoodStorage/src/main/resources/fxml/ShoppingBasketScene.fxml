@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -36,10 +37,26 @@
                          </Label>
                         <TableView fx:id="basketView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="nimi" />
-                            <TableColumn prefWidth="83.0" text="valmistaja" />
-                              <TableColumn prefWidth="89.0" text="säilytys" />
-                              <TableColumn prefWidth="78.0" text="määrä" />
+                            <TableColumn prefWidth="75.0" text="nimi" >
+                              <cellValueFactory>
+                                  <PropertyValueFactory property="name" />
+                              </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn prefWidth="83.0" text="valmistaja" >
+                              <cellValueFactory>
+                                  <PropertyValueFactory property="manufacturer" />
+                              </cellValueFactory>
+                            </TableColumn>
+                              <TableColumn prefWidth="89.0" text="säilytys" >
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="preservation" />
+                                  </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn prefWidth="78.0" text="määrä" >
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="amount" />
+                                  </cellValueFactory>
+                              </TableColumn>
                           </columns>
                         </TableView>
                      </children>
@@ -92,7 +109,10 @@
             </HBox>
          </center>
          <left>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+               <children>
+                  <TextField fx:id="amountField" promptText="määrä mitä lisätää" />
+               </children></VBox>
          </left>
          <bottom>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">

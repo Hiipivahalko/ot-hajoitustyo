@@ -42,10 +42,8 @@ public class LayoutSceneController extends Controller {
     public void addExistRawMaterial(ActionEvent event) throws IOException {
         if (layoutView.getSelectionModel().getSelectedItem() != null) {
             Layout selected = layoutView.getSelectionModel().getSelectedItem();
-            Food f = new Food(selected.getName(), selected.getManufacturer(), selected.getPreservation(), selected.getWeight(),
-                    -1, Integer.parseInt(amountField.getText()));
-            appService.saveNewFood(selected.getName(), selected.getManufacturer(), selected.getPreservation(), selected.getWeight(),
-                    Integer.parseInt(amountField.getText()));
+            appService.saveNewFood(selected.getName(), selected.getManufacturer(), selected.getPreservation(),
+                    selected.getWeight(), Integer.parseInt(amountField.getText()));
         }
 
     }

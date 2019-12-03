@@ -30,9 +30,6 @@ public class ShoppingBasket {
     }
 
     public void addItem(Food food) {
-        boolean alredy = false;
-        for (Food f : items) {
-            //if ()
-        }
+        items.add(food);
     }
 }

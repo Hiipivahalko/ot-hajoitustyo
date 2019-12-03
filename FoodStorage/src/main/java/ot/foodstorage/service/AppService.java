@@ -7,8 +7,11 @@ package ot.foodstorage.service;
 
 import ot.foodstorage.dao.FoodDao;
 import ot.foodstorage.dao.LayoutDao;
+import ot.foodstorage.dao.RecipeDao;
+import ot.foodstorage.dao.ShoppingBasketDao;
 import ot.foodstorage.domain.Food;
 import ot.foodstorage.domain.Layout;
+import ot.foodstorage.domain.ShoppingBasket;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -19,14 +22,21 @@ public class AppService {
     
     private FoodDao foodDao;
     private LayoutDao layoutDao;
+    private RecipeDao recipeDao;
+    private ShoppingBasketDao shoppingBasketDao;
     private List<Layout> layouts;
     private List<Food> allFoods;
+    private ShoppingBasket shoppingBasket;
 
-    public AppService(FoodDao foodDao, LayoutDao layoutDao) throws SQLException {
+    public AppService(FoodDao foodDao, LayoutDao layoutDao, RecipeDao recipeDao, ShoppingBasketDao shoppingBasketDao) {
         this.foodDao = foodDao;
         this.layoutDao = layoutDao;
+        this.recipeDao = recipeDao;
+        this.shoppingBasketDao = shoppingBasketDao;
         this.allFoods = foodDao.findAll();
         this.layouts = layoutDao.findAll();
+        if (shoppingBasketDao.findAll().size() > 0) this.shoppingBasket = shoppingBasketDao.findAll().get(0);
+        else this.shoppingBasket = new ShoppingBasket(1, new ArrayList<>());
     }
 
     public List<Layout> getLayouts() {
@@ -35,6 +45,10 @@ public class AppService {
 
     public List<Food> getAllFoods() {
         return foodDao.findAll();
+    }
+
+    public ShoppingBasket getShoppingBasket() {
+        return shoppingBasket;
     }
 
     /**
@@ -76,17 +90,32 @@ public class AppService {
      * @param newFood - lisättävä raaka-aine
      */
     public void checkIfLayoutExistAndCreate(Food newFood) {
-        //List<Food> temp = foodDao.findByNameAndManufacture(newFood.getName(), newFood.getManufacturer());
 
-        //if (temp.size() < 1) {
-            Layout newLayout = new Layout(-1, newFood.getName(), newFood.getManufacturer(), newFood.getPreservation(),
-                    newFood.getWeight());
-            boolean already = false;
-            for  (Layout l : layouts) {
-                if (l.getName().equals(newFood.getName()) && l.getManufacturer().equals(newFood.getManufacturer())) already = true;
+        Layout newLayout = new Layout(-1, newFood.getName(), newFood.getManufacturer(), newFood.getPreservation(),
+                newFood.getWeight());
+        boolean already = false;
+        for  (Layout l : layouts) {
+            if (l.getName().equals(newFood.getName()) && l.getManufacturer().equals(newFood.getManufacturer())) already = true;
+        }
+
+        if (!already) {
+            layoutDao.saveOrUpdate(newLayout);
+            layouts.add(newLayout);
+
+        }
+    }
+
+    public void addItemToShoppingBasket(Food f) {
+        boolean already = false;
+        for (int i = 0; i < shoppingBasket.getItems().size(); i++) {
+            Food next = shoppingBasket.getItems().get(i);
+            if (f.equals(next)) {
+                shoppingBasket.getItems().get(i).setAmount(next.getAmount()+f.getAmount());
+                already = true;
+                break;
             }
-            if (!already) layoutDao.saveOrUpdate(newLayout);
-        //}
+        }
+        if (!already) shoppingBasket.addItem(f);
     }
 
 
