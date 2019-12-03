@@ -28,7 +28,7 @@ public class FoodDao  implements Dao<Food, Integer> {
     }
 
     public Food findOne(Food food) {
-        Food f = null;//new Food("", "", "", -1, "00.00.0000",-1, -1);
+        Food f = null;
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName +
@@ -64,28 +64,32 @@ public class FoodDao  implements Dao<Food, Integer> {
      * @throws SQLException
      */
     @Override
-    public List<Food> findAll() throws SQLException {
+    public List<Food> findAll() {
         List<Food> foods = new ArrayList<>();
 
-        Connection conn = db.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " ORDER BY name;");
+        try {
+            Connection conn = db.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " ORDER BY name;");
 
-        ResultSet rs = stmt.executeQuery();
+            ResultSet rs = stmt.executeQuery();
 
-        while (rs.next()) {
-            Food food = new Food(rs.getString("name"),
-                    rs.getString("manufacturer"),
-                    rs.getString("preservation"),
-                    rs.getInt("weight"),
-                    rs.getString("dueDate"),
-                    rs.getInt("id"),
-                    rs.getInt("amount"));
-            foods.add(food);
+            while (rs.next()) {
+                Food food = new Food(rs.getString("name"),
+                        rs.getString("manufacturer"),
+                        rs.getString("preservation"),
+                        rs.getInt("weight"),
+                        rs.getString("dueDate"),
+                        rs.getInt("id"),
+                        rs.getInt("amount"));
+                foods.add(food);
+            }
+
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
         }
-
-        rs.close();
-        stmt.close();
-        conn.close();
 
         return foods;
     }
@@ -141,10 +145,16 @@ public class FoodDao  implements Dao<Food, Integer> {
     }
 
     @Override
-    public void delete(Integer key) throws SQLException {
-        Connection conn = db.getConnection();
-        Statement stmt = conn.createStatement();
-        stmt.execute("DELETE FROM " + tableName + " WHERE id = " + key);
+    public void delete(Integer key) {
+        try {
+            Connection conn = db.getConnection();
+            Statement stmt = conn.createStatement();
+            stmt.execute("DELETE FROM " + tableName + " WHERE id = " + key);
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override

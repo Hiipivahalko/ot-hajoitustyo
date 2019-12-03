@@ -4,6 +4,7 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -23,6 +24,7 @@
             <VBox prefHeight="336.0" prefWidth="163.0" BorderPane.alignment="CENTER">
                <children>
                   <Button mnemonicParsing="false" onAction="#addExistRawMaterial" prefHeight="41.0" prefWidth="163.0" text="Lisää" VBox.vgrow="ALWAYS" />
+                  <TextField fx:id="amountField" promptText="määrä" />
                </children>
             </VBox>
          </left>
@@ -43,6 +45,11 @@
                       <cellValueFactory>
                           <PropertyValueFactory property="preservation" />
                       </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="101.0" text="paino (g)">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="weight" />
+                     </cellValueFactory>
                   </TableColumn>
               </columns>
             </TableView>

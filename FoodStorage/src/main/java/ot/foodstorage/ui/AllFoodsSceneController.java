@@ -19,6 +19,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import ot.foodstorage.domain.Food;
+import ot.foodstorage.domain.Recipe;
 
 /**
  * FXML Controller class
@@ -30,6 +31,8 @@ public class AllFoodsSceneController extends Controller implements Initializable
     private ObservableList<Food> foodList;
     @FXML private TextField filterField;
     @FXML private TableView<Food> tableview;
+    @FXML private TableView<Recipe> readyRecipeView;
+    @FXML private TableView<Recipe> possibleRecipeView;
 
     private LayoutSceneController layoutController;
 
@@ -44,7 +47,7 @@ public class AllFoodsSceneController extends Controller implements Initializable
      * @throws IOException
      */
     @FXML
-    public void addNewFood(ActionEvent event) throws IOException {
+    public void addNewFood(ActionEvent event) {
         super.changeSide(event, "/fxml/LayoutScene.fxml");
         layoutController = (LayoutSceneController) controller;
         layoutController.setUpController(appService);
@@ -55,7 +58,7 @@ public class AllFoodsSceneController extends Controller implements Initializable
      * @throws SQLException
      */
     @FXML
-    public void setAllFoods() throws SQLException {
+    public void setAllFoods() {
         setTableview(getAppService().getAllFoods());
     }
 
@@ -64,7 +67,7 @@ public class AllFoodsSceneController extends Controller implements Initializable
      * @throws SQLException
      */
     @FXML
-    public void filterByNameOrManufacturer() throws SQLException {
+    public void filterByNameOrManufacturer() {
         setTableview(getAppService().filterFoods(filterField.getText(), 0));
     }
 
@@ -73,7 +76,7 @@ public class AllFoodsSceneController extends Controller implements Initializable
      * @throws SQLException
      */
     @FXML
-    public void filterFridgeFoods() throws SQLException {
+    public void filterFridgeFoods() {
         setTableview(getAppService().filterFoods("jääkaappi", 1));
     }
 
@@ -82,7 +85,7 @@ public class AllFoodsSceneController extends Controller implements Initializable
      * @throws SQLException
      */
     @FXML
-    public void filterDryFoods() throws SQLException {
+    public void filterDryFoods() {
         setTableview(getAppService().filterFoods("kuivakaappi", 1));
     }
 
@@ -91,20 +94,23 @@ public class AllFoodsSceneController extends Controller implements Initializable
      * @throws SQLException
      */
     @FXML
-    public void filterFreezerFoods() throws SQLException {
+    public void filterFreezerFoods() {
         setTableview(getAppService().filterFoods("pakastin", 1));
     }
 
     @FXML
-    public void deleteFood() throws SQLException {
-        //System.out.println(tableview.getSelectionModel().getSelectedItem().getName());
-        getAppService().deleteFood(tableview.getSelectionModel().getSelectedItem().getId());
+    public void deleteFood() {
+        appService.deleteFood(tableview.getSelectionModel().getSelectedItem().getId());
         setAllFoods();
     }
 
     private void setTableview(List<Food> foods) {
         foodList = FXCollections.observableArrayList(foods);
         tableview.setItems(foodList);
+    }
+
+    public void setUpScene() {
+        setAllFoods();
     }
 
 

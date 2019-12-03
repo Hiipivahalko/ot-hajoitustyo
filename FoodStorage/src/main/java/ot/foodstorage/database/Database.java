@@ -74,7 +74,8 @@ public class Database {
                 "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 " name TEXT NOT NULL," +
                 " manufacturer TEXT NOT NULL," +
-                " preservation TEXT NOT NULL" +
+                " preservation TEXT NOT NULL," +
+                " weight DOUBLE NOT NULL" +
                 ");";
     }
 

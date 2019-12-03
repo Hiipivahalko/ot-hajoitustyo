@@ -15,11 +15,11 @@ public class LayoutDaoTest {
     private LayoutDao layoutDao;
     private Database db;
 
-    private Layout layout1 = new Layout(1, "milk", "valio", "jääkaappi");
-    private Layout layout2 = new Layout(1, "milk", "arla", "jääkaappi");
-    private Layout layout3 = new Layout(1, "milk", "nönnönnöö", "jääkaappi");
-    private Layout layout4 = new Layout(1, "juusto", "valio", "jääkaappi");
-    private Layout layout5 = new Layout(1, "juusto", "arla", "jääkaappi");
+    private Layout layout1 = new Layout(1, "milk", "valio", "jääkaappi", 1);
+    private Layout layout2 = new Layout(1, "milk", "arla", "jääkaappi", 1);
+    private Layout layout3 = new Layout(1, "milk", "nönnönnöö", "jääkaappi", 2);
+    private Layout layout4 = new Layout(1, "juusto", "valio", "jääkaappi", 1);
+    private Layout layout5 = new Layout(1, "juusto", "arla", "jääkaappi", 1);
 
     @Before
     public void setUp() throws Exception {

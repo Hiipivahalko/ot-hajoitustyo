@@ -60,7 +60,7 @@ public class Controller {
     public void goBackToFoodList(ActionEvent event) throws SQLException {
         changeSide(event, "/fxml/AllFoodsScene.fxml");
         allFoodsController = (AllFoodsSceneController) controller;
-        allFoodsController.setAllFoods();
+        allFoodsController.setUpScene();
     }
 
     /**
@@ -74,6 +74,7 @@ public class Controller {
             Parent root = pageLoader.load();
             shopController = pageLoader.getController();
             shopController.setAppService(getAppService());
+            shopController.setUpPage(appService.getLayouts());
             ((Node) event.getSource()).getScene().setRoot(root);
         } catch (Exception e) {
             System.out.println(e.getMessage());

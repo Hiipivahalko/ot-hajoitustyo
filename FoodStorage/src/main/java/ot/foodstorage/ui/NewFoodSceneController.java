@@ -46,8 +46,9 @@ public class NewFoodSceneController extends Controller {
 
     public void setPreservationChoice(String preservationChoice) {
         this.preservationChoice.setValue(preservationChoice);
-        System.out.println(this.preservationChoice.getValue().toString());
     }
+
+    //public void
 
     /**
      * Tapahtumankäsittelijä "Takaisin" napille, jolla päästään takaisin ruokalistaan

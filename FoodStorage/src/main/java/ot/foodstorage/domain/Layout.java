@@ -6,12 +6,14 @@ public class Layout {
     private String name;
     private String manufacturer;
     private String preservation;
+    private int weight;
 
-    public Layout(int id, String name, String manufacturer, String preservation) {
+    public Layout(int id, String name, String manufacturer, String preservation, int weight) {
         this.id = id;
         this.name = name;
         this.manufacturer = manufacturer;
         this.preservation = preservation;
+        this.weight = weight;
     }
 
     //// Getterit
@@ -32,6 +34,9 @@ public class Layout {
         return preservation;
     }
 
+    public int getWeight() {
+        return weight;
+    }
 
     /// Setterit
 
@@ -49,5 +54,9 @@ public class Layout {
 
     public void setPreservation(String preservation) {
         this.preservation = preservation;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
     }
 }

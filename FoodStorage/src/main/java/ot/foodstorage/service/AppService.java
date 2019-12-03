@@ -33,7 +33,7 @@ public class AppService {
         return layouts;
     }
 
-    public List<Food> getAllFoods() throws SQLException {
+    public List<Food> getAllFoods() {
         return foodDao.findAll();
     }
 
@@ -49,7 +49,7 @@ public class AppService {
     public void saveNewFood(String name, String manufacturer, String preservation, int weight, String dueDate, int amount) {
         Food newFood = new Food(name.toLowerCase(), manufacturer.toLowerCase(), preservation.toLowerCase(),
                 weight, dueDate, -1, amount);
-        checkIfLayoutExistAndCreate(name, manufacturer, preservation);
+        checkIfLayoutExistAndCreate(newFood);
         foodDao.saveOrUpdate(newFood);
     }
 
@@ -74,25 +74,24 @@ public class AppService {
 
     /**
      * Tarkastaa löytyykö jo kyseistä raaka-aine mallia
-     * @param name - nimi
-     * @param manufacture - valmistaja
-     * @param preservation - säilytys
+     * @param newFood - lisättävä raaka-aine
      */
-    public void checkIfLayoutExistAndCreate(String name, String manufacture, String preservation) {
-        List<Food> temp = foodDao.findByNameAndManufacture(name, manufacture);
+    public void checkIfLayoutExistAndCreate(Food newFood) {
+        //List<Food> temp = foodDao.findByNameAndManufacture(newFood.getName(), newFood.getManufacturer());
 
-        if (temp.size() < 1) {
-            Layout newLayout = new Layout(-1, name, manufacture, preservation);
+        //if (temp.size() < 1) {
+            Layout newLayout = new Layout(-1, newFood.getName(), newFood.getManufacturer(), newFood.getPreservation(),
+                    newFood.getWeight());
             boolean already = false;
             for  (Layout l : layouts) {
-                if (l.getName().equals(name) && l.getManufacturer().equals(manufacture)) already = true;
+                if (l.getName().equals(newFood.getName()) && l.getManufacturer().equals(newFood.getManufacturer())) already = true;
             }
             if (!already) layoutDao.saveOrUpdate(newLayout);
-        }
+        //}
     }
 
 
-    public void deleteFood(int id) throws SQLException {
+    public void deleteFood(int id) {
         foodDao.delete(id);
     }
 

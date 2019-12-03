@@ -9,10 +9,12 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="503.0" prefWidth="744.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ot.foodstorage.ui.AllFoodsSceneController">
+<AnchorPane id="AnchorPane" prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ot.foodstorage.ui.AllFoodsSceneController">
    <children>
       <BorderPane prefHeight="503.0" prefWidth="744.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <left>
@@ -38,42 +40,6 @@
                </buttons>
             </ButtonBar>
          </top>
-         <center>
-            <TableView fx:id="tableview" prefHeight="427.0" prefWidth="619.0" BorderPane.alignment="CENTER">
-              <columns>
-                <TableColumn prefWidth="100.0" text="Nimi">
-                    <cellValueFactory>
-                        <PropertyValueFactory property="name" />
-                    </cellValueFactory>
-                </TableColumn>
-                  <TableColumn prefWidth="113.0" text="Valmistaja">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="manufacturer" />
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn prefWidth="90.0" text="Eräpäivä">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="dueDate" />
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn prefWidth="82.0" text="Paino (kg)">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="weight" />
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn prefWidth="87.0" text="Säilytys">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="preservation" />
-                      </cellValueFactory>
-                  </TableColumn>
-                  <TableColumn prefWidth="87.0" text="Määrä">
-                      <cellValueFactory>
-                          <PropertyValueFactory property="amount" />
-                      </cellValueFactory>
-                  </TableColumn>
-              </columns>
-            </TableView>
-         </center>
          <bottom>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <buttons>
@@ -85,6 +51,76 @@
          <right>
             <Pane prefHeight="421.0" prefWidth="39.0" BorderPane.alignment="CENTER" />
          </right>
+         <center>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="918.0" prefWidth="487.0">
+                     <children>
+                        <Label text="raaka-aineet">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="tableview" prefHeight="186.0" prefWidth="483.0" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn prefWidth="100.0" text="Nimi">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="name" />
+                                </cellValueFactory>
+                            </TableColumn>
+                              <TableColumn prefWidth="113.0" text="Valmistaja">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="manufacturer" />
+                                  </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn prefWidth="82.0" text="Paino (g)">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="weight" />
+                                  </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn prefWidth="87.0" text="Säilytys">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="preservation" />
+                                  </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn prefWidth="87.0" text="Määrä">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="amount" />
+                                  </cellValueFactory>
+                              </TableColumn>
+                          </columns>
+                        </TableView>
+                        <Label text="valmiit reseptit">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="readyRecipeView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="918.0" prefWidth="336.0">
+                     <children>
+                        <Label text="reseptit mitä voidaa tehdä tällä hetkellä">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="possibleRecipeView" prefHeight="918.0" prefWidth="191.0" VBox.vgrow="ALWAYS">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="C1" />
+                            <TableColumn prefWidth="75.0" text="C2" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </center>
       </BorderPane>
    </children>
 </AnchorPane>

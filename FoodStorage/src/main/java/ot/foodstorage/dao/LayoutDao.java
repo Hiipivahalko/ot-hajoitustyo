@@ -30,14 +30,14 @@ public class LayoutDao implements Dao<Layout, Integer> {
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " ORDER BY name;");
-
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 Layout layout = new Layout(rs.getInt("id"),
                         rs.getString("name"),
                         rs.getString("manufacturer"),
-                        rs.getString("preservation"));
+                        rs.getString("preservation"),
+                        rs.getInt("weight"));
                 layouts.add(layout);
             }
 
@@ -55,10 +55,11 @@ public class LayoutDao implements Dao<Layout, Integer> {
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName +
-                    " (name, manufacturer, preservation) VALUES (?,?,?)");
+                    " (name, manufacturer, preservation, weight) VALUES (?,?,?,?)");
             stmt.setString(1, object.getName());
             stmt.setString(2, object.getManufacturer());
             stmt.setString(3, object.getPreservation());
+            stmt.setInt(4, object.getWeight());
             stmt.executeUpdate();
             stmt.close();
             conn.close();
