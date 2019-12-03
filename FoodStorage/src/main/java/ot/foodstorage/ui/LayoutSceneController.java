@@ -42,31 +42,16 @@ public class LayoutSceneController extends Controller {
     public void addExistRawMaterial(ActionEvent event) throws IOException {
         if (layoutView.getSelectionModel().getSelectedItem() != null) {
             Layout selected = layoutView.getSelectionModel().getSelectedItem();
-            /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewFoodScene.fxml"));
-            Parent root =  loader.load();
-            newFoodController = loader.getController();
-            newFoodController.setAppService(getAppService());
-            newFoodController.setNameField(selected.getName());
-            newFoodController.setManufacturerField(selected.getManufacturer());
-            newFoodController
-            newFoodController.setPreservationChoice(selected.getPreservation());
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            newFoodController.setStage(stage);
-            stage.showAndWait();*/
             Food f = new Food(selected.getName(), selected.getManufacturer(), selected.getPreservation(), selected.getWeight(),
-                    "00.00.0000", -1, Integer.parseInt(amountField.getText()));
+                    -1, Integer.parseInt(amountField.getText()));
             appService.saveNewFood(selected.getName(), selected.getManufacturer(), selected.getPreservation(), selected.getWeight(),
-                    "00.00.0000", Integer.parseInt(amountField.getText()));
+                    Integer.parseInt(amountField.getText()));
         }
 
     }
 
     public void setUpController(AppService appService) {
-        //System.out.println(appService.getLayouts().size());
         layoutsList = FXCollections.observableList(appService.getLayouts());
-        //if (layoutsList == null) System.out.println("se oli null");
         layoutView.setItems(layoutsList);
     }
 

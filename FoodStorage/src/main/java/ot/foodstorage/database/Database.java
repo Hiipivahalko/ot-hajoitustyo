@@ -53,29 +53,49 @@ public class Database {
     private void createTables(Statement stmt) throws SQLException {
         stmt.execute(createFoodTable());
         stmt.execute(createLayoutTable());
+        stmt.execute(createRecipeTable());
+        stmt.execute(createShoppingBasketTable());
     }
 
     private String createFoodTable() {
         return "CREATE TABLE IF NOT EXISTS" +
-                " Food(" +
+                " food(" +
                 " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 " name TEXT NOT NULL," +
                 " manufacturer TEXT NOT NULL," +
                 " preservation TEXT NOT NULL," +
                 " weight INTEGER NOT NULL," +
-                " dueDate TEXT NOT NULL," +
                 " amount INTEGER NOT NULL" +
                 ");";
     }
 
     private String createLayoutTable() {
         return "CREATE TABLE IF NOT EXISTS" +
-                " Layout(" +
+                " layout(" +
                 "id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 " name TEXT NOT NULL," +
                 " manufacturer TEXT NOT NULL," +
                 " preservation TEXT NOT NULL," +
                 " weight DOUBLE NOT NULL" +
+                ");";
+    }
+
+    private String createRecipeTable() {
+        return "CREATE TABLE IF NOT EXISTS" +
+                " recipe(" +
+                " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                " name TEXT NOT NULL," +
+                " rawmaterials TEXT NOT NULL," +
+                " cooktime INTEGER NOT NULL," +
+                " description TEXT NOT NULL" +
+                ");";
+    }
+
+    private String createShoppingBasketTable() {
+        return "CREATE TABLE IF NOT EXISTS" +
+                " shoppingbasket(" +
+                " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                " items TEXT NOT NULL" +
                 ");";
     }
 

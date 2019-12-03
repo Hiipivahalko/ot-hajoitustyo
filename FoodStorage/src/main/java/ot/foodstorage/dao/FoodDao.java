@@ -29,31 +29,11 @@ public class FoodDao  implements Dao<Food, Integer> {
 
     public Food findOne(Food food) {
         Food f = null;
-        try {
-            Connection conn = db.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName +
-                    " WHERE name = '" + food.getName() + "' AND manufacturer = '" + food.getManufacturer() + "' " +
-                    "AND preservation = '" + food.getPreservation() + "' AND weight = '" + food.getWeight() + "';");
+        List<Food> foods = selectQuery("SELECT * FROM " + tableName +
+                " WHERE name = '" + food.getName() + "' AND manufacturer = '" + food.getManufacturer() + "' " +
+                "AND preservation = '" + food.getPreservation() + "' AND weight = '" + food.getWeight() + "';");
 
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                f = new Food(rs.getString("name"),
-                        rs.getString("manufacturer"),
-                        rs.getString("preservation"),
-                        rs.getInt("weight"),
-                        rs.getString("dueDate"),
-                        rs.getInt("id"),
-                        rs.getInt("amount"));
-            }
-
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-
+        if (foods.size() == 1) return foods.get(0);
         return f;
     }
 
@@ -65,31 +45,7 @@ public class FoodDao  implements Dao<Food, Integer> {
      */
     @Override
     public List<Food> findAll() {
-        List<Food> foods = new ArrayList<>();
-
-        try {
-            Connection conn = db.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " ORDER BY name;");
-
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                Food food = new Food(rs.getString("name"),
-                        rs.getString("manufacturer"),
-                        rs.getString("preservation"),
-                        rs.getInt("weight"),
-                        rs.getString("dueDate"),
-                        rs.getInt("id"),
-                        rs.getInt("amount"));
-                foods.add(food);
-            }
-
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        List<Food> foods = selectQuery("SELECT * FROM " + tableName + " ORDER BY name;");
 
         return foods;
     }
@@ -106,21 +62,23 @@ public class FoodDao  implements Dao<Food, Integer> {
         } else  {
             update(food, food.getAmount() + old.getAmount());
         }
-
     }
 
+    /**
+     * Tallentaa annetun raaka-aineen tietokantaan
+     * @param food - tallennettava raaka-aine
+     */
     public void save(Food food) {
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt;
             stmt = conn.prepareStatement("INSERT INTO " + tableName +
-                    "(name, manufacturer, preservation, weight, dueDate, amount) VALUES (?,?,?,?,?,?)");
+                    "(name, manufacturer, preservation, weight, amount) VALUES (?,?,?,?,?)");
             stmt.setString(1, food.getName());
             stmt.setString(2, food.getManufacturer());
             stmt.setString(3, food.getPreservation());
             stmt.setInt(4, food.getWeight());
-            stmt.setString(5, food.getDueDate());
-            stmt.setInt(6, food.getAmount());
+            stmt.setInt(5, food.getAmount());
             stmt.executeUpdate();
             stmt.close();
             conn.close();
@@ -129,6 +87,11 @@ public class FoodDao  implements Dao<Food, Integer> {
         }
     }
 
+    /**
+     * Päivittää tietyn raaka-aineen amount arvoa tietokannassa
+     * @param food - päivitettävä raaka-aine
+     * @param newValue - päivitettävä arvo (uusi arvo = vanha + newValue)
+     */
     public void update(Food food, int newValue) {
         try {
             Connection conn = db.getConnection();
@@ -192,8 +155,8 @@ public class FoodDao  implements Dao<Food, Integer> {
     private List<Food> selectQuery(String query) {
         List<Food> foods = new ArrayList<>();
 
-        Connection conn; //= db.getConnection();
-        PreparedStatement stmt;// = conn.prepareStatement(query);
+        Connection conn;
+        PreparedStatement stmt;
         ResultSet rs;
 
         try {
@@ -206,7 +169,6 @@ public class FoodDao  implements Dao<Food, Integer> {
                         rs.getString("manufacturer"),
                         rs.getString("preservation"),
                         rs.getInt("weight"),
-                        rs.getString("dueDate"),
                         rs.getInt("id"),
                         rs.getInt("amount"));
                 foods.add(food);

@@ -10,17 +10,15 @@ public class Food {
     private String name;
     private String manufacturer;
     private String preservation;
-    private String dueDate;
     private int weight;
     private int id;
     private int amount;
 
-    public Food(String name, String manufacturer, String preservation, int weight, String dueDate, int id, int amount) {
+    public Food(String name, String manufacturer, String preservation, int weight, int id, int amount) {
         this.name = name;
         this.manufacturer = manufacturer;
         this.preservation = preservation;
         this.weight = weight;
-        this.dueDate = dueDate;
         this.id = id;
         this.amount = amount;
     }
@@ -44,10 +42,6 @@ public class Food {
 
     public int getId() {
         return id;
-    }
-
-    public String getDueDate() {
-        return dueDate;
     }
 
     public int getAmount() {

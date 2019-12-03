@@ -21,17 +21,17 @@ public class AppServiceTest {
     FoodDao foodDao = new FoodDao(db, "food");
     LayoutDao layoutDao = new LayoutDao(db, "layout");
 
-    private Food food1 = new Food("food1", "manu1", "jääkaappi", 1, "20.08.2021", -1, 1);
-    private Food food2 = new Food("food2", "manu2", "jääkaappi", 300, "19.08.2021", -1, 4);
-    private Food food3 = new Food("food3", "manu3", "kuivakaappi", 4, "20.08.2021", -1, 1);
-    private Food food4 = new Food("food4", "manu4", "pakastin", 50, "20.08.2022", -1, 1);
+    private Food food1 = new Food("food1", "manu1", "jääkaappi", 1, -1, 1);
+    private Food food2 = new Food("food2", "manu2", "jääkaappi", 300, -1, 4);
+    private Food food3 = new Food("food3", "manu3", "kuivakaappi", 4, -1, 1);
+    private Food food4 = new Food("food4", "manu4", "pakastin", 50, -1, 1);
 
     /**
      * funktio raaka-aineiden tallentamiseksi testeissä
      * @param food - tallennettava ruoka
      */
     private void saveFoodInTest(Food food) {
-        appService.saveNewFood(food.getName(), food.getManufacturer(), food.getPreservation(), food.getWeight(), food.getDueDate(), food.getAmount());
+        appService.saveNewFood(food.getName(), food.getManufacturer(), food.getPreservation(), food.getWeight(), food.getAmount());
     }
 
     /**
@@ -58,7 +58,8 @@ public class AppServiceTest {
      */
     @Test
     public void saveNewFood() throws SQLException {
-        appService.saveNewFood("testiRuoka", "valmistajaTesti","jääkaappi", 1, "22.09.2020", 1);
+        appService.saveNewFood("testiRuoka", "valmistajaTesti",
+                "jääkaappi", 1, 1);
         assertEquals(1, foodDao.findAll().size());
     }
 
@@ -68,9 +69,12 @@ public class AppServiceTest {
      */
     @Test
     public void saveNewFood2() throws SQLException {
-        appService.saveNewFood("testiRuoka", "valmistajaTesti","jääkaappi", 1, "22.09.2020", 1);
-        appService.saveNewFood("testiRuoka2", "valmistajaTesti2","jääkaappi", 3, "22.10.2020", 1);
-        appService.saveNewFood("testiRuoka3", "valmistajaTesti","jääkaappi", 1, "22.08.2020", 1);
+        appService.saveNewFood("testiRuoka", "valmistajaTesti",
+                "jääkaappi", 1, 1);
+        appService.saveNewFood("testiRuoka2", "valmistajaTesti2",
+                "jääkaappi", 3, 1);
+        appService.saveNewFood("testiRuoka3", "valmistajaTesti",
+                "jääkaappi", 1, 1);
         List<Food> foods = foodDao.findAll();
         assertEquals(3, foods.size());
         assertEquals("testiruoka", foods.get(0).getName());

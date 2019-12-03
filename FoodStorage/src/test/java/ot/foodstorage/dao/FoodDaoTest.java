@@ -14,11 +14,11 @@ public class FoodDaoTest {
 
     private Database database;
     private FoodDao foodDao;
-    private Food food1 = new Food("milk", "valio", "jääkaappi", 1, "20.08.2040", 1, 1);
-    private Food food2 = new Food("milk2", "arla", "jääkaappi", 1, "20.08.2025", 1, 1);
-    private Food food3 = new Food("milk3", "arla", "kuivakaappi", 1, "20.08.2040", 1, 3);
-    private Food food4 = new Food("milk4", "valio", "jääkaappi", 1, "20.08.2022", 1, 1);
-    private Food food5 = new Food("jäätelö", "valio", "pakastin", 1, "20.08.2022", 1, 2);
+    private Food food1 = new Food("milk", "valio", "jääkaappi", 1,1, 1);
+    private Food food2 = new Food("milk2", "arla", "jääkaappi", 1,1, 1);
+    private Food food3 = new Food("milk3", "arla", "kuivakaappi", 1, 1, 3);
+    private Food food4 = new Food("milk4", "valio", "jääkaappi", 1,1, 1);
+    private Food food5 = new Food("jäätelö", "valio", "pakastin", 1, 1, 2);
 
     @Before
     public void setUp() throws Exception {
@@ -49,8 +49,8 @@ public class FoodDaoTest {
      */
     @Test
     public void findAll() throws SQLException {
-        Food food2 = new Food("juusto", "valio", "jääkaappi", 1, "20.09.2040", 2, 1);
-        Food food3 = new Food("leipä", "fazer", "kuivakaappi", 2, "20.10.2040", 1, 3);
+        Food food2 = new Food("juusto", "valio", "jääkaappi", 1, 2, 1);
+        Food food3 = new Food("leipä", "fazer", "kuivakaappi", 2, 1, 3);
 
         foodDao.saveOrUpdate(food1);
         foodDao.saveOrUpdate(food2);

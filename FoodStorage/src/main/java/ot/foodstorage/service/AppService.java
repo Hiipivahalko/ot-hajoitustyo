@@ -43,12 +43,11 @@ public class AppService {
      * @param manufacturer - valmistaja
      * @param preservation - säilytys
      * @param weight - paino
-     * @param dueDate - eräpäivä
      * @throws SQLException
      */
-    public void saveNewFood(String name, String manufacturer, String preservation, int weight, String dueDate, int amount) {
+    public void saveNewFood(String name, String manufacturer, String preservation, int weight, int amount) {
         Food newFood = new Food(name.toLowerCase(), manufacturer.toLowerCase(), preservation.toLowerCase(),
-                weight, dueDate, -1, amount);
+                weight, -1, amount);
         checkIfLayoutExistAndCreate(newFood);
         foodDao.saveOrUpdate(newFood);
     }

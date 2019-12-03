@@ -28,4 +28,11 @@ public class ShoppingBasket {
     public void setId(int id) {
         this.id = id;
     }
+
+    public void addItem(Food food) {
+        boolean alredy = false;
+        for (Food f : items) {
+            //if ()
+        }
+    }
 }

@@ -92,7 +92,6 @@ public class NewFoodSceneController extends Controller {
     @FXML
     public void addNewFood(ActionEvent event) throws SQLException {
         int weigth = Integer.parseInt(weightField.getText());
-        String date = dueDateField.getValue().toString();
         String preservation = preservationChoice.getValue();
 
         if (getAppService() != null) {
@@ -100,7 +99,6 @@ public class NewFoodSceneController extends Controller {
                     manufacturerField.getText().toLowerCase(),
                     preservation.toLowerCase(),
                     weigth,
-                    date,
                     Integer.parseInt(amount.getText()));
         } else System.out.println("it was null");
         stage.close();
