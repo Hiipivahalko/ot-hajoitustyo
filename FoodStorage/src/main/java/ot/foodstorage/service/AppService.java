@@ -35,8 +35,11 @@ public class AppService {
         this.shoppingBasketDao = shoppingBasketDao;
         this.allFoods = foodDao.findAll();
         this.layouts = layoutDao.findAll();
-        if (shoppingBasketDao.findAll().size() > 0) this.shoppingBasket = shoppingBasketDao.findAll().get(0);
-        else this.shoppingBasket = new ShoppingBasket(1, new ArrayList<>());
+        if (shoppingBasketDao.findAll().size() > 0) {
+            this.shoppingBasket = shoppingBasketDao.findAll().get(0);
+        } else {
+            this.shoppingBasket = new ShoppingBasket(1, new ArrayList<>());
+        }
     }
 
     public List<Layout> getLayouts() {
@@ -95,7 +98,9 @@ public class AppService {
                 newFood.getWeight());
         boolean already = false;
         for  (Layout l : layouts) {
-            if (l.getName().equals(newFood.getName()) && l.getManufacturer().equals(newFood.getManufacturer())) already = true;
+            if (l.getName().equals(newFood.getName()) && l.getManufacturer().equals(newFood.getManufacturer())) {
+                already = true;
+            }
         }
 
         if (!already) {
@@ -110,12 +115,14 @@ public class AppService {
         for (int i = 0; i < shoppingBasket.getItems().size(); i++) {
             Food next = shoppingBasket.getItems().get(i);
             if (f.equals(next)) {
-                shoppingBasket.getItems().get(i).setAmount(next.getAmount()+f.getAmount());
+                shoppingBasket.getItems().get(i).setAmount(next.getAmount() + f.getAmount());
                 already = true;
                 break;
             }
         }
-        if (!already) shoppingBasket.addItem(f);
+        if (!already) {
+            shoppingBasket.addItem(f);
+        }
     }
 
 

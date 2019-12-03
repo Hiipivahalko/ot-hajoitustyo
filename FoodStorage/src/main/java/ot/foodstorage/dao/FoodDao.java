@@ -33,7 +33,9 @@ public class FoodDao  implements Dao<Food, Integer> {
                 " WHERE name = '" + food.getName() + "' AND manufacturer = '" + food.getManufacturer() + "' " +
                 "AND preservation = '" + food.getPreservation() + "' AND weight = '" + food.getWeight() + "';");
 
-        if (foods.size() == 1) return foods.get(0);
+        if (foods.size() == 1) {
+            return foods.get(0);
+        }
         return f;
     }
 
@@ -154,26 +156,16 @@ public class FoodDao  implements Dao<Food, Integer> {
      */
     private List<Food> selectQuery(String query) {
         List<Food> foods = new ArrayList<>();
-
-        Connection conn;
-        PreparedStatement stmt;
-        ResultSet rs;
-
         try {
-            conn = db.getConnection();
-            stmt = conn.prepareStatement(query);
-            rs = stmt.executeQuery();
-
+            Connection conn = db.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Food food = new Food(rs.getString("name"),
-                        rs.getString("manufacturer"),
-                        rs.getString("preservation"),
-                        rs.getInt("weight"),
-                        rs.getInt("id"),
-                        rs.getInt("amount"));
+                Food food = new Food(rs.getString("name"), rs.getString("manufacturer"),
+                        rs.getString("preservation"), rs.getInt("weight"),
+                        rs.getInt("id"), rs.getInt("amount"));
                 foods.add(food);
             }
-
             rs.close();
             stmt.close();
             conn.close();

@@ -72,12 +72,16 @@ public class Food {
     @Override
     public boolean equals(Object o) {
 
-        if (this.getClass() != o.getClass()) return false;
+        if (this.getClass() != o.getClass()) {
+            return false;
+        }
         Food f = (Food) o;
         if (!this.getName().equals(f.getName()) ||
                 !this.manufacturer.equals(f.getManufacturer()) ||
                 !this.preservation.equals(f.getPreservation()) ||
-                this.weight != f.getWeight()) return false;
+                this.weight != f.getWeight()) {
+            return false;
+        }
 
         return true;
     }

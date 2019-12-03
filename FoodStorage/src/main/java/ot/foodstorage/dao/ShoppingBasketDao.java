@@ -49,14 +49,10 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket, Integer> {
 
     private List<ShoppingBasket> selectQuery(String query) {
         List<ShoppingBasket> baskets = new ArrayList<>();
-        Connection conn;
-        PreparedStatement stmt;
-        ResultSet rs;
-
         try {
-            conn = db.getConnection();
-            stmt = conn.prepareStatement(query);
-            rs = stmt.executeQuery();
+            Connection conn = db.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
                 ShoppingBasket basket = new ShoppingBasket(rs.getInt("id"),
