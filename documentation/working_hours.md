@@ -9,4 +9,5 @@
 | 26.11. | 6    | ostoskori käyttöliittymän luonti, dokumentaation parannusta, ruokamalli generointi raaka-aineen yhteydessä, mahdollisuus lisätä ruokia ruokamallin avulla  sekä pieniä korjauksia ja refaktorointia|
 | 02.12. | 4    | testausta + saman raaka-aineen lisäys kasvattaa edellisen määrää, ei luo uutta raaka-ainetta |
 | 03.12. | 6    | ostokoriin toutteen lisäys toiminto + alustusta resepteille + refaktorointia |
-| yth.   | 25   |  |
+| 10.12. | 8    | resepti toiminnon lisääminen + dokumentaatiota ja refaktorointia |
+| yth.   | 33   |  |

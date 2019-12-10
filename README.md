@@ -15,7 +15,7 @@ Varasto sovellus, sovelluksella pystyt pit채m채채n kirjaa sek채 n채kem채채n mit�
 ## Releaset
 
 [Viikko 5](https://github.com/Hiipivahalko/ot-hajoitustyo/releases/tag/1.0)
-[Viikko 6](https://github.com/Hiipivahalko/ot-hajoitustyo/releases/tag/1.0)
+[Viikko 6](https://github.com/Hiipivahalko/ot-hajoitustyo/releases/tag/2.0)
 
 ## Komentorivitoiminnot
 

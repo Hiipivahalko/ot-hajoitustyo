@@ -5,7 +5,7 @@
 
 Alla karkea luonnos projektin rakenteesta
 
-![pakkausrakenne](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/pictures/pakkausrakenne.jpg)
+![pakkausrakenne](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/pictures/pakkausrakenne.png)
 
 Kuvasta nähdään, että kaikki käyttäjän näkemät asiat sisältyvät foodstorage.ui pakkaukseen, josta ohjataan tietoa ohjelman "aivoihin" foodstorage.appservice. Appservice tekee siis ohjelman suurimman toiminnallisuuden, josta johdetaan vastuuta alaspäin foodstorage.domain luokille, jotka jakavat lopulta toiminnot vielä foodstorage.dao pakkauselle, joka tallentaa lopullisen tiedon pysyvästi tietokantaan.
 
