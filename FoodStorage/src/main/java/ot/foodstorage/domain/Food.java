@@ -86,4 +86,9 @@ public class Food {
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "joo ruoka";
+    }
+
 }

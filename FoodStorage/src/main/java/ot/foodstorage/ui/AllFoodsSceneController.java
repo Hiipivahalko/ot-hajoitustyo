@@ -43,8 +43,7 @@ public class AllFoodsSceneController extends Controller implements Initializable
 
     /**
      * Vaihtaa sivun jossa voi lisätä raaka-aineen
-     * @param event
-     * @throws IOException
+     * @param event - tapahtumankäsittelija
      */
     @FXML
     public void addNewFood(ActionEvent event) {
@@ -55,7 +54,6 @@ public class AllFoodsSceneController extends Controller implements Initializable
 
     /**
      * Asettaa ruokalistaukseen kaikki ruoat mitä tietokannasta löytyy
-     * @throws SQLException
      */
     @FXML
     public void setAllFoods() {
@@ -64,7 +62,6 @@ public class AllFoodsSceneController extends Controller implements Initializable
 
     /**
      * Asettaa ruokalistaa ruoat joiden nimet tai valmistaja nimet sisältyvät annettuun hakuehtoon
-     * @throws SQLException
      */
     @FXML
     public void filterByNameOrManufacturer() {
@@ -73,7 +70,6 @@ public class AllFoodsSceneController extends Controller implements Initializable
 
     /**
      * Asettaa ruokalistaukseen ruoat, joita säilytetään vain jääkaapissa
-     * @throws SQLException
      */
     @FXML
     public void filterFridgeFoods() {
@@ -82,7 +78,6 @@ public class AllFoodsSceneController extends Controller implements Initializable
 
     /**
      * Asettaa ruokalistaukseen ruoat, joita säilytetään kuivakaapeissa
-     * @throws SQLException
      */
     @FXML
     public void filterDryFoods() {
@@ -91,7 +86,6 @@ public class AllFoodsSceneController extends Controller implements Initializable
 
     /**
      * Asettaa ruokalistaukseen ruoat, joita säilytetään pakastimessa
-     * @throws SQLException
      */
     @FXML
     public void filterFreezerFoods() {

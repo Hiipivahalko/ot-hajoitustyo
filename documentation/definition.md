@@ -11,7 +11,7 @@ Sovelluksella on vain yksi käyttäjä. Käyttäjän ei tarvitse kirjautua eriks
 ### Sovelluksen toiminnallisuuksia
 
 * (tehty) Käyttäjä pystyy lisäämään raaka-aineita varastoon
-* Käyttäjä pystyy lisäämään resepti listaan uusia reseptejä 
+* Käyttäjä pystyy lisäämään reseptilistaan uusia reseptejä 
 * Käyttäjä voi valmistaa aterioita reseptin mukaan raaka-aineista varastoon
 * (tehty) raaka-aineen puolesta) Käyttäjä pystyy poistamaan raaka-aineen/aterian varastosta 
 * (tehty) Käyttäjä pystyy hakemaan raaka-aineita varastosta

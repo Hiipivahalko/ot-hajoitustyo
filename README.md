@@ -15,6 +15,7 @@ Varasto sovellus, sovelluksella pystyt pitämään kirjaa sekä näkemään mit�
 ## Releaset
 
 [Viikko 5](https://github.com/Hiipivahalko/ot-hajoitustyo/releases/tag/1.0)
+[Viikko 6](https://github.com/Hiipivahalko/ot-hajoitustyo/releases/tag/1.0)
 
 ## Komentorivitoiminnot
 
@@ -32,7 +33,7 @@ Testikattavuusraportti luodaan komennolla
 mvn jacoco:report
 ```
 
-Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto target/site/jacoco/index.html
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto FoodStorage/target/site/jacoco/index.html
 
 ### Suoritettavan jarin generointi
 
@@ -43,6 +44,15 @@ mvn package
 ```
 generoi hakemistoon target suoritettavan jar-tiedoston FoodStorage-1.0-SNAPSHOT.jar
 
+### JavaDoc
+
+JavaDoc generoidaan komennolla
+```
+mvn javadoc:javadoc
+```
+
+JavaDocia voi tarkastella avaamalla seilamella tiedosto FoodStorage/target/site/apidocs/index.html
+
 ### Checkstyle
 
 Tiedostoon [checkstyle.xml](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/FoodStorage/checkstyle.xml) määrittelemät tarkistukset suoritetaan komennolla
@@ -51,4 +61,4 @@ Tiedostoon [checkstyle.xml](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/
 mvn jxr:jxr checkstyle:checkstyle
 ```
 
-Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto target/site/checkstyle.html
+Mahdolliset virheilmoitukset selviävät avaamalla selaimella tiedosto FoodStorage/target/site/checkstyle.html

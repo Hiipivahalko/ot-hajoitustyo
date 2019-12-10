@@ -52,7 +52,7 @@ public class NewFoodSceneController extends Controller {
 
     /**
      * Tapahtumankäsittelijä "Takaisin" napille, jolla päästään takaisin ruokalistaan
-     * @param event
+     * @param event tapahtumankäsittelijä
      */
     @Override
     @FXML
@@ -86,11 +86,10 @@ public class NewFoodSceneController extends Controller {
 
     /**
      * Funktio "Lisää ruoka" napille, joka lisää uuden ruoan varastoon
-     * @param event
-     * @throws SQLException
+     * @param event tapahtumankäsitelijä
      */
     @FXML
-    public void addNewFood(ActionEvent event) throws SQLException {
+    public void addNewFood(ActionEvent event) {
         int weigth = Integer.parseInt(weightField.getText());
         String preservation = preservationChoice.getValue();
 

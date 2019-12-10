@@ -12,21 +12,39 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Luokka Food-luokkien tietokanta käsittelyille/tapahtumille
+ */
 public class FoodDao  implements Dao<Food, Integer> {
 
     private Database db;
     private String tableName;
 
+    /**
+     * FoodDao objekti jolla voidaan totetuttaa tarvittavia kyselyitä Food-tauluun
+     * @param db tietokanta
+     * @param tableName tietokantataulun nimi
+     */
     public FoodDao(Database db, String tableName) {
         this.db = db;
         this.tableName = tableName;
     }
 
+    /**
+     * Etsii tietyn rivin tietokannasta
+     * @param key tietokanta rivin ID
+     * @return rivistä muodostettu raaka-aine objekti
+     */
     @Override
     public Food findOne(Integer key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
+    /**
+     * Etsii tietyn rivin tietokannasta
+     * @param food etsittävä rivi
+     * @return rivistä muodostettu raaka-aine objekti
+     */
     public Food findOne(Food food) {
         Food f = null;
         List<Food> foods = selectQuery("SELECT * FROM " + tableName +
@@ -42,8 +60,7 @@ public class FoodDao  implements Dao<Food, Integer> {
     /**
      * Hakee tietokantataulusta Food kaikki rivit.
      * Rivit on järjestetty aakkosittain nimen mukaan.
-     * @return - Food taulun kaikki rivit
-     * @throws SQLException
+     * @return Food taulun kaikki rivit
      */
     @Override
     public List<Food> findAll() {
@@ -53,8 +70,8 @@ public class FoodDao  implements Dao<Food, Integer> {
     }
 
     /**
-     * Tallentaa uuden rivin ruoan tietokantatauluun Food tai päivittää määrän jos on jo olemassa
-     * @param food - tallennettava ruoka
+     * Tallentaa uuden rivin tietokantatauluun Food tai päivittää määrän jos on jo olemassa
+     * @param food tallennettava ruoka
      */
     @Override
     public void saveOrUpdate(Food food) {
@@ -68,13 +85,12 @@ public class FoodDao  implements Dao<Food, Integer> {
 
     /**
      * Tallentaa annetun raaka-aineen tietokantaan
-     * @param food - tallennettava raaka-aine
+     * @param food tallennettava raaka-aine
      */
     public void save(Food food) {
         try {
             Connection conn = db.getConnection();
-            PreparedStatement stmt;
-            stmt = conn.prepareStatement("INSERT INTO " + tableName +
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName +
                     "(name, manufacturer, preservation, weight, amount) VALUES (?,?,?,?,?)");
             stmt.setString(1, food.getName());
             stmt.setString(2, food.getManufacturer());
@@ -91,8 +107,8 @@ public class FoodDao  implements Dao<Food, Integer> {
 
     /**
      * Päivittää tietyn raaka-aineen amount arvoa tietokannassa
-     * @param food - päivitettävä raaka-aine
-     * @param newValue - päivitettävä arvo (uusi arvo = vanha + newValue)
+     * @param food päivitettävä raaka-aine
+     * @param newValue päivitettävä arvo (uusi arvo = vanha + newValue)
      */
     public void update(Food food, int newValue) {
         try {
@@ -109,6 +125,10 @@ public class FoodDao  implements Dao<Food, Integer> {
         }
     }
 
+    /**
+     * Poistaa tietyn rivin tietokannasta
+     * @param key poistettavan rivin ID
+     */
     @Override
     public void delete(Integer key) {
         try {
@@ -122,6 +142,11 @@ public class FoodDao  implements Dao<Food, Integer> {
         }
     }
 
+    /**
+     * Haravoi vain tietyn säännän/nimen omaavat tietokantarivit
+     * @param filter sääntö millä haravoidaan
+     * @return osajoukko kaikista tietokannan riveistä
+     */
     @Override
     public List<Food> filterFromAll(String filter)  {
         return selectQuery("SELECT * FROM " + tableName +
@@ -130,9 +155,9 @@ public class FoodDao  implements Dao<Food, Integer> {
 
     /**
      * Etsitään tietokannasta raaka-aineita tietyn nimen ja valmistajan perusteella
-     * @param name - nimi
-     * @param manufacture - valmistaja
-     * @return - lista raaka-aineita
+     * @param name nimi
+     * @param manufacture valmistaja
+     * @return lista raaka-aineita
      */
     public List<Food> findByNameAndManufacture(String name, String manufacture) {
         return selectQuery("SELECT * FROM " + tableName +
@@ -151,8 +176,8 @@ public class FoodDao  implements Dao<Food, Integer> {
 
     /**
      * Apufunktio totetuttamaan haluttu kysely tietokantaan
-     * @param query - tietokantaan tehtävä kysely
-     * @return - lista raaka-aine olioita
+     * @param query tietokantaan tehtävä kysely
+     * @return lista Food olioita
      */
     private List<Food> selectQuery(String query) {
         List<Food> foods = new ArrayList<>();

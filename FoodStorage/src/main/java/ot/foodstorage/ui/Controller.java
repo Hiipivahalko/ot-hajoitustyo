@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import ot.foodstorage.service.AppService;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 /**
@@ -26,6 +27,8 @@ public class Controller {
     Controller controller;
     ShoppingBasketSceneController shopController;
     AllFoodsSceneController allFoodsController;
+    RecipeSceneController recipeSceneController;
+    NewRecipeSceneController newRecipeSceneController;
     
     public void changeSide(ActionEvent event, String file) {
         try {
@@ -65,7 +68,7 @@ public class Controller {
 
     /**
      *
-     * @param event
+     * @param event tapahtumankäsittelija
      */
     @FXML
     public void goShoppingBasket(ActionEvent event) {
@@ -77,6 +80,36 @@ public class Controller {
             shopController.setUpPage(appService.getLayouts());
             ((Node) event.getSource()).getScene().setRoot(root);
         } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void goRecipeList(ActionEvent event) {
+        try {
+            FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/fxml/RecipeScene.fxml"));
+            Parent root = pageLoader.load();
+            recipeSceneController = pageLoader.getController();
+            recipeSceneController.setAppService(getAppService());
+            recipeSceneController.setUpPage();
+            ((Node) event.getSource()).getScene().setRoot(root);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    public void goNewRecipeScene(ActionEvent event) {
+        try {
+            FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/fxml/NewRecipeScene.fxml"));
+            Parent root = pageLoader.load();
+            newRecipeSceneController = pageLoader.getController();
+            newRecipeSceneController.setAppService(getAppService());
+            newRecipeSceneController.setUpPage();
+            ((Node) event.getSource()).getScene().setRoot(root);
+        } catch (IOException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }

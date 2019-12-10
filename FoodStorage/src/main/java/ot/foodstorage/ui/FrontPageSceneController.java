@@ -16,7 +16,7 @@ public class FrontPageSceneController extends Controller {
 
     /**
      * Tapahtumankäsittelijä "Takaisin" napille, jolla päästään takaisin ruokalistaan
-     * @param event
+     * @param event tapahtumankäsittelija
      */
     @Override
     @FXML

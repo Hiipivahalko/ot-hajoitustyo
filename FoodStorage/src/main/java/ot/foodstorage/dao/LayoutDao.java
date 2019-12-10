@@ -8,21 +8,39 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Luokka Layout-luokkien tietokanta käsittelyille/tapahtumille
+ */
 public class LayoutDao implements Dao<Layout, Integer> {
 
     private Database db;
     private String tableName;
 
+    /**
+     * LayoutDao objekti jolla voidaan totetuttaa tarvittavia kyselyitä Layout-tauluun
+     * @param db tietokanta
+     * @param tableName tietokantataulun nimi
+     */
     public LayoutDao(Database db, String tableName) {
         this.db = db;
         this.tableName = tableName;
     }
 
+    /**
+     * Etsii tietyn rivin tietokannasta
+     * @param key tietokanta rivin ID
+     * @return rivistä muodostettu Layout objekti
+     */
     @Override
     public Layout findOne(Integer key) throws SQLException {
         return null;
     }
 
+    /**
+     * Hakee tietokantataulusta Layout kaikki rivit.
+     * Rivit on järjestetty aakkosittain nimen mukaan.
+     * @return Layout taulun kaikki rivit
+     */
     @Override
     public List<Layout> findAll() {
         List<Layout> layouts = new ArrayList<>();
@@ -45,6 +63,10 @@ public class LayoutDao implements Dao<Layout, Integer> {
         return layouts;
     }
 
+    /**
+     * Tallentaa uuden rivin Layout tietokantatauluun tai päivittää määrän jos on jo olemassa
+     * @param object tallennettava layout
+     */
     @Override
     public void saveOrUpdate(Layout object) {
         try {
@@ -63,6 +85,10 @@ public class LayoutDao implements Dao<Layout, Integer> {
         }
     }
 
+    /**
+     * Poistaa tietyn rivin tietokannasta
+     * @param key poistettavan rivin ID
+     */
     @Override
     public void delete(Integer key) throws SQLException {
 

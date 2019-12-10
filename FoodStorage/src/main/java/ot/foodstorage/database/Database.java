@@ -10,10 +10,17 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/**
+ * Luokka tietkantannan alustukseen, jossa alustetaan sovelluksen tarvittavat taulut sekä pääsy tietokantaa "fyysisesti"
+ */
 public class Database {
 
     private String databaseAddress;
 
+    /**
+     * Tietokanta objekti, joka alustaa tietokannan
+     * @param databaseAddress osoite tietokantaan
+     */
     public Database(String databaseAddress) {
         this.databaseAddress = databaseAddress;
 
@@ -33,6 +40,10 @@ public class Database {
         return DriverManager.getConnection(databaseAddress);
     }
 
+    /**
+     * Alustaa tietokannan siten että poistaa ennen alustusta kaiken pois sieltä.
+     * Tietokanta lähtee tällöin ns. "tyhjältä pöydältä"
+     */
     public void initializeDatabase() {
         try {
             Connection conn = DriverManager.getConnection(databaseAddress);
@@ -50,6 +61,11 @@ public class Database {
         }
     }
 
+    /**
+     * Totetuttaa tietokantakyselyt joissa luodaan sovelluksen tietokantataulut
+     * @param stmt tietokantakyselyiden toteuttaja
+     * @throws SQLException virhe tietokantakyselyn toteutuksessa
+     */
     private void createTables(Statement stmt) throws SQLException {
         stmt.execute(createFoodTable());
         stmt.execute(createLayoutTable());
@@ -57,6 +73,10 @@ public class Database {
         stmt.execute(createShoppingBasketTable());
     }
 
+    /**
+     * Kysely Food-taulun luontiin
+     * @return tietokantakysely kokonaisuudessaan
+     */
     private String createFoodTable() {
         return "CREATE TABLE IF NOT EXISTS" +
                 " food(" +
@@ -69,6 +89,10 @@ public class Database {
                 ");";
     }
 
+    /**
+     * Kysely Layout-taulun luontiin
+     * @return tietokantakysely kokonaisuudessaan
+     */
     private String createLayoutTable() {
         return "CREATE TABLE IF NOT EXISTS" +
                 " layout(" +
@@ -80,17 +104,26 @@ public class Database {
                 ");";
     }
 
+    /**
+     * Kysely Recipe-taulun luontiin
+     * @return tietokantakysely kokonaisuudessaan
+     */
     private String createRecipeTable() {
         return "CREATE TABLE IF NOT EXISTS" +
                 " recipe(" +
                 " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 " name TEXT NOT NULL," +
-                " rawmaterials TEXT NOT NULL," +
-                " cooktime INTEGER NOT NULL," +
-                " description TEXT NOT NULL" +
+                " rawMaterials TEXT NOT NULL," +
+                " cookTime INTEGER NOT NULL," +
+                " description TEXT NOT NULL," +
+                " instruction TEXT NOT NULL" +
                 ");";
     }
 
+    /**
+     * Kysely ShoppingBasket-taulun luontiin
+     * @return tietokantakysely kokonaisuudessaan
+     */
     private String createShoppingBasketTable() {
         return "CREATE TABLE IF NOT EXISTS" +
                 " shoppingbasket(" +

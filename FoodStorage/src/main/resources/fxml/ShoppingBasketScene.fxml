@@ -14,14 +14,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="536.0" prefWidth="786.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ot.foodstorage.ui.ShoppingBasketSceneController">
+<AnchorPane prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ot.foodstorage.ui.ShoppingBasketSceneController">
    <children>
       <BorderPane layoutX="181.0" layoutY="75.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <buttons>
-                <Button mnemonicParsing="false" onAction="#goBackToFoodList" text="Ruoka Varastoon" />
-                  <Button mnemonicParsing="false" text="Reseptit listaukseen" />
+                <Button mnemonicParsing="false" onAction="#goBackToFoodList" text="ruokavarastoon" />
+                  <Button mnemonicParsing="false" onAction="#goRecipeList" text="reseptit listaukseen" />
               </buttons>
             </ButtonBar>
          </top>
@@ -37,22 +37,22 @@
                          </Label>
                         <TableView fx:id="basketView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="nimi" >
+                            <TableColumn prefWidth="75.0" text="nimi">
                               <cellValueFactory>
                                   <PropertyValueFactory property="name" />
                               </cellValueFactory>
                             </TableColumn>
-                            <TableColumn prefWidth="83.0" text="valmistaja" >
+                            <TableColumn prefWidth="83.0" text="valmistaja">
                               <cellValueFactory>
                                   <PropertyValueFactory property="manufacturer" />
                               </cellValueFactory>
                             </TableColumn>
-                              <TableColumn prefWidth="89.0" text="säilytys" >
+                              <TableColumn prefWidth="89.0" text="säilytys">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="preservation" />
                                   </cellValueFactory>
                               </TableColumn>
-                              <TableColumn prefWidth="78.0" text="määrä" >
+                              <TableColumn prefWidth="78.0" text="määrä">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="amount" />
                                   </cellValueFactory>

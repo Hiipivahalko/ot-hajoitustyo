@@ -35,7 +35,7 @@
          <top>
             <ButtonBar prefHeight="42.0" prefWidth="744.0" BorderPane.alignment="CENTER">
                <buttons>
-                <Button mnemonicParsing="false" text="näytä reseptit" />
+                <Button mnemonicParsing="false" onAction="#goRecipeList" text="näytä reseptit" />
                   <Button mnemonicParsing="false" onAction="#goShoppingBasket" text="ostoslista" />
                </buttons>
             </ButtonBar>

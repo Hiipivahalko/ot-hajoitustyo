@@ -1,14 +1,88 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ButtonBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="fxml.RecipeScene"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ot.foodstorage.ui.RecipeSceneController">
+   <children>
+      <BorderPane layoutX="407.0" layoutY="170.0" prefHeight="1000.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <buttons>
+                <Button mnemonicParsing="false" onAction="#goShoppingBasket" text="ostoslista" />
+                  <Button mnemonicParsing="false" onAction="#goBackToFoodList" text="ruokavarasto" />
+              </buttons>
+            </ButtonBar>
+         </top>
+         <left>
+            <VBox prefHeight="920.0" prefWidth="155.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="152.0" text="näytä resepti" />
+                  <Button mnemonicParsing="false" onAction="#goNewRecipeScene" prefHeight="49.0" prefWidth="152.0" text="Lisää uusi" />
+               </children>
+            </VBox>
+         </left>
+         <bottom>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+              <buttons>
+                <Button mnemonicParsing="false" text="lisää resepti" />
+              </buttons>
+            </ButtonBar>
+         </bottom>
+         <center>
+            <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox prefHeight="920.0" prefWidth="103.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label prefHeight="28.0" prefWidth="187.0" text="Kaikki reseptit">
+                           <font>
+                              <Font size="19.0" />
+                           </font>
+                        </Label>
+                        <TableView fx:id="recipeView" prefHeight="892.0" prefWidth="272.0" VBox.vgrow="ALWAYS">
+                          <columns>
+                             <TableColumn prefWidth="235.0" text="nimi">
+                                <cellValueFactory>
+                                   <PropertyValueFactory property="name" />
+                                </cellValueFactory>
+                             </TableColumn>
+                          </columns>
+                        </TableView>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="920.0" prefWidth="283.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <AnchorPane prefHeight="437.0" prefWidth="522.0" VBox.vgrow="ALWAYS">
+                           <children>
+                              <Label alignment="CENTER" layoutX="125.0" layoutY="33.0" prefHeight="31.0" prefWidth="44.0" text="nimi:" />
+                              <Label alignment="CENTER" layoutX="19.0" layoutY="64.0" prefHeight="31.0" prefWidth="156.0" text="ohjeet valmistukseen:" />
+                              <Label alignment="CENTER" layoutX="90.0" layoutY="175.0" prefHeight="31.0" prefWidth="70.0" text="kuvaus:" />
+                              <Label alignment="CENTER" layoutX="19.0" layoutY="282.0" prefHeight="31.0" prefWidth="142.0" text="valmistusaika (min):" />
+                              <Label alignment="CENTER" layoutX="61.0" layoutY="330.0" prefHeight="31.0" prefWidth="108.0" text="raaka-aineet:" />
+                              <TextField layoutX="172.0" layoutY="36.0" />
+                              <TextArea layoutX="174.0" layoutY="73.0" prefHeight="84.0" prefWidth="296.0" />
+                              <TextArea layoutX="173.0" layoutY="175.0" prefHeight="91.0" prefWidth="299.0" />
+                              <TextField layoutX="172.0" layoutY="284.0" />
+                           </children>
+                        </AnchorPane>
+                        <Pane prefHeight="47.0" prefWidth="484.0" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </center>
+      </BorderPane>
+   </children>
 </AnchorPane>

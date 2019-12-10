@@ -11,13 +11,16 @@ import ot.foodstorage.dao.RecipeDao;
 import ot.foodstorage.dao.ShoppingBasketDao;
 import ot.foodstorage.domain.Food;
 import ot.foodstorage.domain.Layout;
+import ot.foodstorage.domain.Recipe;
 import ot.foodstorage.domain.ShoppingBasket;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-
+/**
+ * Käyttöliittymän toiminnallisuuksien toteuttaja luokka, josta päästää käsiksi kaikkiin soveluksen rakenteisiin
+ */
 public class AppService {
     
     private FoodDao foodDao;
@@ -26,8 +29,16 @@ public class AppService {
     private ShoppingBasketDao shoppingBasketDao;
     private List<Layout> layouts;
     private List<Food> allFoods;
+    private List<Recipe> recipes;
     private ShoppingBasket shoppingBasket;
 
+    /**
+     * Toiminnallisuuksien totetuttaja
+     * @param foodDao objekti josta päästään käsiksi "Food" tietokantatauluun
+     * @param layoutDao objekti josta päästään käsiksi "Layout" tietokantatauluun
+     * @param recipeDao objekti josta päästään käsiksi "Recipe" tietokantatauluun
+     * @param shoppingBasketDao objekti josta päästään käsiksi "ShoppingBasket" tietokantatauluun
+     */
     public AppService(FoodDao foodDao, LayoutDao layoutDao, RecipeDao recipeDao, ShoppingBasketDao shoppingBasketDao) {
         this.foodDao = foodDao;
         this.layoutDao = layoutDao;
@@ -35,6 +46,7 @@ public class AppService {
         this.shoppingBasketDao = shoppingBasketDao;
         this.allFoods = foodDao.findAll();
         this.layouts = layoutDao.findAll();
+        this.recipes = recipeDao.findAll();
         if (shoppingBasketDao.findAll().size() > 0) {
             this.shoppingBasket = shoppingBasketDao.findAll().get(0);
         } else {
@@ -54,13 +66,17 @@ public class AppService {
         return shoppingBasket;
     }
 
+    public List<Recipe> getAllRecipes() {
+        return recipes;
+    }
+
     /**
      * Luo uuden ruoka-olion ja tallentaa sen tietokantaan
-     * @param name - nimi
-     * @param manufacturer - valmistaja
-     * @param preservation - säilytys
-     * @param weight - paino
-     * @throws SQLException
+     * @param name nimi
+     * @param manufacturer valmistaja
+     * @param preservation säilytys
+     * @param weight paino
+     * @param amount tuotteen määrä
      */
     public void saveNewFood(String name, String manufacturer, String preservation, int weight, int amount) {
         Food newFood = new Food(name.toLowerCase(), manufacturer.toLowerCase(), preservation.toLowerCase(),
@@ -71,9 +87,9 @@ public class AppService {
 
     /**
      * Suodattaa listan raaka-aineita, kaikista raaka-aineista
-     * @param filter - haluttu ominaisuus raaka-aineilla
-     * @param option - suodatusmuoto
-     * @return - lista raaka-aine olioita
+     * @param filter haluttu ominaisuus raaka-aineilla
+     * @param option suodatusmuoto
+     * @return lista raaka-aine olioita
      */
     public List<Food> filterFoods(String filter, int option) {
         List<Food> foods = new ArrayList<>();
@@ -90,7 +106,7 @@ public class AppService {
 
     /**
      * Tarkastaa löytyykö jo kyseistä raaka-aine mallia
-     * @param newFood - lisättävä raaka-aine
+     * @param newFood lisättävä raaka-aine
      */
     public void checkIfLayoutExistAndCreate(Food newFood) {
 
@@ -110,6 +126,10 @@ public class AppService {
         }
     }
 
+    /**
+     * Lisää tuotteen ostokoriin
+     * @param f lisättyävä raaka-aine
+     */
     public void addItemToShoppingBasket(Food f) {
         boolean already = false;
         for (int i = 0; i < shoppingBasket.getItems().size(); i++) {
@@ -130,8 +150,20 @@ public class AppService {
         foodDao.delete(id);
     }
 
-    public void addNewLayout() {
-
+    /**
+     * Tallentaa uuden reseptin, jos sen nimistä ei löydy jo
+     * @param recipe resepti
+     */
+    public void addNewRecipe(Recipe recipe) {
+        boolean sameAlready = false;
+        for (Recipe next : recipes) {
+            if (next.getName().equals(recipe.getName())) {
+                sameAlready = true;
+            }
+        }
+        if (!sameAlready) {
+            recipeDao.saveOrUpdate(recipe);
+        }
     }
     
     
