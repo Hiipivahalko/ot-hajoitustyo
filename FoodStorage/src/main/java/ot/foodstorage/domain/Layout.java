@@ -1,5 +1,7 @@
 package ot.foodstorage.domain;
 
+import javafx.scene.control.TextField;
+
 public class Layout {
 
     private int id;
@@ -7,6 +9,7 @@ public class Layout {
     private String manufacturer;
     private String preservation;
     private int weight;
+    private TextField amountField;
 
     public Layout(int id, String name, String manufacturer, String preservation, int weight) {
         this.id = id;
@@ -14,6 +17,7 @@ public class Layout {
         this.manufacturer = manufacturer;
         this.preservation = preservation;
         this.weight = weight;
+        this.amountField = new TextField();
     }
 
     //// Getterit
@@ -38,6 +42,10 @@ public class Layout {
         return weight;
     }
 
+    public TextField getAmountField() {
+        return amountField;
+    }
+
     /// Setterit
 
     public void setId(int id) {
@@ -58,5 +66,9 @@ public class Layout {
 
     public void setWeight(int weight) {
         this.weight = weight;
+    }
+
+    public void setAmountField(TextField amountField) {
+        this.amountField = amountField;
     }
 }

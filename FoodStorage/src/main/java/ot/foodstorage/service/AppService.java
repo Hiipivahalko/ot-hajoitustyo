@@ -135,7 +135,8 @@ public class AppService {
         for (int i = 0; i < shoppingBasket.getItems().size(); i++) {
             Food next = shoppingBasket.getItems().get(i);
             if (f.equals(next)) {
-                shoppingBasket.getItems().get(i).setAmount(next.getAmount() + f.getAmount());
+                //shoppingBasket.getItems().get(i).setAmount(next.getAmount() + f.getAmount());
+                shoppingBasket.updateItem(i, f.getAmount(), f.getName());
                 already = true;
                 break;
             }
@@ -143,8 +144,21 @@ public class AppService {
         if (!already) {
             shoppingBasket.addItem(f);
         }
+        shoppingBasketDao.saveOrUpdate(shoppingBasket);
     }
 
+    /**
+     * Lisätään kaikki reseptin ainekset ostoskoriin
+     * @param recipe lisättävän reseptin ainekset
+     * @param amount kuinka monta kertaa reseptin tuotteet halutaan
+     */
+    public void addRecipeToBasket(Recipe recipe, int amount) {
+        for (int i = 0; i < amount; i++) {
+            for (Food next : recipe.getFoods()) {
+                addItemToShoppingBasket(next);
+            }
+        }
+    }
 
     public void deleteFood(int id) {
         foodDao.delete(id);
@@ -154,21 +168,52 @@ public class AppService {
      * Tallentaa uuden reseptin, jos sen nimistä ei löydy jo
      * @param recipe resepti
      */
-    public void addNewRecipe(Recipe recipe) {
+    public boolean addNewRecipe(Recipe recipe, List<Food> foods) {
         boolean sameAlready = false;
         for (Recipe next : recipes) {
             if (next.getName().equals(recipe.getName())) {
                 sameAlready = true;
             }
         }
-        if (!sameAlready) {
-            recipeDao.saveOrUpdate(recipe);
-        }
-    }
-    
-    
-    
 
-    
-    
+        foods = checkBoxes(foods);
+
+        if (foods == null || sameAlready || foods.size() == 0) {
+            return false;
+        }
+        recipe.setFoods(foods);
+        recipeDao.saveOrUpdate(recipe);
+        recipes.add(recipe);
+        return true;
+    }
+
+    /**
+     * Tarkistaa mitkä annetun Food-listan Food objetien checkBoxit on valittuna
+     * @param foods Food lista
+     * @return valitut Food objektit
+     */
+    public List<Food> checkBoxes(List<Food> foods) {
+        List<Food> selected = new ArrayList<>();
+
+        for (Food next : foods) {
+            if (!next.getCheckBox().isSelected()) {
+                continue;
+            }
+            if (next.getAmountField().getText() != null || next.getAmountField().getText().length() > 0) {
+                try {
+                    int amount = Integer.parseInt(next.getAmountField().getText());
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    return null;
+                }
+            } else {
+                return null;
+            }
+            selected.add(next);
+        }
+        return selected;
+    }
+
+
+
 }

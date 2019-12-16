@@ -64,10 +64,13 @@ public class RecipeDao implements Dao<Recipe, Integer> {
             stmt.setInt(3, recipe.getCookTime());
             stmt.setString(4, recipe.getDescription());
             stmt.setString(5, recipe.getInstruction());
+
+            stmt.execute();
+            stmt.close();
+            conn.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-
     }
 
     /**

@@ -1,5 +1,7 @@
 package ot.foodstorage.domain;
 
+import javafx.scene.control.TextField;
+
 import java.util.List;
 
 public class Recipe {
@@ -10,6 +12,7 @@ public class Recipe {
     private String instruction;
     private List<Food> foods;
     private int cookTime;
+    private TextField amountField;
 
     public Recipe(int id, String name, List<Food> foods, int cookTime, String description, String instruction) {
         this.id = id;
@@ -18,6 +21,7 @@ public class Recipe {
         this.cookTime = cookTime;
         this.description = description;
         this.instruction = instruction;
+        this.amountField = new TextField();
     }
 
     /// GETTER's
@@ -47,16 +51,11 @@ public class Recipe {
         return cookTime;
     }
 
-    public String listToString() {
-        StringBuilder sb = new StringBuilder();
-        for (Food f : foods) {
-            sb.append(f.getName() + ";" + f.getManufacturer() + ";" + f.getPreservation() + ";" + f.getWeight() + ";" + f.getAmount() + "\t");
-        }
-        return sb.toString();
+    public TextField getAmountField() {
+        return amountField;
     }
 
     /// SETTER's
-
 
     public void setId(int id) {
         this.id = id;
@@ -80,5 +79,17 @@ public class Recipe {
 
     public void setCookTime(int cookTime) {
         this.cookTime = cookTime;
+    }
+
+    public void setAmountField(TextField amountField) {
+        this.amountField = amountField;
+    }
+
+    public String listToString() {
+        StringBuilder sb = new StringBuilder();
+        for (Food f : foods) {
+            sb.append(f.getName() + ";" + f.getManufacturer() + ";" + f.getPreservation() + ";" + f.getWeight() + ";" + f.getAmount() + "\t");
+        }
+        return sb.toString();
     }
 }

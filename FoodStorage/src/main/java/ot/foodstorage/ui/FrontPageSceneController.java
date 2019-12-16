@@ -6,12 +6,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class FrontPageSceneController extends Controller {
 
     private AllFoodsSceneController mainController;
     private ShoppingBasketSceneController shopController;
+
+    @FXML private TableView jokuTable;
+    @FXML private TableColumn name;
+    @FXML private TableColumn amount;
+
+    private void test() {
+        name.cellFactoryProperty().setValue("joo");
+        amount.cellFactoryProperty().setValue(new TextField());
+        jokuTable.getColumns().addAll(name, amount);
+    }
 
 
     /**

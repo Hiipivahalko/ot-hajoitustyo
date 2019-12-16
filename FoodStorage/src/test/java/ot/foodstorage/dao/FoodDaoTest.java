@@ -1,27 +1,42 @@
 package ot.foodstorage.dao;
 
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import ot.foodstorage.database.Database;
 import ot.foodstorage.domain.Food;
+import javafx.scene.control.TextField;
 
 import java.sql.SQLException;
 import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class FoodDaoTest {
+public class FoodDaoTest extends Application{
 
     private Database database;
     private FoodDao foodDao;
-    private Food food1 = new Food("milk", "valio", "jääkaappi", 1,1, 1);
-    private Food food2 = new Food("milk2", "arla", "jääkaappi", 1,1, 1);
-    private Food food3 = new Food("milk3", "arla", "kuivakaappi", 1, 1, 3);
-    private Food food4 = new Food("milk4", "valio", "jääkaappi", 1,1, 1);
-    private Food food5 = new Food("jäätelö", "valio", "pakastin", 1, 1, 2);
+    private Food food1 = new Food("milk", "valio", "jääkaappi", 1, 1);
+    private Food food2 = new Food("milk2", "arla", "jääkaappi", 1, 1);
+    private Food food3 = new Food("milk3", "arla", "kuivakaappi", 1, 3);
+    private Food food4 = new Food("milk4", "valio", "jääkaappi", 1, 1);
+    private Food food5 = new Food("jäätelö", "valio", "pakastin", 1, 2);
+
+    @BeforeClass
+    public static void setClass() {
+        try {
+            launch();
+        } catch (Exception e) {
+
+        }
+    }
 
     @Before
     public void setUp() throws Exception {
+
         database = new Database("jdbc:sqlite:test.db");
         foodDao = new FoodDao(database, "Food");
         database.initializeDatabase();
@@ -39,9 +54,9 @@ public class FoodDaoTest {
         foodDao.saveOrUpdate(food5);
     }
 
-    @Test
+    /*@Test
     public void findOne() {
-    }
+    }*/
 
     /**
      * Testataan että tietokanta palauttaa kaikki ruokarivit sitä pyydettäessä
@@ -63,6 +78,7 @@ public class FoodDaoTest {
         for(Food food : all) {
             assertTrue(food.getName().equals("juusto") || food.getName().equals("milk") || food.getName().equals("leipä"));
         }
+
     }
 
     /**
@@ -170,4 +186,8 @@ public class FoodDaoTest {
     }
 
 
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Platform.exit();
+    }
 }

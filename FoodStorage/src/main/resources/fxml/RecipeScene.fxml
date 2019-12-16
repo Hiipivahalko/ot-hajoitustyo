@@ -29,7 +29,7 @@
          <left>
             <VBox prefHeight="920.0" prefWidth="155.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="43.0" prefWidth="152.0" text="näytä resepti" />
+                  <Button mnemonicParsing="false" onAction="#showRecipe" prefHeight="43.0" prefWidth="152.0" text="näytä resepti" />
                   <Button mnemonicParsing="false" onAction="#goNewRecipeScene" prefHeight="49.0" prefWidth="152.0" text="Lisää uusi" />
                </children>
             </VBox>
@@ -44,37 +44,66 @@
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="920.0" prefWidth="103.0" HBox.hgrow="ALWAYS">
+                  <VBox prefHeight="920.0" prefWidth="108.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label prefHeight="28.0" prefWidth="187.0" text="Kaikki reseptit">
                            <font>
                               <Font size="19.0" />
                            </font>
                         </Label>
-                        <TableView fx:id="recipeView" prefHeight="892.0" prefWidth="272.0" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="recipeView" prefHeight="892.0" prefWidth="282.0" VBox.vgrow="ALWAYS">
                           <columns>
                              <TableColumn prefWidth="235.0" text="nimi">
                                 <cellValueFactory>
                                    <PropertyValueFactory property="name" />
                                 </cellValueFactory>
                              </TableColumn>
+                              <TableColumn prefWidth="126.0">
+                                 <cellValueFactory>
+                                    <PropertyValueFactory property="name" />
+                                 </cellValueFactory>
+                              </TableColumn>
                           </columns>
                         </TableView>
                      </children>
                   </VBox>
-                  <VBox prefHeight="920.0" prefWidth="283.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                  <VBox prefHeight="920.0" prefWidth="137.0" spacing="10.0" HBox.hgrow="ALWAYS">
                      <children>
-                        <AnchorPane prefHeight="437.0" prefWidth="522.0" VBox.vgrow="ALWAYS">
+                        <Label alignment="CENTER" prefHeight="16.0" prefWidth="598.0" />
+                        <AnchorPane prefHeight="837.0" prefWidth="553.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label alignment="CENTER" layoutX="125.0" layoutY="33.0" prefHeight="31.0" prefWidth="44.0" text="nimi:" />
+                              <Label fx:id="recipeNameLabel" alignment="CENTER" layoutX="52.0" layoutY="25.0" prefHeight="31.0" prefWidth="418.0" text="RESEPTIN NIMI" />
                               <Label alignment="CENTER" layoutX="19.0" layoutY="64.0" prefHeight="31.0" prefWidth="156.0" text="ohjeet valmistukseen:" />
                               <Label alignment="CENTER" layoutX="90.0" layoutY="175.0" prefHeight="31.0" prefWidth="70.0" text="kuvaus:" />
                               <Label alignment="CENTER" layoutX="19.0" layoutY="282.0" prefHeight="31.0" prefWidth="142.0" text="valmistusaika (min):" />
                               <Label alignment="CENTER" layoutX="61.0" layoutY="330.0" prefHeight="31.0" prefWidth="108.0" text="raaka-aineet:" />
-                              <TextField layoutX="172.0" layoutY="36.0" />
-                              <TextArea layoutX="174.0" layoutY="73.0" prefHeight="84.0" prefWidth="296.0" />
-                              <TextArea layoutX="173.0" layoutY="175.0" prefHeight="91.0" prefWidth="299.0" />
-                              <TextField layoutX="172.0" layoutY="284.0" />
+                              <TextArea fx:id="instructionArea" editable="false" layoutX="174.0" layoutY="73.0" prefHeight="84.0" prefWidth="296.0" />
+                              <TextArea fx:id="descriptionArea" editable="false" layoutX="173.0" layoutY="175.0" prefHeight="91.0" prefWidth="299.0" />
+                              <TextField fx:id="cookTimeField" editable="false" layoutX="172.0" layoutY="284.0" />
+                              <TableView fx:id="recipeFoodsView" layoutX="33.0" layoutY="361.0" prefHeight="417.0" prefWidth="584.0">
+                                <columns>
+                                    <TableColumn prefWidth="191.0" text="nimi" >
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="name" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn prefWidth="223.0" text="valmistaja" >
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="manufacturer" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn prefWidth="78.0" text="paino kg" >
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="weight" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                    <TableColumn prefWidth="92.0" text="määrä kpl" >
+                                        <cellValueFactory>
+                                            <PropertyValueFactory property="amount" />
+                                        </cellValueFactory>
+                                    </TableColumn>
+                                </columns>
+                              </TableView>
                            </children>
                         </AnchorPane>
                         <Pane prefHeight="47.0" prefWidth="484.0" />

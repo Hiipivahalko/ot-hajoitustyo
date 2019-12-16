@@ -1,6 +1,10 @@
 package ot.foodstorage.service;
 
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import ot.foodstorage.dao.FoodDao;
 import ot.foodstorage.dao.LayoutDao;
@@ -16,7 +20,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class AppServiceTest {
+public class AppServiceTest extends Application {
 
     private AppService appService;
     private Database db = new Database("jdbc:sqlite:test.db");
@@ -25,10 +29,19 @@ public class AppServiceTest {
     RecipeDao recipeDao = new RecipeDao(db, "recipe");
     ShoppingBasketDao shoppingBasketDao = new ShoppingBasketDao(db, "shoppingbasket");
 
-    private Food food1 = new Food("food1", "manu1", "jääkaappi", 1, -1, 1);
-    private Food food2 = new Food("food2", "manu2", "jääkaappi", 300, -1, 4);
-    private Food food3 = new Food("food3", "manu3", "kuivakaappi", 4, -1, 1);
-    private Food food4 = new Food("food4", "manu4", "pakastin", 50, -1, 1);
+    private Food food1 = new Food("food1", "manu1", "jääkaappi", 1, 1);
+    private Food food2 = new Food("food2", "manu2", "jääkaappi", 300, 4);
+    private Food food3 = new Food("food3", "manu3", "kuivakaappi", 4, 1);
+    private Food food4 = new Food("food4", "manu4", "pakastin", 50,  1);
+
+    @BeforeClass
+    public static void setClass() {
+        try {
+            launch();
+        } catch (Exception e) {
+
+        }
+    }
 
     /**
      * funktio raaka-aineiden tallentamiseksi testeissä
@@ -187,4 +200,8 @@ public class AppServiceTest {
     }
 
 
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Platform.exit();
+    }
 }

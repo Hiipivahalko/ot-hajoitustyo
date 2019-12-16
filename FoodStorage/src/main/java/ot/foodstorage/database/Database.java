@@ -128,6 +128,7 @@ public class Database {
         return "CREATE TABLE IF NOT EXISTS" +
                 " shoppingbasket(" +
                 " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                " name TEXT NOT NULL," +
                 " items TEXT NOT NULL" +
                 ");";
     }

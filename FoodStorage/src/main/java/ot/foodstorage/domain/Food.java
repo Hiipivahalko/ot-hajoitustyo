@@ -5,6 +5,13 @@
  */
 package ot.foodstorage.domain;
 
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class Food {
 
     private String name;
@@ -13,6 +20,8 @@ public class Food {
     private int weight;
     private int id;
     private int amount;
+    private TextField amountField;
+    private CheckBox checkBox;
 
     public Food(String name, String manufacturer, String preservation, int weight, int id, int amount) {
         this.name = name;
@@ -21,7 +30,21 @@ public class Food {
         this.weight = weight;
         this.id = id;
         this.amount = amount;
+        this.amountField = new TextField();
+        this.checkBox = new CheckBox();
     }
+
+    public Food(String name, String manufacturer, String preservation, int weight,  int amount) {
+        this.name = name;
+        this.manufacturer = manufacturer;
+        this.preservation = preservation;
+        this.weight = weight;
+        this.id = -1;
+        this.amount = amount;
+        //this.amountField = new TextField();
+        //this.checkBox = new CheckBox();
+    }
+
 
     ////// GETTERIT
     public String getName() {
@@ -48,6 +71,14 @@ public class Food {
         return amount;
     }
 
+    public CheckBox getCheckBox() {
+        return checkBox;
+    }
+
+    public TextField getAmountField() {
+        return amountField;
+    }
+
     ///// SETTERIT
     public void setName(String name) {
         this.name = name;
@@ -68,6 +99,16 @@ public class Food {
     public void setAmount(int amount) {
         this.amount = amount;
     }
+
+    public void setAmountField(TextField amountField) {
+        this.amountField = amountField;
+    }
+
+    public void setCheckBox(CheckBox checkBox) {
+        this.checkBox = checkBox;
+    }
+
+
 
     @Override
     public boolean equals(Object o) {

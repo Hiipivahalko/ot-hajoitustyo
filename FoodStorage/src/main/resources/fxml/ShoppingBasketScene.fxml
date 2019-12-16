@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -20,39 +19,39 @@
          <top>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <buttons>
-                <Button mnemonicParsing="false" onAction="#goBackToFoodList" text="ruokavarastoon" />
-                  <Button mnemonicParsing="false" onAction="#goRecipeList" text="reseptit listaukseen" />
+                <Button mnemonicParsing="false" onAction="#goBackToFoodList" text="ruokavarasto" />
+                  <Button mnemonicParsing="false" onAction="#goRecipeList" text="reseptit" />
               </buttons>
             </ButtonBar>
          </top>
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                  <VBox prefHeight="920.0" prefWidth="15.0" HBox.hgrow="ALWAYS">
                      <children>
                          <Label alignment="CENTER" contentDisplay="CENTER" text="Ostoskori" textAlignment="CENTER">
                              <font>
                                  <Font name="System Bold" size="13.0" />
                              </font>
                          </Label>
-                        <TableView fx:id="basketView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                        <TableView fx:id="basketView" prefHeight="904.0" prefWidth="461.0" VBox.vgrow="ALWAYS">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="nimi">
+                            <TableColumn prefWidth="126.0" text="nimi">
                               <cellValueFactory>
                                   <PropertyValueFactory property="name" />
                               </cellValueFactory>
                             </TableColumn>
-                            <TableColumn prefWidth="83.0" text="valmistaja">
+                            <TableColumn prefWidth="151.0" text="valmistaja">
                               <cellValueFactory>
                                   <PropertyValueFactory property="manufacturer" />
                               </cellValueFactory>
                             </TableColumn>
-                              <TableColumn prefWidth="89.0" text="säilytys">
+                              <TableColumn prefWidth="95.0" text="säilytys">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="preservation" />
                                   </cellValueFactory>
                               </TableColumn>
-                              <TableColumn prefWidth="78.0" text="määrä">
+                              <TableColumn prefWidth="60.0" text="määrä">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="amount" />
                                   </cellValueFactory>
@@ -70,24 +69,29 @@
                          </Label>
                         <TableView fx:id="layoutView" prefHeight="100.0" prefWidth="263.0" VBox.vgrow="ALWAYS">
                           <columns>
-                              <TableColumn prefWidth="75.0" text="nimi">
+                              <TableColumn prefWidth="123.0" text="nimi">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="name" />
                                   </cellValueFactory>
                               </TableColumn>
-                            <TableColumn prefWidth="95.0" text="valmistaja">
+                            <TableColumn prefWidth="167.0" text="valmistaja">
                               <cellValueFactory>
                                   <PropertyValueFactory property="manufacturer" />
                               </cellValueFactory>
                             </TableColumn>
-                              <TableColumn prefWidth="95.0" text="säilytys">
+                              <TableColumn prefWidth="96.0" text="säilytys">
                               <cellValueFactory>
                                   <PropertyValueFactory property="preservation" />
                               </cellValueFactory>
                               </TableColumn>
-                              <TableColumn prefWidth="95.0" text="paino (g)">
+                              <TableColumn text="paino (g)">
                                  <cellValueFactory>
                                     <PropertyValueFactory property="weight" />
+                                 </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn prefWidth="59.0" text="määrä">
+                                 <cellValueFactory>
+                                    <PropertyValueFactory property="amountField" />
                                  </cellValueFactory>
                               </TableColumn>
                           </columns>
@@ -99,8 +103,21 @@
                          </Label>
                         <TableView fx:id="recepiView" prefHeight="100.0" prefWidth="264.0" VBox.vgrow="ALWAYS">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="nimi" />
-                            <TableColumn maxWidth="1.7976931348623157E308" prefWidth="75.0" text="kuvaus" />
+                              <TableColumn prefWidth="209.0" text="nimi">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="name" />
+                                  </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn maxWidth="1.7976931348623157E308" prefWidth="258.0" text="kuvaus">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="description" />
+                                  </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn prefWidth="57.0" text="määrä">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="amountField" />
+                                  </cellValueFactory>
+                              </TableColumn>
                           </columns>
                         </TableView>
                      </children>
@@ -108,17 +125,12 @@
                </children>
             </HBox>
          </center>
-         <left>
-            <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-               <children>
-                  <TextField fx:id="amountField" promptText="määrä mitä lisätää" />
-               </children></VBox>
-         </left>
          <bottom>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <buttons>
+                  <Label fx:id="errorLabel" prefHeight="16.0" prefWidth="340.0" text="Valitse tuote tai aseta numero määrä kenttään" textFill="#000203" />
+                  <Button mnemonicParsing="false" onAction="#AddRecipeToBasket" prefHeight="26.0" text="lisää resepti koriin" />
                 <Button mnemonicParsing="false" onAction="#addLayoutToBasket" text="lisää raaka-aine koriin" />
-                  <Button mnemonicParsing="false" text="lisää resepti koriin" />
               </buttons>
             </ButtonBar>
          </bottom>

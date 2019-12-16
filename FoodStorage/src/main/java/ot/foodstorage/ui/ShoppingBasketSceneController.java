@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import ot.foodstorage.domain.Food;
@@ -21,23 +22,24 @@ public class ShoppingBasketSceneController extends Controller{
     private ObservableList<Recipe> recipes;
     @FXML private TableView<Layout> layoutView;
     @FXML private TableView<Food> basketView;
-    @FXML private TableView recepiView;
+    @FXML private TableView<Recipe> recepiView;
     @FXML private TextField amountField;
-
+    @FXML private Label errorLabel;
 
     @FXML
     public void addLayoutToBasket(ActionEvent event) {
-        if (layoutView.getSelectionModel().getSelectedItem() != null) {
+        try {
             Layout temp = layoutView.getSelectionModel().getSelectedItem();
-            int a = Integer.parseInt(amountField.getText());
+            int a = Integer.parseInt(temp.getAmountField().getText());
             Food f = new Food(temp.getName(), temp.getManufacturer(), temp.getPreservation(), temp.getWeight(), -1, a);
             appService.addItemToShoppingBasket(f);
             setUpBasket();
+        } catch (Exception e) {
+            errorLabel.setVisible(true);
         }
     }
 
     private void setUpBasket() {
-        for (Food f : appService.getShoppingBasket().getItems()) System.out.println(f.getName());
         this.basketItems = FXCollections.observableList(appService.getShoppingBasket().getItems());
         this.basketView.setItems(basketItems);
     }
@@ -45,7 +47,21 @@ public class ShoppingBasketSceneController extends Controller{
     public void setUpPage(List<Layout> layouts) {
         this.layouts = FXCollections.observableList(layouts);
         this.layoutView.setItems(this.layouts);
+        recepiView.setItems(FXCollections.observableList(appService.getAllRecipes()));
         setUpBasket();
+        errorLabel.setVisible(false);
+    }
+
+    @FXML
+    public void AddRecipeToBasket(ActionEvent event) {
+        try {
+            Recipe r = recepiView.getSelectionModel().getSelectedItem();
+            int amount = Integer.parseInt(r.getAmountField().getText());
+            appService.addRecipeToBasket(r, amount);
+            setUpBasket();
+        } catch (Exception e) {
+            errorLabel.setVisible(true);
+        }
     }
 
 

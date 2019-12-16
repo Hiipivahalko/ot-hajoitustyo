@@ -4,10 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import ot.foodstorage.domain.Food;
 import ot.foodstorage.domain.Recipe;
 
@@ -21,7 +18,9 @@ public class NewRecipeSceneController extends Controller {
     @FXML private TextArea newDescriptonField;
     @FXML private TextField newCookTimeField;
     @FXML private TableView<Food> foodTable;
-    @FXML private TableView selectView;
+    @FXML private Label errorLabel;
+    //@FXML private TableView<TextField> amountView;
+
 
     private ObservableList<Food> foodsList;
 
@@ -29,19 +28,32 @@ public class NewRecipeSceneController extends Controller {
     public void saveNewRecipe(ActionEvent event) {
         List<Food> recipeFoods = new ArrayList<>();
         //recipeFoods.add(foodsComboBox.getValue());
-
-        Recipe r = new Recipe(-1, newNameField.getText().toLowerCase(), recipeFoods, Integer.parseInt(newCookTimeField.getText())
-                , newDescriptonField.getText(), newInstructionField.getText());
-        appService.addNewRecipe(r);
+        int cookTime = -1;
+        String name, description, instruction;
+        try {
+            cookTime = Integer.parseInt(newCookTimeField.getText());
+            name = newNameField.getText();
+            description = newDescriptonField.getText();
+            instruction = newInstructionField.getText();
+            Recipe r = new Recipe(-1, name, recipeFoods, cookTime
+                    , description, instruction);
+            if (!appService.addNewRecipe(r,  foodTable.getItems())) {
+                errorLabel.setVisible(true);
+                return;
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            errorLabel.setVisible(true);
+            return;
+        }
+        goRecipeList(event);
     }
 
     public void setUpPage() {
         foodsList = FXCollections.observableList(appService.getAllFoods());
         foodTable.setItems(foodsList);
-
-        foodTable.getSelectionModel().setSelectionMode(
-                SelectionMode.MULTIPLE
-        );
+        errorLabel.setVisible(false);
 
     }
 

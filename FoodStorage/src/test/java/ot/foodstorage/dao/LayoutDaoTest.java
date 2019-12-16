@@ -1,7 +1,11 @@
 package ot.foodstorage.dao;
 
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import ot.foodstorage.database.Database;
 import ot.foodstorage.domain.Layout;
@@ -10,7 +14,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class LayoutDaoTest {
+public class LayoutDaoTest  extends Application {
 
     private LayoutDao layoutDao;
     private Database db;
@@ -20,6 +24,15 @@ public class LayoutDaoTest {
     private Layout layout3 = new Layout(1, "milk", "nönnönnöö", "jääkaappi", 2);
     private Layout layout4 = new Layout(1, "juusto", "valio", "jääkaappi", 1);
     private Layout layout5 = new Layout(1, "juusto", "arla", "jääkaappi", 1);
+
+    @BeforeClass
+    public static void setClass() {
+        try {
+            launch();
+        } catch (Exception e) {
+
+        }
+    }
 
     @Before
     public void setUp() throws Exception {
@@ -79,5 +92,10 @@ public class LayoutDaoTest {
 
     @Test
     public void filterFromAll() {
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Platform.exit();
     }
 }

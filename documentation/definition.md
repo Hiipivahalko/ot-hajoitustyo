@@ -11,14 +11,14 @@ Sovelluksella on vain yksi käyttäjä. Käyttäjän ei tarvitse kirjautua eriks
 ### Sovelluksen toiminnallisuuksia
 
 * (tehty) Käyttäjä pystyy lisäämään raaka-aineita varastoon
-* Käyttäjä pystyy lisäämään reseptilistaan uusia reseptejä 
+* (tehty) Käyttäjä pystyy lisäämään reseptilistaan uusia reseptejä 
 * Käyttäjä voi valmistaa aterioita reseptin mukaan raaka-aineista varastoon
 * (tehty) raaka-aineen puolesta) Käyttäjä pystyy poistamaan raaka-aineen/aterian varastosta 
 * (tehty) Käyttäjä pystyy hakemaan raaka-aineita varastosta
 * (tehty) Käyttäjä pystyy järjestelemään raaka-aineiden listaus järjestystä
 * (tehty) Käyttäjä pystyy rakentamaan seuraavan kerran ostoslistaa
 * Kaupassa käynnin jälkeen käyttäjä voi lisätä suoraan ostoslistan tuotteet varastoon
-* Käyttäjä voi lisätä valmiita reseptejä myös ostoslistalle, jolloin tuotteet jotka puuttuvat, lisätään listalle
+* (tehty) Käyttäjä voi lisätä valmiita reseptejä myös ostoslistalle, jolloin tuotteet jotka puuttuvat, lisätään listalle
 
 ### Mahdollisia kehitysideoita
 
