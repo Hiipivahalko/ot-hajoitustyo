@@ -22,7 +22,7 @@
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <buttons>
                 <Button mnemonicParsing="false" onAction="#goShoppingBasket" text="ostoslista" />
-                  <Button mnemonicParsing="false" onAction="#goBackToFoodList" text="ruokavarasto" />
+                  <Button mnemonicParsing="false" onAction="#goBackToFoodList" text="varasto" />
               </buttons>
             </ButtonBar>
          </top>
@@ -82,22 +82,22 @@
                               <TextField fx:id="cookTimeField" editable="false" layoutX="172.0" layoutY="284.0" />
                               <TableView fx:id="recipeFoodsView" layoutX="33.0" layoutY="361.0" prefHeight="417.0" prefWidth="584.0">
                                 <columns>
-                                    <TableColumn prefWidth="191.0" text="nimi" >
+                                    <TableColumn prefWidth="191.0" text="nimi">
                                         <cellValueFactory>
                                             <PropertyValueFactory property="name" />
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn prefWidth="223.0" text="valmistaja" >
+                                    <TableColumn prefWidth="223.0" text="valmistaja">
                                         <cellValueFactory>
                                             <PropertyValueFactory property="manufacturer" />
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn prefWidth="78.0" text="paino kg" >
+                                    <TableColumn prefWidth="78.0" text="paino kg">
                                         <cellValueFactory>
                                             <PropertyValueFactory property="weight" />
                                         </cellValueFactory>
                                     </TableColumn>
-                                    <TableColumn prefWidth="92.0" text="määrä kpl" >
+                                    <TableColumn prefWidth="92.0" text="määrä kpl">
                                         <cellValueFactory>
                                             <PropertyValueFactory property="amount" />
                                         </cellValueFactory>

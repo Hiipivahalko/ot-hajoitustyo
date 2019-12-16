@@ -62,6 +62,7 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket, Integer> {
     }
 
     private void update(ShoppingBasket basket) {
+        System.out.println("here");
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("UPDATE " + tableName + " SET items = ? " +
@@ -77,8 +78,15 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket, Integer> {
     }
 
     @Override
-    public void delete(Integer key) throws SQLException {
-
+    public void delete(Integer key) {
+        try {
+            Connection conn = db.getConnection();
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM " + tableName + " WHERE name = 'basket';");
+            stmt.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -96,6 +104,7 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket, Integer> {
             while (rs.next()) {
                 ShoppingBasket basket = new ShoppingBasket(rs.getInt("id"),
                         handleItems(rs.getString("items")));
+                basket.setListToString(rs.getString("items"));
                 baskets.add(basket);
             }
 
@@ -109,13 +118,14 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket, Integer> {
     }
 
     private List<Food> handleItems(String s) {
-        //StringBuilder sb = new StringBuilder();
         List<Food> shoppingItems = new ArrayList<>();
         String[] items = s.split(",");
         for (String next : items) {
+            if (next.length() == 0) {
+                continue;
+            }
             String[] item = next.split(";");
             int weight = Integer.parseInt(item[3]);
-            //int id = Integer.parseInt(item[4]);
             int amount = Integer.parseInt(item[4]);
             shoppingItems.add(new Food(item[0], item[1], item[2], weight, -1, amount));
         }

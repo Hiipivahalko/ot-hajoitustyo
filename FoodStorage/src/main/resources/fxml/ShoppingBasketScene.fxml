@@ -19,7 +19,7 @@
          <top>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <buttons>
-                <Button mnemonicParsing="false" onAction="#goBackToFoodList" text="ruokavarasto" />
+                <Button mnemonicParsing="false" onAction="#goBackToFoodList" text="varasto" />
                   <Button mnemonicParsing="false" onAction="#goRecipeList" text="reseptit" />
               </buttons>
             </ButtonBar>
@@ -29,6 +29,7 @@
                <children>
                   <VBox prefHeight="920.0" prefWidth="15.0" HBox.hgrow="ALWAYS">
                      <children>
+                        <Button mnemonicParsing="false" onAction="#addItemsToStorage" prefHeight="178.0" prefWidth="369.0" text="Tuotteet hankittu -&gt; lisää tuotteet varastoon" />
                          <Label alignment="CENTER" contentDisplay="CENTER" text="Ostoskori" textAlignment="CENTER">
                              <font>
                                  <Font name="System Bold" size="13.0" />
@@ -128,7 +129,7 @@
          <bottom>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <buttons>
-                  <Label fx:id="errorLabel" prefHeight="16.0" prefWidth="340.0" text="Valitse tuote tai aseta numero määrä kenttään" textFill="#000203" />
+                  <Label fx:id="errorLabel" prefHeight="16.0" prefWidth="340.0" text="Valitse tuote tai aseta numero määrä kenttään" textFill="#030000" />
                   <Button mnemonicParsing="false" onAction="#AddRecipeToBasket" prefHeight="26.0" text="lisää resepti koriin" />
                 <Button mnemonicParsing="false" onAction="#addLayoutToBasket" text="lisää raaka-aine koriin" />
               </buttons>

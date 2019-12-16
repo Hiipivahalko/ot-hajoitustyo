@@ -39,11 +39,15 @@ public class LayoutSceneController extends Controller {
     }
 
     @FXML
-    public void addExistRawMaterial(ActionEvent event) throws IOException {
-        if (layoutView.getSelectionModel().getSelectedItem() != null) {
+    public void addExistRawMaterial(ActionEvent event) {
+        try {
             Layout selected = layoutView.getSelectionModel().getSelectedItem();
-            appService.saveNewFood(selected.getName(), selected.getManufacturer(), selected.getPreservation(),
-                    selected.getWeight(), Integer.parseInt(amountField.getText()));
+            Food food = new Food(selected.getName(), selected.getManufacturer(), selected.getPreservation(),
+                    selected.getWeight(), Integer.parseInt(selected.getAmountField().getText()));
+            appService.saveNewFood(food);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
 
     }

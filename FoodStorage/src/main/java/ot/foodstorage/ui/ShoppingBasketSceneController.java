@@ -36,11 +36,14 @@ public class ShoppingBasketSceneController extends Controller{
             setUpBasket();
         } catch (Exception e) {
             errorLabel.setVisible(true);
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
     private void setUpBasket() {
         this.basketItems = FXCollections.observableList(appService.getShoppingBasket().getItems());
+        this.basketView.refresh();
         this.basketView.setItems(basketItems);
     }
 
@@ -61,9 +64,16 @@ public class ShoppingBasketSceneController extends Controller{
             setUpBasket();
         } catch (Exception e) {
             errorLabel.setVisible(true);
+            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
-
+    @FXML
+    public void addItemsToStorage(ActionEvent event) {
+        if (appService.addBasketItemsToStorageAndClearItemList()) {
+            setUpBasket();
+        }
+    }
 
 }

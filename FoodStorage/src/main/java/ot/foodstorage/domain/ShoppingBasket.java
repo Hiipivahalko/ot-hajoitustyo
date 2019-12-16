@@ -45,13 +45,14 @@ public class ShoppingBasket {
         this.id = id;
     }
 
+    public void setListToString(String items) {
+        itemsAtString = new StringBuilder(items);
+    }
+
     public void addItem(Food food) {
         items.add(food);
-        if (items.size() > 1) {
-            itemsAtString.append(",");
-        }
         itemsAtString.append(food.getName() + ";" + food.getManufacturer() + ";" + food.getPreservation() + ";" +
-                food.getWeight() + ";" + food.getAmount());
+                food.getWeight() + ";" + food.getAmount() + ",");
     }
 
     public void updateItem(int index, int addedAmount, String name) {
@@ -62,16 +63,12 @@ public class ShoppingBasket {
         for (String part : parts) {
             String[] food = part.split(";");
             if (food[0].equals(name)) {
-                food[3] = String.valueOf(newAmount);
+                food[4] = String.valueOf(newAmount);
                 part = food[0] + ";" + food[1] + ";" + food[2] + ";" + food[3] + ";" + food[4];
             }
-            if (sb.length() == 0) {
-                sb.append(part);
-            } else {
-                sb.append("," + part);
-            }
+            sb.append(part + ",");
+            itemsAtString = sb;
         }
-
     }
 
 }

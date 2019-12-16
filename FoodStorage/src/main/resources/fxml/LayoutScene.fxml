@@ -4,13 +4,12 @@
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ot.foodstorage.ui.LayoutSceneController">
+<AnchorPane prefHeight="1000.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ot.foodstorage.ui.LayoutSceneController">
    <children>
       <BorderPane layoutX="172.0" layoutY="62.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <top>
@@ -24,7 +23,6 @@
             <VBox prefHeight="336.0" prefWidth="163.0" BorderPane.alignment="CENTER">
                <children>
                   <Button mnemonicParsing="false" onAction="#addExistRawMaterial" prefHeight="41.0" prefWidth="163.0" text="Lisää" VBox.vgrow="ALWAYS" />
-                  <TextField fx:id="amountField" promptText="määrä" />
                </children>
             </VBox>
          </left>
@@ -49,6 +47,11 @@
                   <TableColumn prefWidth="101.0" text="paino (g)">
                      <cellValueFactory>
                         <PropertyValueFactory property="weight" />
+                     </cellValueFactory>
+                  </TableColumn>
+                  <TableColumn prefWidth="101.0" text="määrä">
+                     <cellValueFactory>
+                        <PropertyValueFactory property="amountField" />
                      </cellValueFactory>
                   </TableColumn>
               </columns>

@@ -48,7 +48,9 @@ public class AppServiceTest extends Application {
      * @param food - tallennettava ruoka
      */
     private void saveFoodInTest(Food food) {
-        appService.saveNewFood(food.getName(), food.getManufacturer(), food.getPreservation(), food.getWeight(), food.getAmount());
+        //appService.saveNewFood(food.getName(), food.getManufacturer(), food.getPreservation(), food.getWeight(),
+        // food.getAmount());
+        appService.saveNewFood(food);
     }
 
     /**
@@ -62,7 +64,7 @@ public class AppServiceTest extends Application {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         this.appService = new AppService(foodDao, layoutDao, recipeDao, shoppingBasketDao);
         db.initializeDatabase();
         assertEquals(0, foodDao.findAll().size());
@@ -74,9 +76,9 @@ public class AppServiceTest extends Application {
      * @throws SQLException
      */
     @Test
-    public void saveNewFood() throws SQLException {
-        appService.saveNewFood("testiRuoka", "valmistajaTesti",
-                "jääkaappi", 1, 1);
+    public void saveNewFood() {
+        Food test = new Food("testiRuoka", "valmistajaTesti", "jääkaappi", 1, 1);
+        appService.saveNewFood(test);
         assertEquals(1, foodDao.findAll().size());
     }
 
@@ -85,13 +87,19 @@ public class AppServiceTest extends Application {
      * @throws SQLException
      */
     @Test
-    public void saveNewFood2() throws SQLException {
-        appService.saveNewFood("testiRuoka", "valmistajaTesti",
+    public void saveNewFood2() {
+        Food test1 = new Food("testiruoka", "valmistajaTesti", "jääkaappi", 1, 1);
+        Food test2 = new Food("testiruoka2", "valmistajaTesti2", "jääkaappi", 1, 1);
+        Food test3 = new Food("testiruoka3", "valmistajaTesti", "jääkaappi", 1, 1);
+        /*appService.saveNewFood("testiRuoka", "valmistajaTesti",
                 "jääkaappi", 1, 1);
         appService.saveNewFood("testiRuoka2", "valmistajaTesti2",
                 "jääkaappi", 3, 1);
         appService.saveNewFood("testiRuoka3", "valmistajaTesti",
-                "jääkaappi", 1, 1);
+                "jääkaappi", 1, 1);*/
+        appService.saveNewFood(test1);
+        appService.saveNewFood(test2);
+        appService.saveNewFood(test3);
         List<Food> foods = foodDao.findAll();
         assertEquals(3, foods.size());
         assertEquals("testiruoka", foods.get(0).getName());

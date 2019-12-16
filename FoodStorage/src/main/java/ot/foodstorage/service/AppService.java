@@ -5,6 +5,7 @@
  */
 package ot.foodstorage.service;
 
+import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import ot.foodstorage.dao.FoodDao;
 import ot.foodstorage.dao.LayoutDao;
 import ot.foodstorage.dao.RecipeDao;
@@ -70,19 +71,28 @@ public class AppService {
         return recipes;
     }
 
+
+    /**
+     * Validoi annetun objetin. Tarkastaa onko int arvot epänegatiiviset sekä onko string arvot epätyhjät
+     * @param food tarkastettava objekti
+     */
+    private void validateFood(Food food) {
+        if (food.getAmount() < 1 || food.getWeight() < 1) {
+            throw new ValueException("amount were negative or zero");
+        } else if (food.getName().trim().isEmpty() || food.getManufacturer().trim().isEmpty() ||
+            food.getPreservation().trim().isEmpty()) {
+            throw new ValueException("string was empty");
+        }
+    }
+
     /**
      * Luo uuden ruoka-olion ja tallentaa sen tietokantaan
-     * @param name nimi
-     * @param manufacturer valmistaja
-     * @param preservation säilytys
-     * @param weight paino
-     * @param amount tuotteen määrä
+     * @param food tallennettava ruoka
      */
-    public void saveNewFood(String name, String manufacturer, String preservation, int weight, int amount) {
-        Food newFood = new Food(name.toLowerCase(), manufacturer.toLowerCase(), preservation.toLowerCase(),
-                weight, -1, amount);
-        checkIfLayoutExistAndCreate(newFood);
-        foodDao.saveOrUpdate(newFood);
+    public void saveNewFood(Food food) {
+        validateFood(food);
+        checkIfLayoutExistAndCreate(food);
+        foodDao.saveOrUpdate(food);
     }
 
     /**
@@ -109,7 +119,6 @@ public class AppService {
      * @param newFood lisättävä raaka-aine
      */
     public void checkIfLayoutExistAndCreate(Food newFood) {
-
         Layout newLayout = new Layout(-1, newFood.getName(), newFood.getManufacturer(), newFood.getPreservation(),
                 newFood.getWeight());
         boolean already = false;
@@ -118,11 +127,9 @@ public class AppService {
                 already = true;
             }
         }
-
         if (!already) {
             layoutDao.saveOrUpdate(newLayout);
             layouts.add(newLayout);
-
         }
     }
 
@@ -196,24 +203,38 @@ public class AppService {
         List<Food> selected = new ArrayList<>();
 
         for (Food next : foods) {
+            Food temp = new Food(next.getName(), next.getManufacturer(), next.getPreservation(), next.getWeight(),
+                    next.getAmount());
             if (!next.getCheckBox().isSelected()) {
                 continue;
             }
             if (next.getAmountField().getText() != null || next.getAmountField().getText().length() > 0) {
                 try {
                     int amount = Integer.parseInt(next.getAmountField().getText());
+                    temp.setAmount(amount);
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
+                    e.printStackTrace();
                     return null;
                 }
             } else {
                 return null;
             }
-            selected.add(next);
+            selected.add(temp);
         }
         return selected;
     }
 
-
+    public boolean addBasketItemsToStorageAndClearItemList() {
+        if (shoppingBasket.getItems().size() > 0) {
+            for (Food next : shoppingBasket.getItems()) {
+                saveNewFood(next);
+            }
+            shoppingBasket.setItems(new ArrayList<>());
+            shoppingBasketDao.delete(-1);
+            return true;
+        }
+        return false;
+    }
 
 }

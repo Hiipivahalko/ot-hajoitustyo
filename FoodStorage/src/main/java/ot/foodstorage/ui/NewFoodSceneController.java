@@ -16,6 +16,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import ot.foodstorage.domain.Food;
 
 
 public class NewFoodSceneController extends Controller {
@@ -92,13 +93,11 @@ public class NewFoodSceneController extends Controller {
     public void addNewFood(ActionEvent event) {
         int weigth = Integer.parseInt(weightField.getText());
         String preservation = preservationChoice.getValue();
+        Food food = new Food(nameField.getText().toLowerCase(), manufacturerField.getText().toLowerCase(),
+                preservation.toLowerCase(), weigth, Integer.parseInt(amount.getText()));
 
         if (appService != null) {
-            appService.saveNewFood(nameField.getText().toLowerCase(),
-                    manufacturerField.getText().toLowerCase(),
-                    preservation.toLowerCase(),
-                    weigth,
-                    Integer.parseInt(amount.getText()));
+            appService.saveNewFood(food);
         } else System.out.println("it was null");
         stage.close();
     }

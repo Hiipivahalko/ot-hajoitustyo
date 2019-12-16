@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -27,8 +26,6 @@
                   <Label layoutX="192.0" layoutY="118.0" text="Valmistaja:" />
                   <Label layoutX="201.0" layoutY="203.0" text="Säilytys:" />
                   <Label layoutX="216.0" layoutY="159.0" text="Paino:" />
-                  <Label layoutX="207.0" layoutY="248.0" text="Eräpäivä:" />
-                  <DatePicker fx:id="dueDateField" layoutX="273.0" layoutY="243.0" />
                   <ChoiceBox fx:id="preservationChoice" layoutX="273.0" layoutY="198.0" prefHeight="26.0" prefWidth="171.0">
                      <items>
                         <FXCollections fx:factory="observableArrayList">
@@ -43,8 +40,8 @@
                         <Font name="System Bold" size="17.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="amount" layoutX="273.0" layoutY="283.0" />
-                  <Label layoutX="218.0" layoutY="288.0" text="Määrä:" />
+                  <TextField fx:id="amount" layoutX="273.0" layoutY="241.0" />
+                  <Label layoutX="214.0" layoutY="238.0" text="Määrä:" />
                </children>
             </AnchorPane>
          </center>

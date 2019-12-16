@@ -35,7 +35,7 @@
          <top>
             <ButtonBar prefHeight="42.0" prefWidth="744.0" BorderPane.alignment="CENTER">
                <buttons>
-                <Button mnemonicParsing="false" onAction="#goRecipeList" text="näytä reseptit" />
+                <Button mnemonicParsing="false" onAction="#goRecipeList" text="reseptit" />
                   <Button mnemonicParsing="false" onAction="#goShoppingBasket" text="ostoslista" />
                </buttons>
             </ButtonBar>
@@ -44,17 +44,15 @@
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <buttons>
                 <Button mnemonicParsing="false" text="Näytä tarkemmin" />
-                  <Button mnemonicParsing="false" onAction="#deleteFood" text="poista" />
+                  <Button mnemonicParsing="false" onAction="#deleteFood" text="syö raaka-aine" />
+                  <Button mnemonicParsing="false" text="syö valmis resepti" />
                </buttons>
             </ButtonBar>
          </bottom>
-         <right>
-            <Pane prefHeight="421.0" prefWidth="39.0" BorderPane.alignment="CENTER" />
-         </right>
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
                <children>
-                  <VBox prefHeight="918.0" prefWidth="487.0">
+                  <VBox prefHeight="918.0" prefWidth="487.0" spacing="10.0">
                      <children>
                         <Label text="raaka-aineet">
                            <font>
@@ -97,13 +95,14 @@
                         </Label>
                         <TableView fx:id="readyRecipeView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn prefWidth="213.0" text="nimi" />
+                            <TableColumn prefWidth="205.0" text="kuvaus" />
+                              <TableColumn prefWidth="68.0" text="määrä" />
                           </columns>
                         </TableView>
                      </children>
                   </VBox>
-                  <VBox prefHeight="918.0" prefWidth="336.0">
+                  <VBox prefHeight="918.0" prefWidth="336.0" spacing="10.0" HBox.hgrow="ALWAYS">
                      <children>
                         <Label text="reseptit mitä voidaa tehdä tällä hetkellä">
                            <font>
@@ -112,8 +111,9 @@
                         </Label>
                         <TableView fx:id="possibleRecipeView" prefHeight="918.0" prefWidth="191.0" VBox.vgrow="ALWAYS">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="C1" />
-                            <TableColumn prefWidth="75.0" text="C2" />
+                            <TableColumn prefWidth="144.0" text="nimi" />
+                            <TableColumn prefWidth="173.0" text="kuvaus" />
+                              <TableColumn prefWidth="59.0" text="määrä" />
                           </columns>
                         </TableView>
                      </children>
