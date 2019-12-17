@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * Luokka Food-luokkien tietokanta käsittelyille/tapahtumille
  */
-public class FoodDao  implements Dao<Food, Integer> {
+public class FoodDao  implements Dao<Food> {
 
     private Database db;
     private String tableName;
@@ -28,16 +28,6 @@ public class FoodDao  implements Dao<Food, Integer> {
     public FoodDao(Database db, String tableName) {
         this.db = db;
         this.tableName = tableName;
-    }
-
-    /**
-     * Etsii tietyn rivin tietokannasta
-     * @param key tietokanta rivin ID
-     * @return rivistä muodostettu raaka-aine objekti
-     */
-    @Override
-    public Food findOne(Integer key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     /**
@@ -97,7 +87,7 @@ public class FoodDao  implements Dao<Food, Integer> {
             stmt.setString(3, food.getPreservation());
             stmt.setInt(4, food.getWeight());
             stmt.setInt(5, food.getAmount());
-            stmt.executeUpdate();
+            stmt.execute();
             stmt.close();
             conn.close();
         } catch (SQLException e) {
@@ -127,14 +117,16 @@ public class FoodDao  implements Dao<Food, Integer> {
 
     /**
      * Poistaa tietyn rivin tietokannasta
-     * @param key poistettavan rivin ID
+     * @param food poistettavan rivin
      */
     @Override
-    public void delete(Integer key) {
+    public void delete(Food food) {
         try {
             Connection conn = db.getConnection();
             Statement stmt = conn.createStatement();
-            stmt.execute("DELETE FROM " + tableName + " WHERE id = " + key);
+            stmt.execute("DELETE FROM " + tableName + " WHERE name = '" + food.getName() + "' AND manufacturer = '" +
+                    food.getManufacturer() + "' AND preservation = '" + food.getPreservation() + "' AND weight = '" +
+                    food.getWeight() + "';");
             stmt.close();
             conn.close();
         } catch (SQLException e) {
@@ -179,7 +171,8 @@ public class FoodDao  implements Dao<Food, Integer> {
      * @param query tietokantaan tehtävä kysely
      * @return lista Food olioita
      */
-    private List<Food> selectQuery(String query) {
+    @Override
+    public List<Food> selectQuery(String query) {
         List<Food> foods = new ArrayList<>();
         try {
             Connection conn = db.getConnection();

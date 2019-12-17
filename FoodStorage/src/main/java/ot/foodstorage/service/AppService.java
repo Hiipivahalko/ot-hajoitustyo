@@ -6,16 +6,12 @@
 package ot.foodstorage.service;
 
 import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
-import ot.foodstorage.dao.FoodDao;
-import ot.foodstorage.dao.LayoutDao;
-import ot.foodstorage.dao.RecipeDao;
-import ot.foodstorage.dao.ShoppingBasketDao;
+import ot.foodstorage.dao.*;
 import ot.foodstorage.domain.Food;
 import ot.foodstorage.domain.Recipe;
 import ot.foodstorage.domain.ShoppingBasket;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Käyttöliittymän toiminnallisuuksien toteuttaja luokka, josta päästää käsiksi kaikkiin soveluksen rakenteisiin
@@ -26,10 +22,13 @@ public class AppService {
     private LayoutDao layoutDao;
     private RecipeDao recipeDao;
     private ShoppingBasketDao shoppingBasketDao;
+    private ReadyReacipesDao readyReacipesDao;
     private List<Food> layouts;
     private List<Food> allFoods;
-    private List<Recipe> recipes;
+    private List<Recipe> allRecipes;
+    private List<Recipe> readyRecipe;
     private ShoppingBasket shoppingBasket;
+    private Map<Food, Integer> foodsMap;
 
     /**
      * Toiminnallisuuksien totetuttaja
@@ -38,19 +37,24 @@ public class AppService {
      * @param recipeDao objekti josta päästään käsiksi "Recipe" tietokantatauluun
      * @param shoppingBasketDao objekti josta päästään käsiksi "ShoppingBasket" tietokantatauluun
      */
-    public AppService(FoodDao foodDao, LayoutDao layoutDao, RecipeDao recipeDao, ShoppingBasketDao shoppingBasketDao) {
+    public AppService(FoodDao foodDao, LayoutDao layoutDao, RecipeDao recipeDao, ShoppingBasketDao shoppingBasketDao,
+                      ReadyReacipesDao readyReacipesDao) {
         this.foodDao = foodDao;
         this.layoutDao = layoutDao;
         this.recipeDao = recipeDao;
         this.shoppingBasketDao = shoppingBasketDao;
+        this.readyReacipesDao = readyReacipesDao;
         this.allFoods = foodDao.findAll();
         this.layouts = layoutDao.findAll();
-        this.recipes = recipeDao.findAll();
+        this.allRecipes = recipeDao.findAll();
+        this.readyRecipe = readyReacipesDao.findAll();
+        this.foodsMap = new HashMap<>();
         if (shoppingBasketDao.findAll().size() > 0) {
             this.shoppingBasket = shoppingBasketDao.findAll().get(0);
         } else {
             this.shoppingBasket = new ShoppingBasket(1, new ArrayList<>());
         }
+        initializeMap(this.allFoods);
     }
 
     public List<Food> getLayouts() {
@@ -58,7 +62,7 @@ public class AppService {
     }
 
     public List<Food> getAllFoods() {
-        return foodDao.findAll();
+        return allFoods;
     }
 
     public ShoppingBasket getShoppingBasket() {
@@ -66,9 +70,18 @@ public class AppService {
     }
 
     public List<Recipe> getAllRecipes() {
-        return recipes;
+        return allRecipes;
     }
 
+    public List<Recipe> getAllReadyRecipes() {
+        return readyRecipe;
+    }
+
+    private void initializeMap(List<Food> foods) {
+        for (Food f : foods) {
+            foodsMap.put(f, f.getAmount());
+        }
+    }
 
     /**
      * Validoi annetun objetin. Tarkastaa onko int arvot epänegatiiviset sekä onko string arvot epätyhjät
@@ -90,7 +103,23 @@ public class AppService {
     public void saveNewFood(Food food) {
         validateFood(food);
         checkIfLayoutExistAndCreate(food);
-        foodDao.saveOrUpdate(food);
+        int newValue = food.getAmount();
+        boolean found = false;
+        for (Food f : allFoods) {
+            if (f.equals(food)) {
+                found = true;
+                newValue += f.getAmount();
+                break;
+            }
+        }
+        if (found) {
+            foodDao.update(food, newValue);
+            //foodsMap.put(food)
+        } else {
+            allFoods.add(food);
+            foodDao.save(food);
+        }
+        foodsMap.put(food, foodsMap.getOrDefault(food, 0) + food.getAmount());
     }
 
     /**
@@ -140,7 +169,6 @@ public class AppService {
         for (int i = 0; i < shoppingBasket.getItems().size(); i++) {
             Food next = shoppingBasket.getItems().get(i);
             if (f.equals(next)) {
-                //shoppingBasket.getItems().get(i).setAmount(next.getAmount() + f.getAmount());
                 shoppingBasket.updateItem(i, f.getAmount(), f.getName());
                 already = true;
                 break;
@@ -165,8 +193,100 @@ public class AppService {
         }
     }
 
-    public void deleteFood(int id) {
-        foodDao.delete(id);
+    /**
+     * Vähentää yhden Food objektin varastosta, jos Food objetin määrä tippuu nollaan, poistetaan tuote kokonaan
+     * tietokannasta
+     * @param food vähennettävä objekti
+     * @throws Exception
+     */
+    public void deleteFood(Food food) throws Exception {
+        Iterator<Food> it = allFoods.iterator();
+        while (it.hasNext()) {
+            Food f = it.next();
+            if (f.equals(food)) {
+                if (f.getAmount() > 1) {
+                    foodDao.update(f, f.getAmount() - 1);
+                    f.setAmount(f.getAmount() - 1);
+                    foodsMap.put(f, f.getAmount());
+                } else if (f.getAmount() == 1) {
+                    it.remove();
+                    foodDao.delete(f);
+                    foodsMap.remove(f);
+                } else {
+                    throw new Exception("Yritetään poistaa tuoteta mitä ei pitäisi olla varastossa");
+                }
+            }
+        }
+    }
+
+    public void deleteRecipe(Recipe recipe) {
+        Iterator<Recipe> it = readyRecipe.iterator();
+        while (it.hasNext()) {
+            Recipe r = it.next();
+            if (r.getName().equals(recipe.getName())) {
+                if (r.getAmount() > 1) {
+                    r.setAmount(r.getAmount() - 1);
+                    readyReacipesDao.update(r);
+                } else if (r.getAmount() == 1) {
+                    it.remove();
+                    readyReacipesDao.delete(r);
+                }
+            }
+        }
+    }
+
+    /**
+     * Tarkastaa mitä kaikkia reseptejä pystyttäisiin valmistamaan saatavilla olevista raaka-aineista
+     * @return listan reseptejä
+     */
+    public List<Recipe> checkPossibleRecipes() {
+        List<Recipe> possibleRecipes = new ArrayList<>();
+        for (Recipe r : allRecipes) {
+            boolean allFound = true;
+            for (Food f : r.getFoods()) {
+                int amountOfFood = foodsMap.getOrDefault(f, 0);
+                //System.out.println("a:" + amountOfFood + " f:" + f.getAmount());
+                if (amountOfFood < f.getAmount()) {
+                    allFound = false;
+                    break;
+                }
+            }
+            if (allFound) {
+                possibleRecipes.add(r);
+            }
+        }
+        return possibleRecipes;
+    }
+
+    /**
+     * valmistaa reseptin käytettävissä olevista raaka-aineista
+     * @param recipe valmistettava resepti
+     */
+    public void cookRecipe(Recipe recipe) {
+        recipe.setAmount(1);
+        for (Food f : recipe.getFoods()) {
+            try {
+                deleteFood(f);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+        boolean allReady = false;
+        for (Recipe r : readyRecipe) {
+            if (r.getName().equals(recipe.getName())) {
+                r.addOneAmountMore();
+                recipe = r;
+                allReady = true;
+                break;
+            }
+        }
+        if (!allReady) {
+            readyRecipe.add(recipe);
+            readyReacipesDao.save(recipe);
+        } else {
+            readyReacipesDao.update(recipe);
+        }
     }
 
     /**
@@ -175,20 +295,18 @@ public class AppService {
      */
     public boolean addNewRecipe(Recipe recipe, List<Food> foods) {
         boolean sameAlready = false;
-        for (Recipe next : recipes) {
+        for (Recipe next : allRecipes) {
             if (next.getName().equals(recipe.getName())) {
                 sameAlready = true;
             }
         }
-
         foods = checkBoxes(foods);
-
         if (foods == null || sameAlready || foods.size() == 0) {
             return false;
         }
         recipe.setFoods(foods);
         recipeDao.saveOrUpdate(recipe);
-        recipes.add(recipe);
+        allRecipes.add(recipe);
         return true;
     }
 
@@ -229,7 +347,7 @@ public class AppService {
                 saveNewFood(next);
             }
             shoppingBasket.setItems(new ArrayList<>());
-            shoppingBasketDao.delete(-1);
+            shoppingBasketDao.delete(null);
             return true;
         }
         return false;

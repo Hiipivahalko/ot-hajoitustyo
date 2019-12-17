@@ -13,10 +13,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import ot.foodstorage.dao.FoodDao;
-import ot.foodstorage.dao.LayoutDao;
-import ot.foodstorage.dao.RecipeDao;
-import ot.foodstorage.dao.ShoppingBasketDao;
+import ot.foodstorage.dao.*;
 import ot.foodstorage.database.Database;
 import ot.foodstorage.domain.ShoppingBasket;
 import ot.foodstorage.service.AppService;
@@ -51,7 +48,8 @@ public class Main extends Application {
         LayoutDao layoutDao = new LayoutDao(db, "layout");
         RecipeDao recipeDao = new RecipeDao(db, "recipe");
         ShoppingBasketDao shoppingBasketDao = new ShoppingBasketDao(db, "shoppingbasket");
-        this.appService = new AppService(foodDao, layoutDao, recipeDao, shoppingBasketDao);
+        ReadyReacipesDao readyReacipesDao = new ReadyReacipesDao(db, "readyRecipes");
+        this.appService = new AppService(foodDao, layoutDao, recipeDao, shoppingBasketDao, readyReacipesDao);
         
         FXMLLoader mainPageLoader = new FXMLLoader(getClass().getResource("/fxml/FrontPageScene.fxml"));
         Parent root = mainPageLoader.load();

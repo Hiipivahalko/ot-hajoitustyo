@@ -12,6 +12,7 @@ public class Recipe {
     private String instruction;
     private List<Food> foods;
     private int cookTime;
+    private int amount;
     private TextField amountField;
 
     public Recipe(int id, String name, List<Food> foods, int cookTime, String description, String instruction) {
@@ -22,6 +23,18 @@ public class Recipe {
         this.description = description;
         this.instruction = instruction;
         this.amountField = new TextField();
+        this.amount = -1;
+    }
+
+    public Recipe(int id, String name, List<Food> foods, int cookTime, String description, String instruction, int amount) {
+        this.id = id;
+        this.name = name;
+        this.foods = foods;
+        this.cookTime = cookTime;
+        this.description = description;
+        this.instruction = instruction;
+        this.amountField = new TextField();
+        this.amount = amount;
     }
 
     /// GETTER's
@@ -55,6 +68,10 @@ public class Recipe {
         return amountField;
     }
 
+    public int getAmount() {
+        return amount;
+    }
+
     /// SETTER's
 
     public void setId(int id) {
@@ -83,6 +100,14 @@ public class Recipe {
 
     public void setAmountField(TextField amountField) {
         this.amountField = amountField;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
+    }
+
+    public void addOneAmountMore() {
+        this.amount++;
     }
 
     public String listToString() {

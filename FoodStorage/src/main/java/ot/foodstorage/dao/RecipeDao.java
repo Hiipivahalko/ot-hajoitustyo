@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Luokka Recipe-luokkien tietokanta käsittelyille/tapahtumille
  */
-public class RecipeDao implements Dao<Recipe, Integer> {
+public class RecipeDao implements Dao<Recipe> {
 
     private Database db;
     private String tableName;
@@ -29,13 +29,21 @@ public class RecipeDao implements Dao<Recipe, Integer> {
         this.tableName = tableName;
     }
 
+    public Database getDb() {
+        return db;
+    }
+
+    public String getTableName() {
+        return tableName;
+    }
+
     /**
      * Etsii tietyn rivin tietokannasta
-     * @param key tietokanta rivin ID
+     * @param recipe tietokanta rivi
      * @return rivistä muodostettu Recipe objekti
      */
     @Override
-    public Recipe findOne(Integer key) throws SQLException {
+    public Recipe findOne(Recipe recipe) throws SQLException {
         return null;
     }
 
@@ -57,8 +65,8 @@ public class RecipeDao implements Dao<Recipe, Integer> {
     public void saveOrUpdate(Recipe recipe)  {
         try {
             Connection conn = db.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + " (name, rawMaterials, cookTime, description, instruction)" +
-                    " VALUES (?,?,?,?,?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + " (name, rawMaterials, " +
+                    "cookTime, description, instruction) VALUES (?,?,?,?,?)");
             stmt.setString(1, recipe.getName());
             stmt.setString(2,recipe.listToString());
             stmt.setInt(3, recipe.getCookTime());
@@ -75,10 +83,10 @@ public class RecipeDao implements Dao<Recipe, Integer> {
 
     /**
      * Poistaa tietyn rivin tietokannasta
-     * @param key poistettavan rivin ID
+     * @param recipe poistettavan rivin ID
      */
     @Override
-    public void delete(Integer key) throws SQLException {
+    public void delete(Recipe recipe) throws SQLException {
 
     }
 
@@ -92,7 +100,8 @@ public class RecipeDao implements Dao<Recipe, Integer> {
      * @param query tietokantaan tehtävä kysely
      * @return lista Recipe olioita
      */
-    private List<Recipe> selectQuery(String query) {
+    @Override
+    public List<Recipe> selectQuery(String query) {
         List<Recipe> recipes = new ArrayList<>();
         try {
             Connection conn = db.getConnection();
@@ -119,7 +128,7 @@ public class RecipeDao implements Dao<Recipe, Integer> {
      * @param items Food objektit yhtenä merkkijonona
      * @return lista Food objekteja
      */
-    private List<Food> filterFoods(String items) {
+    public List<Food> filterFoods(String items) {
         List<Food> foods = new ArrayList<>();
         String[] parts = items.split("\t");
         for (String part : parts) {

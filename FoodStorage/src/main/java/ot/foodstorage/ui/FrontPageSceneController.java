@@ -16,22 +16,14 @@ public class FrontPageSceneController extends Controller {
     private AllFoodsSceneController mainController;
     private ShoppingBasketSceneController shopController;
 
-    @FXML private TableView jokuTable;
-    @FXML private TableColumn name;
-    @FXML private TableColumn amount;
 
-    private void test() {
-        name.cellFactoryProperty().setValue("joo");
-        amount.cellFactoryProperty().setValue(new TextField());
-        jokuTable.getColumns().addAll(name, amount);
-    }
 
 
     /**
      * Tapahtumankäsittelijä "Takaisin" napille, jolla päästään takaisin ruokalistaan
      * @param event tapahtumankäsittelija
      */
-    @Override
+    /*@Override
     @FXML
     public void goBackToFoodList(ActionEvent event) {
         try {
@@ -45,7 +37,7 @@ public class FrontPageSceneController extends Controller {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-    }
+    }*/
 
 
 

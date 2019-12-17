@@ -48,13 +48,15 @@ public class Database {
         try {
             Connection conn = DriverManager.getConnection(databaseAddress);
             Statement stmt = conn.createStatement();
-            stmt.execute("DROP TABLE Food");
-            stmt.execute("DROP TABLE Layout");
+            stmt.execute("DROP TABLE food");
+            stmt.execute("DROP TABLE layout");
+            stmt.execute("DROP TABLE recipe");
+            stmt.execute("DROP TABLE shoppingbasket");
+            stmt.execute("DROP TABLE readyRecipes");
+            //stmt.execute("DROP TABLE ");
             createTables(stmt);
-
             stmt.close();
             conn.close();
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
             e.getStackTrace();
@@ -71,6 +73,7 @@ public class Database {
         stmt.execute(createLayoutTable());
         stmt.execute(createRecipeTable());
         stmt.execute(createShoppingBasketTable());
+        stmt.execute(createReadyRecipes());
     }
 
     /**
@@ -130,6 +133,19 @@ public class Database {
                 " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
                 " name TEXT NOT NULL," +
                 " items TEXT NOT NULL" +
+                ");";
+    }
+
+    private String createReadyRecipes() {
+        return "CREATE TABLE IF NOT EXISTS" +
+                " readyRecipes(" +
+                " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                " name TEXT NOT NULL," +
+                " rawMaterials TEXT NOT NULL," +
+                " cookTime INTEGER NOT NULL," +
+                " description TEXT NOT NULL," +
+                " instruction TEXT NOT NULL," +
+                " amount INTEGER NOT NULL" +
                 ");";
     }
 

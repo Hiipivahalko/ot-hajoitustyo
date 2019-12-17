@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ShoppingBasketDao implements Dao<ShoppingBasket, Integer> {
+public class ShoppingBasketDao implements Dao<ShoppingBasket> {
 
     private Database db;
     private String tableName;
@@ -22,7 +22,7 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket, Integer> {
     }
 
     @Override
-    public ShoppingBasket findOne(Integer key) {
+    public ShoppingBasket findOne(ShoppingBasket shoppingBasket) {
         List<ShoppingBasket> baskets = selectQuery("SELECT * FROM " + tableName + " WHERE name = 'basket';");
         if (baskets.size() > 0) {
             return baskets.get(0);
@@ -38,7 +38,7 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket, Integer> {
 
     @Override
     public void saveOrUpdate(ShoppingBasket basket) {
-        ShoppingBasket sb = findOne(-1);
+        ShoppingBasket sb = findOne(null);
         if (sb == null) {
             save(basket);
         } else {
@@ -78,7 +78,7 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket, Integer> {
     }
 
     @Override
-    public void delete(Integer key) {
+    public void delete(ShoppingBasket shoppingBasket) {
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("DELETE FROM " + tableName + " WHERE name = 'basket';");
@@ -94,7 +94,8 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket, Integer> {
         return null;
     }
 
-    private List<ShoppingBasket> selectQuery(String query) {
+    @Override
+    public List<ShoppingBasket> selectQuery(String query) {
         List<ShoppingBasket> baskets = new ArrayList<>();
         try {
             Connection conn = db.getConnection();

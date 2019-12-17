@@ -11,10 +11,11 @@ import java.util.List;
 /**
  *  Rajapinta domain-luokkien tietokantatoiminnallisuuksia hoitaville luokille
  */
-public interface Dao<T, K> {
-    T findOne(K key) throws SQLException;
+public interface Dao<T> {
+    T findOne(T object) throws SQLException;
     List<T> findAll() throws SQLException;
     void saveOrUpdate(T object) throws SQLException;
-    void delete(K key) throws SQLException;
+    void delete(T object) throws SQLException;
     List<T> filterFromAll(String filter) throws SQLException;
+    List<T> selectQuery(String query);
 }

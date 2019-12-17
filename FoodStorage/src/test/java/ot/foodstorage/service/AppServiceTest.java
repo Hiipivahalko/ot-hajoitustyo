@@ -3,13 +3,11 @@ package ot.foodstorage.service;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import ot.foodstorage.dao.FoodDao;
-import ot.foodstorage.dao.LayoutDao;
-import ot.foodstorage.dao.RecipeDao;
-import ot.foodstorage.dao.ShoppingBasketDao;
+import ot.foodstorage.dao.*;
 import ot.foodstorage.database.Database;
 import ot.foodstorage.domain.Food;
 
@@ -23,10 +21,11 @@ public class AppServiceTest extends Application {
 
     private AppService appService;
     private Database db = new Database("jdbc:sqlite:test.db");
-    FoodDao foodDao = new FoodDao(db, "food");
-    LayoutDao layoutDao = new LayoutDao(db, "layout");
-    RecipeDao recipeDao = new RecipeDao(db, "recipe");
-    ShoppingBasketDao shoppingBasketDao = new ShoppingBasketDao(db, "shoppingbasket");
+    private FoodDao foodDao = new FoodDao(db, "food");
+    private LayoutDao layoutDao = new LayoutDao(db, "layout");
+    private RecipeDao recipeDao = new RecipeDao(db, "recipe");
+    private ShoppingBasketDao shoppingBasketDao = new ShoppingBasketDao(db, "shoppingbasket");
+    private ReadyReacipesDao readyReacipesDao = new ReadyReacipesDao(db, "readyRecipes");
 
     private Food food1 = new Food("food1", "manu1", "jääkaappi", 1, 1);
     private Food food2 = new Food("food2", "manu2", "jääkaappi", 300, 4);
@@ -43,31 +42,24 @@ public class AppServiceTest extends Application {
     }
 
     /**
-     * funktio raaka-aineiden tallentamiseksi testeissä
-     * @param food - tallennettava ruoka
-     */
-    private void saveFoodInTest(Food food) {
-        //appService.saveNewFood(food.getName(), food.getManufacturer(), food.getPreservation(), food.getWeight(),
-        // food.getAmount());
-        appService.saveNewFood(food);
-    }
-
-    /**
      * Tallentaa varastoon testien paikalliset raaka-aine oliot
      */
     private void saveFoodPackageToService() {
-        saveFoodInTest(food1);
-        saveFoodInTest(food2);
-        saveFoodInTest(food3);
-        saveFoodInTest(food4);
+        appService.saveNewFood(food1);
+        appService.saveNewFood(food2);
+        appService.saveNewFood(food3);
+        appService.saveNewFood(food4);
     }
 
     @Before
     public void setUp() {
-        this.appService = new AppService(foodDao, layoutDao, recipeDao, shoppingBasketDao);
         db.initializeDatabase();
+        this.appService = new AppService(foodDao, layoutDao, recipeDao, shoppingBasketDao, readyReacipesDao);
         assertEquals(0, foodDao.findAll().size());
         assertEquals(0, layoutDao.findAll().size());
+        assertEquals(0, recipeDao.findAll().size());
+        assertEquals(0, shoppingBasketDao.findAll().size());
+        assertEquals(0, readyReacipesDao.findAll().size());
     }
 
     /**
@@ -90,12 +82,6 @@ public class AppServiceTest extends Application {
         Food test1 = new Food("testiruoka", "valmistajaTesti", "jääkaappi", 1, 1);
         Food test2 = new Food("testiruoka2", "valmistajaTesti2", "jääkaappi", 1, 1);
         Food test3 = new Food("testiruoka3", "valmistajaTesti", "jääkaappi", 1, 1);
-        /*appService.saveNewFood("testiRuoka", "valmistajaTesti",
-                "jääkaappi", 1, 1);
-        appService.saveNewFood("testiRuoka2", "valmistajaTesti2",
-                "jääkaappi", 3, 1);
-        appService.saveNewFood("testiRuoka3", "valmistajaTesti",
-                "jääkaappi", 1, 1);*/
         appService.saveNewFood(test1);
         appService.saveNewFood(test2);
         appService.saveNewFood(test3);
@@ -145,13 +131,12 @@ public class AppServiceTest extends Application {
      */
     @Test
     public void filterFoodsPreservationOthers() {
-        List<Food> allFoods = new ArrayList<>();
+        List<Food> allTestFoods = new ArrayList<>();
         saveFoodPackageToService();
-        allFoods = appService.filterFoods("kuivakaappi", 1);
-
-        assertTrue(allFoods.size() == 1);
+        allTestFoods = appService.filterFoods("kuivakaappi", 1);
+        assertTrue(allTestFoods.size() == 1);
         boolean presevation = true;
-        for (Food f : allFoods) {
+        for (Food f : allTestFoods) {
             if (!f.getPreservation().equals("kuivakaappi")) presevation = false;
         }
 
@@ -196,9 +181,8 @@ public class AppServiceTest extends Application {
      */
     @Test
     public void filterFoodsWithString1() {
-        List<Food> filterFoods = new ArrayList<>();
         saveFoodPackageToService();
-        filterFoods = appService.filterFoods("food1", 0);
+        List<Food> filterFoods = appService.filterFoods("food1", 0);
 
         assertTrue(filterFoods.size() == 1);
         for (Food f : filterFoods) {

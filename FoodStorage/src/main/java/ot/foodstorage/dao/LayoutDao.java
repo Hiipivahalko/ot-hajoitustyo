@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Luokka Layout-luokkien tietokanta käsittelyille/tapahtumille
  */
-public class LayoutDao implements Dao<Food, Integer> {
+public class LayoutDao implements Dao<Food> {
 
     private Database db;
     private String tableName;
@@ -27,11 +27,11 @@ public class LayoutDao implements Dao<Food, Integer> {
 
     /**
      * Etsii tietyn rivin tietokannasta
-     * @param key tietokanta rivin ID
+     * @param food tietokanta rivin
      * @return rivistä muodostettu Layout objekti
      */
     @Override
-    public Food findOne(Integer key) throws SQLException {
+    public Food findOne(Food food) throws SQLException {
         return null;
     }
 
@@ -42,24 +42,7 @@ public class LayoutDao implements Dao<Food, Integer> {
      */
     @Override
     public List<Food> findAll() {
-        List<Food> foods = new ArrayList<>();
-        try {
-            Connection conn = db.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " ORDER BY name;");
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                Food food = new Food(rs.getInt("id"), rs.getString("name"),
-                        rs.getString("manufacturer"), rs.getString("preservation"),
-                        rs.getInt("weight"));
-                foods.add(food);
-            }
-            rs.close();
-            stmt.close();
-            conn.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return foods;
+        return selectQuery("SELECT * FROM " + tableName + " ORDER BY name;");
     }
 
     /**
@@ -86,15 +69,37 @@ public class LayoutDao implements Dao<Food, Integer> {
 
     /**
      * Poistaa tietyn rivin tietokannasta
-     * @param key poistettavan rivin ID
+     * @param food poistettavan rivi
      */
     @Override
-    public void delete(Integer key) throws SQLException {
+    public void delete(Food food) throws SQLException {
 
     }
 
     @Override
     public List<Food> filterFromAll(String filter) throws SQLException {
         return null;
+    }
+
+    @Override
+    public List<Food> selectQuery(String query) {
+        List<Food> foods = new ArrayList<>();
+        try {
+            Connection conn = db.getConnection();
+            PreparedStatement stmt = conn.prepareStatement(query);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Food food = new Food(rs.getInt("id"), rs.getString("name"),
+                        rs.getString("manufacturer"), rs.getString("preservation"),
+                        rs.getInt("weight"));
+                foods.add(food);
+            }
+            rs.close();
+            stmt.close();
+            conn.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return foods;
     }
 }

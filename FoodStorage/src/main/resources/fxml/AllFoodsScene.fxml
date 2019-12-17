@@ -45,7 +45,7 @@
                <buttons>
                 <Button mnemonicParsing="false" text="Näytä tarkemmin" />
                   <Button mnemonicParsing="false" onAction="#deleteFood" text="syö raaka-aine" />
-                  <Button mnemonicParsing="false" text="syö valmis resepti" />
+                  <Button mnemonicParsing="false" onAction="#deleteRecipe" text="syö valmis resepti" />
                </buttons>
             </ButtonBar>
          </bottom>
@@ -95,9 +95,21 @@
                         </Label>
                         <TableView fx:id="readyRecipeView" prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
                           <columns>
-                            <TableColumn prefWidth="213.0" text="nimi" />
-                            <TableColumn prefWidth="205.0" text="kuvaus" />
-                              <TableColumn prefWidth="68.0" text="määrä" />
+                              <TableColumn prefWidth="144.0" text="nimi">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="name" />
+                                  </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn prefWidth="173.0" text="kuvaus">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="description" />
+                                  </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn prefWidth="68.0" text="määrä">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="amount" />
+                                  </cellValueFactory>
+                              </TableColumn>
                           </columns>
                         </TableView>
                      </children>
@@ -109,11 +121,19 @@
                               <Font size="16.0" />
                            </font>
                         </Label>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#cook" prefHeight="26.0" prefWidth="181.0" text="valmista resepti" />
                         <TableView fx:id="possibleRecipeView" prefHeight="918.0" prefWidth="191.0" VBox.vgrow="ALWAYS">
                           <columns>
-                            <TableColumn prefWidth="144.0" text="nimi" />
-                            <TableColumn prefWidth="173.0" text="kuvaus" />
-                              <TableColumn prefWidth="59.0" text="määrä" />
+                              <TableColumn prefWidth="144.0" text="nimi">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="name" />
+                                  </cellValueFactory>
+                              </TableColumn>
+                            <TableColumn prefWidth="173.0" text="kuvaus">
+                              <cellValueFactory>
+                                  <PropertyValueFactory property="description" />
+                              </cellValueFactory>
+                            </TableColumn>
                           </columns>
                         </TableView>
                      </children>

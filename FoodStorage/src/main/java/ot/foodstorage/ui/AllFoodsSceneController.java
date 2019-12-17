@@ -53,7 +53,6 @@ public class AllFoodsSceneController extends Controller implements Initializable
     /**
      * Asettaa ruokalistaukseen kaikki ruoat mitä tietokannasta löytyy
      */
-    @FXML
     public void setAllFoods() {
         setTableview(getAppService().getAllFoods());
     }
@@ -92,20 +91,58 @@ public class AllFoodsSceneController extends Controller implements Initializable
 
     @FXML
     public void deleteFood() {
-        appService.deleteFood(tableview.getSelectionModel().getSelectedItem().getId());
+        try {
+            appService.deleteFood(tableview.getSelectionModel().getSelectedItem());
+            setAllFoods();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
         setAllFoods();
+        tableview.refresh();
+    }
+
+    @FXML
+    public void deleteRecipe() {
+        try {
+            Recipe toDelete = readyRecipeView.getSelectionModel().getSelectedItem();
+            appService.deleteRecipe(toDelete);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        setReadyRecipeView();
     }
 
     private void setTableview(List<Food> foods) {
         foodList = FXCollections.observableArrayList(foods);
         tableview.setItems(foodList);
+        tableview.refresh();
+    }
+
+    private void setReadyRecipeView() {
+        readyRecipeView.setItems(FXCollections.observableList(appService.getAllReadyRecipes()));
+        readyRecipeView.refresh();
     }
 
     public void setUpScene() {
         setAllFoods();
+        possibleRecipeView.setItems(FXCollections.observableList(appService.checkPossibleRecipes()));
+        possibleRecipeView.refresh();
+        setReadyRecipeView();
     }
 
-
+    @FXML
+    public void cook(ActionEvent event) {
+        try {
+            Recipe r = possibleRecipeView.getSelectionModel().getSelectedItem();
+            appService.cookRecipe(r);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+        setUpScene();
+    }
 
 
 }

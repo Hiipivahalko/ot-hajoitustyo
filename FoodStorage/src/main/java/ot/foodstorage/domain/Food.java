@@ -134,13 +134,20 @@ public class Food {
                 this.weight != f.getWeight()) {
             return false;
         }
-
+        //System.out.println("this:" + this.name + " " + this.manufacturer + " " + this.preservation + " " + this.weight + " " + this.amount);
+        //System.out.println("object:" + f.getName() + " " + f.getManufacturer() + " " + f.getPreservation() + " " + f.getWeight() + " " + f.getAmount());
         return true;
     }
 
     @Override
+    public int hashCode() {
+        String s = this.name + this.getManufacturer() + this.getPreservation();
+        return s.hashCode();
+    }
+
+    @Override
     public String toString() {
-        return "joo ruoka";
+        return this.name + " " + this.manufacturer + " " + this.preservation + " " + this.weight + " " + this.amount;
     }
 
 }
