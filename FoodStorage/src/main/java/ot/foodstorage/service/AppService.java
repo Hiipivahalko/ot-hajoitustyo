@@ -28,6 +28,7 @@ public class AppService {
     private LayoutDao layoutDao;
     private RecipeDao recipeDao;
     private ShoppingBasketDao shoppingBasketDao;
+    //private List<Layout> layouts;
     private List<Layout> layouts;
     private List<Food> allFoods;
     private List<Recipe> recipes;
@@ -236,5 +237,7 @@ public class AppService {
         }
         return false;
     }
+
+
 
 }
