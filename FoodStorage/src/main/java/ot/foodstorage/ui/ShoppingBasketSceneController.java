@@ -8,19 +8,16 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import ot.foodstorage.domain.Food;
-import ot.foodstorage.domain.Layout;
 import ot.foodstorage.domain.Recipe;
-
-import java.util.Collections;
 import java.util.List;
 
 
 public class ShoppingBasketSceneController extends Controller{
 
-    private ObservableList<Layout> layouts;
+    private ObservableList<Food> layouts;
     private ObservableList<Food> basketItems;
     private ObservableList<Recipe> recipes;
-    @FXML private TableView<Layout> layoutView;
+    @FXML private TableView<Food> layoutView;
     @FXML private TableView<Food> basketView;
     @FXML private TableView<Recipe> recepiView;
     @FXML private TextField amountField;
@@ -29,7 +26,7 @@ public class ShoppingBasketSceneController extends Controller{
     @FXML
     public void addLayoutToBasket(ActionEvent event) {
         try {
-            Layout temp = layoutView.getSelectionModel().getSelectedItem();
+            Food temp = layoutView.getSelectionModel().getSelectedItem();
             int a = Integer.parseInt(temp.getAmountField().getText());
             Food f = new Food(temp.getName(), temp.getManufacturer(), temp.getPreservation(), temp.getWeight(), -1, a);
             appService.addItemToShoppingBasket(f);
@@ -47,7 +44,7 @@ public class ShoppingBasketSceneController extends Controller{
         this.basketView.setItems(basketItems);
     }
 
-    public void setUpPage(List<Layout> layouts) {
+    public void setUpPage(List<Food> layouts) {
         this.layouts = FXCollections.observableList(layouts);
         this.layoutView.setItems(this.layouts);
         recepiView.setItems(FXCollections.observableList(appService.getAllRecipes()));

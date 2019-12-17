@@ -49,6 +49,10 @@ public class NewFoodSceneController extends Controller {
         this.preservationChoice.setValue(preservationChoice);
     }
 
+    public void setLayoutController(LayoutSceneController controller) {
+        this.layoutController = controller;
+    }
+
     //public void
 
     /**
@@ -99,6 +103,7 @@ public class NewFoodSceneController extends Controller {
         if (appService != null) {
             appService.saveNewFood(food);
         } else System.out.println("it was null");
+        this.layoutController.getLayoutView().refresh();
         stage.close();
     }
 

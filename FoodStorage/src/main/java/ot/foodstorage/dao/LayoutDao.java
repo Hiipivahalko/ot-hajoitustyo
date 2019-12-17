@@ -2,7 +2,6 @@ package ot.foodstorage.dao;
 
 import ot.foodstorage.database.Database;
 import ot.foodstorage.domain.Food;
-import ot.foodstorage.domain.Layout;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -11,7 +10,7 @@ import java.util.List;
 /**
  * Luokka Layout-luokkien tietokanta käsittelyille/tapahtumille
  */
-public class LayoutDao implements Dao<Layout, Integer> {
+public class LayoutDao implements Dao<Food, Integer> {
 
     private Database db;
     private String tableName;
@@ -32,7 +31,7 @@ public class LayoutDao implements Dao<Layout, Integer> {
      * @return rivistä muodostettu Layout objekti
      */
     @Override
-    public Layout findOne(Integer key) throws SQLException {
+    public Food findOne(Integer key) throws SQLException {
         return null;
     }
 
@@ -42,17 +41,17 @@ public class LayoutDao implements Dao<Layout, Integer> {
      * @return Layout taulun kaikki rivit
      */
     @Override
-    public List<Layout> findAll() {
-        List<Layout> layouts = new ArrayList<>();
+    public List<Food> findAll() {
+        List<Food> foods = new ArrayList<>();
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM " + tableName + " ORDER BY name;");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Layout layout = new Layout(rs.getInt("id"), rs.getString("name"),
+                Food food = new Food(rs.getInt("id"), rs.getString("name"),
                         rs.getString("manufacturer"), rs.getString("preservation"),
                         rs.getInt("weight"));
-                layouts.add(layout);
+                foods.add(food);
             }
             rs.close();
             stmt.close();
@@ -60,7 +59,7 @@ public class LayoutDao implements Dao<Layout, Integer> {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-        return layouts;
+        return foods;
     }
 
     /**
@@ -68,7 +67,7 @@ public class LayoutDao implements Dao<Layout, Integer> {
      * @param object tallennettava layout
      */
     @Override
-    public void saveOrUpdate(Layout object) {
+    public void saveOrUpdate(Food object) {
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName +
@@ -95,7 +94,7 @@ public class LayoutDao implements Dao<Layout, Integer> {
     }
 
     @Override
-    public List<Layout> filterFromAll(String filter) throws SQLException {
+    public List<Food> filterFromAll(String filter) throws SQLException {
         return null;
     }
 }

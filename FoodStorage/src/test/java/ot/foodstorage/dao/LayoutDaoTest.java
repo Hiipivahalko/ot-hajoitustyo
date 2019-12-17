@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import ot.foodstorage.database.Database;
-import ot.foodstorage.domain.Layout;
+import ot.foodstorage.domain.Food;
 
 import java.util.List;
 
@@ -19,11 +19,11 @@ public class LayoutDaoTest  extends Application {
     private LayoutDao layoutDao;
     private Database db;
 
-    private Layout layout1 = new Layout(1, "milk", "valio", "jääkaappi", 1);
-    private Layout layout2 = new Layout(1, "milk", "arla", "jääkaappi", 1);
-    private Layout layout3 = new Layout(1, "milk", "nönnönnöö", "jääkaappi", 2);
-    private Layout layout4 = new Layout(1, "juusto", "valio", "jääkaappi", 1);
-    private Layout layout5 = new Layout(1, "juusto", "arla", "jääkaappi", 1);
+    private Food layout1 = new Food(1, "milk", "valio", "jääkaappi", 1);
+    private Food layout2 = new Food(1, "milk", "arla", "jääkaappi", 1);
+    private Food layout3 = new Food(1, "milk", "nönnönnöö", "jääkaappi", 2);
+    private Food layout4 = new Food(1, "juusto", "valio", "jääkaappi", 1);
+    private Food layout5 = new Food(1, "juusto", "arla", "jääkaappi", 1);
 
     @BeforeClass
     public static void setClass() {
@@ -61,7 +61,7 @@ public class LayoutDaoTest  extends Application {
     @Test
     public void findAll() {
         layoutDao.saveOrUpdate(layout1);
-        List<Layout> layouts = layoutDao.findAll();
+        List<Food> layouts = layoutDao.findAll();
         assertEquals(1, layouts.size());
         assertEquals("milk", layouts.get(0).getName());
         assertEquals("valio", layouts.get(0).getManufacturer());
@@ -70,13 +70,13 @@ public class LayoutDaoTest  extends Application {
     @Test
     public void findAll2() {
         saveLayouts();
-        List<Layout> layouts = layoutDao.findAll();
+        List<Food> layouts = layoutDao.findAll();
         assertEquals(5, layouts.size());
 
         int milk = 0;
         int cheese = 0;
 
-        for (Layout l :layouts) {
+        for (Food l :layouts) {
             if (l.getName().equals("milk")) milk++;
             else if (l.getName().equals("juusto")) cheese++;
         }

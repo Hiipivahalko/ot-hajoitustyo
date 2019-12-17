@@ -7,12 +7,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import ot.foodstorage.domain.Food;
-import ot.foodstorage.domain.Layout;
 import ot.foodstorage.service.AppService;
 
 import java.io.IOException;
@@ -20,10 +18,14 @@ import java.io.IOException;
 
 public class LayoutSceneController extends Controller {
 
-    private ObservableList<Layout> layoutsList;
-    @FXML private TableView<Layout> layoutView;
+    private ObservableList<Food> layoutsList;
+    @FXML private TableView<Food> layoutView;
     @FXML private TextField amountField;
     private NewFoodSceneController newFoodController;
+
+    public TableView<Food> getLayoutView() {
+        return layoutView;
+    }
 
     @FXML
     public void addNewRawMaterial(ActionEvent event) throws IOException {
@@ -31,7 +33,7 @@ public class LayoutSceneController extends Controller {
         Parent root =  loader.load();
         newFoodController = loader.getController();
         newFoodController.setAppService(getAppService());
-
+        newFoodController.setLayoutController(this);
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         newFoodController.setStage(stage);
@@ -41,7 +43,7 @@ public class LayoutSceneController extends Controller {
     @FXML
     public void addExistRawMaterial(ActionEvent event) {
         try {
-            Layout selected = layoutView.getSelectionModel().getSelectedItem();
+            Food selected = layoutView.getSelectionModel().getSelectedItem();
             Food food = new Food(selected.getName(), selected.getManufacturer(), selected.getPreservation(),
                     selected.getWeight(), Integer.parseInt(selected.getAmountField().getText()));
             appService.saveNewFood(food);

@@ -11,11 +11,9 @@ import ot.foodstorage.dao.LayoutDao;
 import ot.foodstorage.dao.RecipeDao;
 import ot.foodstorage.dao.ShoppingBasketDao;
 import ot.foodstorage.domain.Food;
-import ot.foodstorage.domain.Layout;
 import ot.foodstorage.domain.Recipe;
 import ot.foodstorage.domain.ShoppingBasket;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,7 +26,7 @@ public class AppService {
     private LayoutDao layoutDao;
     private RecipeDao recipeDao;
     private ShoppingBasketDao shoppingBasketDao;
-    private List<Layout> layouts;
+    private List<Food> layouts;
     private List<Food> allFoods;
     private List<Recipe> recipes;
     private ShoppingBasket shoppingBasket;
@@ -55,7 +53,7 @@ public class AppService {
         }
     }
 
-    public List<Layout> getLayouts() {
+    public List<Food> getLayouts() {
         return layouts;
     }
 
@@ -119,10 +117,10 @@ public class AppService {
      * @param newFood lisättävä raaka-aine
      */
     public void checkIfLayoutExistAndCreate(Food newFood) {
-        Layout newLayout = new Layout(-1, newFood.getName(), newFood.getManufacturer(), newFood.getPreservation(),
+        Food newLayout = new Food(-1, newFood.getName(), newFood.getManufacturer(), newFood.getPreservation(),
                 newFood.getWeight());
         boolean already = false;
-        for  (Layout l : layouts) {
+        for  (Food l : layouts) {
             if (l.getName().equals(newFood.getName()) && l.getManufacturer().equals(newFood.getManufacturer())) {
                 already = true;
             }

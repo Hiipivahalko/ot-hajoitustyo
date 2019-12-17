@@ -12,7 +12,6 @@ import ot.foodstorage.dao.RecipeDao;
 import ot.foodstorage.dao.ShoppingBasketDao;
 import ot.foodstorage.database.Database;
 import ot.foodstorage.domain.Food;
-import ot.foodstorage.domain.Layout;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
