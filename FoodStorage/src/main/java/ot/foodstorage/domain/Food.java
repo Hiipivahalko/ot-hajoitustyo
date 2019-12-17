@@ -41,8 +41,19 @@ public class Food {
         this.weight = weight;
         this.id = -1;
         this.amount = amount;
-        //this.amountField = new TextField();
-        //this.checkBox = new CheckBox();
+        this.amountField = new TextField();
+        this.checkBox = new CheckBox();
+    }
+
+    public Food(int id, String name, String manufacturer, String preservation, int weight) {
+        this.name = name;
+        this.manufacturer = manufacturer;
+        this.preservation = preservation;
+        this.weight = weight;
+        this.id = id;
+        this.amount = -1;
+        this.amountField = new TextField();
+        this.checkBox = new CheckBox();
     }
 
 
