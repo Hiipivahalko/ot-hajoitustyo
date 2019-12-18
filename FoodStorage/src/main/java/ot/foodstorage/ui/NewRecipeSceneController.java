@@ -7,7 +7,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import ot.foodstorage.domain.Food;
 import ot.foodstorage.domain.Recipe;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,9 +18,6 @@ public class NewRecipeSceneController extends Controller {
     @FXML private TextField newCookTimeField;
     @FXML private TableView<Food> foodTable;
     @FXML private Label errorLabel;
-    //@FXML private TableView<TextField> amountView;
-
-
     private ObservableList<Food> foodsList;
 
     @FXML
@@ -37,10 +33,7 @@ public class NewRecipeSceneController extends Controller {
             instruction = newInstructionField.getText();
             Recipe r = new Recipe(-1, name, recipeFoods, cookTime
                     , description, instruction);
-            if (!appService.addNewRecipe(r,  foodTable.getItems())) {
-                errorLabel.setVisible(true);
-                return;
-            }
+            appService.getRecipeService().addNewRecipe(r, foodTable.getItems());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -51,7 +44,7 @@ public class NewRecipeSceneController extends Controller {
     }
 
     public void setUpPage() {
-        foodsList = FXCollections.observableList(appService.getAllFoods());
+        foodsList = FXCollections.observableList(appService.getFoodService().getAllFoods());
         foodTable.setItems(foodsList);
         errorLabel.setVisible(false);
 

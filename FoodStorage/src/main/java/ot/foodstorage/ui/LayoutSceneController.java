@@ -46,7 +46,7 @@ public class LayoutSceneController extends Controller {
             Food selected = layoutView.getSelectionModel().getSelectedItem();
             Food food = new Food(selected.getName(), selected.getManufacturer(), selected.getPreservation(),
                     selected.getWeight(), Integer.parseInt(selected.getAmountField().getText()));
-            appService.saveNewFood(food);
+            appService.getFoodService().saveNewFood(food);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -55,7 +55,7 @@ public class LayoutSceneController extends Controller {
     }
 
     public void setUpController(AppService appService) {
-        layoutsList = FXCollections.observableList(appService.getLayouts());
+        layoutsList = FXCollections.observableList(appService.getFoodService().getLayouts());
         layoutView.setItems(layoutsList);
     }
 

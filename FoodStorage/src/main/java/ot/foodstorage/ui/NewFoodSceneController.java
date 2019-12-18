@@ -101,7 +101,7 @@ public class NewFoodSceneController extends Controller {
                 preservation.toLowerCase(), weigth, Integer.parseInt(amount.getText()));
 
         if (appService != null) {
-            appService.saveNewFood(food);
+            appService.getFoodService().saveNewFood(food);
         } else System.out.println("it was null");
         this.layoutController.getLayoutView().refresh();
         stage.close();

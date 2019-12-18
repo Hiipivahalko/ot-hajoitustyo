@@ -8,9 +8,6 @@ import javafx.scene.control.*;
 import ot.foodstorage.domain.Food;
 import ot.foodstorage.domain.Recipe;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class RecipeSceneController extends Controller {
 
     @FXML private TableView<Recipe> recipeView;
@@ -19,13 +16,10 @@ public class RecipeSceneController extends Controller {
     @FXML private TextArea descriptionArea;
     @FXML private TextField cookTimeField;
     @FXML private TableView<Food> recipeFoodsView;
-
     private ObservableList<Recipe> recipeList;
 
-    //private CheckComboBox<Food> checkComboBox;
-
     public void setUpPage() {
-        recipeList = FXCollections.observableList(appService.getAllRecipes());
+        recipeList = FXCollections.observableList(appService.getRecipeService().getAllRecipes());
         recipeView.setItems(recipeList);
     }
 
@@ -41,7 +35,5 @@ public class RecipeSceneController extends Controller {
         System.out.println(r.getFoods());
         recipeFoodsView.setItems(FXCollections.observableList(r.getFoods()));
     }
-
-
 
 }

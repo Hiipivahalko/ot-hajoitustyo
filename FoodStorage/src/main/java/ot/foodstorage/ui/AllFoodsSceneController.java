@@ -5,15 +5,11 @@
  */
 package ot.foodstorage.ui;
 
-import java.net.URL;
 import java.util.List;
-import java.util.ResourceBundle;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import ot.foodstorage.domain.Food;
@@ -24,7 +20,7 @@ import ot.foodstorage.domain.Recipe;
  *
  * @author osiipola
  */
-public class AllFoodsSceneController extends Controller implements Initializable {
+public class AllFoodsSceneController extends Controller {
     
     private ObservableList<Food> foodList;
     @FXML private TextField filterField;
@@ -33,11 +29,6 @@ public class AllFoodsSceneController extends Controller implements Initializable
     @FXML private TableView<Recipe> possibleRecipeView;
 
     private LayoutSceneController layoutController;
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        //tableview.setItems(FXCollections.observableArrayList(getAppService().getAllFoods()));
-    }
 
     /**
      * Vaihtaa sivun jossa voi lisätä raaka-aineen
@@ -54,7 +45,7 @@ public class AllFoodsSceneController extends Controller implements Initializable
      * Asettaa ruokalistaukseen kaikki ruoat mitä tietokannasta löytyy
      */
     public void setAllFoods() {
-        setTableview(getAppService().getAllFoods());
+        setTableview(appService.getFoodService().getAllFoods());
     }
 
     /**
@@ -62,7 +53,7 @@ public class AllFoodsSceneController extends Controller implements Initializable
      */
     @FXML
     public void filterByNameOrManufacturer() {
-        setTableview(getAppService().filterFoods(filterField.getText(), 0));
+        setTableview((appService.getFoodService().filterFoods(filterField.getText(), 0)));
     }
 
     /**
@@ -70,7 +61,7 @@ public class AllFoodsSceneController extends Controller implements Initializable
      */
     @FXML
     public void filterFridgeFoods() {
-        setTableview(getAppService().filterFoods("jääkaappi", 1));
+        setTableview(appService.getFoodService().filterFoods("jääkaappi", 1));
     }
 
     /**
@@ -78,7 +69,7 @@ public class AllFoodsSceneController extends Controller implements Initializable
      */
     @FXML
     public void filterDryFoods() {
-        setTableview(getAppService().filterFoods("kuivakaappi", 1));
+        setTableview(appService.getFoodService().filterFoods("kuivakaappi", 1));
     }
 
     /**
@@ -86,13 +77,13 @@ public class AllFoodsSceneController extends Controller implements Initializable
      */
     @FXML
     public void filterFreezerFoods() {
-        setTableview(getAppService().filterFoods("pakastin", 1));
+        setTableview(appService.getFoodService().filterFoods("pakastin", 1));
     }
 
     @FXML
     public void deleteFood() {
         try {
-            appService.deleteFood(tableview.getSelectionModel().getSelectedItem());
+            appService.getFoodService().deleteFood(tableview.getSelectionModel().getSelectedItem());
             setAllFoods();
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -105,8 +96,7 @@ public class AllFoodsSceneController extends Controller implements Initializable
     @FXML
     public void deleteRecipe() {
         try {
-            Recipe toDelete = readyRecipeView.getSelectionModel().getSelectedItem();
-            appService.deleteRecipe(toDelete);
+            appService.getRecipeService().deleteRecipe(readyRecipeView.getSelectionModel().getSelectedItem());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -121,12 +111,13 @@ public class AllFoodsSceneController extends Controller implements Initializable
     }
 
     private void setReadyRecipeView() {
-        readyRecipeView.setItems(FXCollections.observableList(appService.getAllReadyRecipes()));
+        readyRecipeView.setItems(FXCollections.observableList(appService.getRecipeService().getAllReadyRecipes()));
         readyRecipeView.refresh();
     }
 
     public void setUpScene() {
         setAllFoods();
+        //possibleRecipeView.setItems(FXCollections.observableList(appService.checkPossibleRecipes()));
         possibleRecipeView.setItems(FXCollections.observableList(appService.checkPossibleRecipes()));
         possibleRecipeView.refresh();
         setReadyRecipeView();
@@ -136,7 +127,7 @@ public class AllFoodsSceneController extends Controller implements Initializable
     public void cook(ActionEvent event) {
         try {
             Recipe r = possibleRecipeView.getSelectionModel().getSelectedItem();
-            appService.cookRecipe(r);
+            appService.getRecipeService().cookRecipe(r, appService.getFoodService());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();

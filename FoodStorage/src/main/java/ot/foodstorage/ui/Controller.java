@@ -77,7 +77,7 @@ public class Controller {
             Parent root = pageLoader.load();
             shopController = pageLoader.getController();
             shopController.setAppService(getAppService());
-            shopController.setUpPage(appService.getLayouts());
+            shopController.setUpPage(appService.getFoodService().getLayouts());
             ((Node) event.getSource()).getScene().setRoot(root);
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -12,4 +12,5 @@
 | 10.12. | 8    | reseptin lisäys toiminnon lisääminen + dokumentaatiota ja refaktorointia |
 | 14.12. | 2    | reseptin lisäys toiminnon viimeistely + testien refaktorointia  |
 | 15.12. | 2    | ostoslistan tietokantatallennuksen teko + UI korjailuja |
-| yth.   | 37   |  |
+| 17.12. | 4    | valmiin reseptin teko saatavilla olevista raaka-aineista mahdollinen |
+| yth.   | 41   |  |
