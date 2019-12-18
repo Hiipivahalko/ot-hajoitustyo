@@ -47,7 +47,7 @@ public class RecipeService {
             throw new Exception("Raaka-aineita ei ollut tai saman niminen resepti löytyy jo varastosta");
         }
         recipe.setFoods(foods);
-        recipeDao.saveOrUpdate(recipe);
+        recipeDao.save(recipe);
         allRecipes.add(recipe);
         return true;
     }

@@ -26,11 +26,6 @@ public class ReadyReacipesDao extends RecipeDao {
         return selectQuery("SELECT * FROM " + getTableName() + ";");
     }
 
-    @Override
-    public void saveOrUpdate(Recipe recipe)  {
-
-    }
-
     public void save(Recipe recipe) {
         try {
             Connection conn = getDb().getConnection();

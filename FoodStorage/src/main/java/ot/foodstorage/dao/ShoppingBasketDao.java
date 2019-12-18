@@ -36,7 +36,6 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket> {
         return baskets;
     }
 
-    @Override
     public void saveOrUpdate(ShoppingBasket basket) {
         ShoppingBasket sb = findOne(null);
         if (sb == null) {
@@ -46,7 +45,8 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket> {
         }
     }
 
-    private void save(ShoppingBasket basket) {
+    @Override
+    public void save(ShoppingBasket basket) {
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + " (name, items)" +
@@ -61,7 +61,8 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket> {
         }
     }
 
-    private void update(ShoppingBasket basket) {
+    @Override
+    public void update(ShoppingBasket basket) {
         System.out.println("here");
         try {
             Connection conn = db.getConnection();

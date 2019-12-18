@@ -60,20 +60,6 @@ public class FoodDao  implements Dao<Food> {
     }
 
     /**
-     * Tallentaa uuden rivin tietokantatauluun Food tai päivittää määrän jos on jo olemassa
-     * @param food tallennettava ruoka
-     */
-    @Override
-    public void saveOrUpdate(Food food) {
-        Food old = findOne(food);
-        if (findOne(food) == null) {
-            save(food);
-        } else  {
-            update(food, food.getAmount() + old.getAmount());
-        }
-    }
-
-    /**
      * Tallentaa annetun raaka-aineen tietokantaan
      * @param food tallennettava raaka-aine
      */
@@ -98,12 +84,11 @@ public class FoodDao  implements Dao<Food> {
     /**
      * Päivittää tietyn raaka-aineen amount arvoa tietokannassa
      * @param food päivitettävä raaka-aine
-     * @param newValue päivitettävä arvo (uusi arvo = vanha + newValue)
      */
-    public void update(Food food, int newValue) {
+    public void update(Food food) {
         try {
             Connection conn = db.getConnection();
-            PreparedStatement stmt = conn.prepareStatement("UPDATE " + tableName + " SET amount = " + newValue +
+            PreparedStatement stmt = conn.prepareStatement("UPDATE " + tableName + " SET amount = " + food.getAmount() +
                     " WHERE name = '" + food.getName() + "' AND manufacturer = '" + food.getManufacturer() + "' " +
                     "AND preservation = '" + food.getPreservation() + "' AND weight = '" + food.getWeight() + "';");
 

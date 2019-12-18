@@ -47,11 +47,11 @@ public class LayoutDaoTest  extends Application {
     }
 
     private void saveLayouts() {
-        layoutDao.saveOrUpdate(layout1);
-        layoutDao.saveOrUpdate(layout2);
-        layoutDao.saveOrUpdate(layout3);
-        layoutDao.saveOrUpdate(layout4);
-        layoutDao.saveOrUpdate(layout5);
+        layoutDao.save(layout1);
+        layoutDao.save(layout2);
+        layoutDao.save(layout3);
+        layoutDao.save(layout4);
+        layoutDao.save(layout5);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class LayoutDaoTest  extends Application {
 
     @Test
     public void findAll() {
-        layoutDao.saveOrUpdate(layout1);
+        layoutDao.save(layout1);
         List<Food> layouts = layoutDao.findAll();
         assertEquals(1, layouts.size());
         assertEquals("milk", layouts.get(0).getName());

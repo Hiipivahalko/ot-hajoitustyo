@@ -58,11 +58,11 @@ public class RecipeDao implements Dao<Recipe> {
     }
 
     /**
-     * Tallentaa uuden rivin Recipe tietokantatauluun tai päivittää määrän jos on jo olemassa
+     * Tallentaa uuden rivin Recipe tietokantatauluun
      * @param recipe tallennettava ruoka
      */
     @Override
-    public void saveOrUpdate(Recipe recipe)  {
+    public void save(Recipe recipe)  {
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + " (name, rawMaterials, " +
@@ -79,6 +79,11 @@ public class RecipeDao implements Dao<Recipe> {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    @Override
+    public void update(Recipe recipe) {
+
     }
 
     /**

@@ -46,11 +46,11 @@ public class LayoutDao implements Dao<Food> {
     }
 
     /**
-     * Tallentaa uuden rivin Layout tietokantatauluun tai päivittää määrän jos on jo olemassa
+     * Tallentaa uuden rivin Layout tietokantatauluun
      * @param object tallennettava layout
      */
     @Override
-    public void saveOrUpdate(Food object) {
+    public void save(Food object) {
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName +
@@ -66,6 +66,13 @@ public class LayoutDao implements Dao<Food> {
             System.out.println(e.getMessage());
         }
     }
+
+
+    @Override
+    public void update(Food object) {
+
+    }
+
 
     /**
      * Poistaa tietyn rivin tietokannasta

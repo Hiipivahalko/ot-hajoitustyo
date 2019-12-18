@@ -66,10 +66,11 @@ public class FoodService {
         for  (Food l : layouts) {
             if (l.getName().equals(newFood.getName()) && l.getManufacturer().equals(newFood.getManufacturer())) {
                 already = true;
+                break;
             }
         }
         if (!already) {
-            layoutDao.saveOrUpdate(newLayout);
+            layoutDao.save(newLayout);
             layouts.add(newLayout);
         }
     }
@@ -86,13 +87,13 @@ public class FoodService {
         for (Food f : allFoods) {
             if (f.equals(food)) {
                 found = true;
-                newValue += f.getAmount();
+                food.setAmount(food.getAmount() + f.getAmount());
+                //newValue += f.getAmount();
                 break;
             }
         }
         if (found) {
-            foodDao.update(food, newValue);
-            //foodsMap.put(food)
+            foodDao.update(food);
         } else {
             allFoods.add(food);
             foodDao.save(food);
@@ -131,7 +132,8 @@ public class FoodService {
             Food f = it.next();
             if (f.equals(food)) {
                 if (f.getAmount() > 1) {
-                    foodDao.update(f, f.getAmount() - 1);
+                    f.setAmount(f.getAmount() - 1);
+                    foodDao.update(f);
                     f.setAmount(f.getAmount() - 1);
                     foodsMap.put(f, f.getAmount());
                 } else if (f.getAmount() == 1) {

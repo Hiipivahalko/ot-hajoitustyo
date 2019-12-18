@@ -47,11 +47,11 @@ public class FoodDaoTest extends Application{
      * apufuntio testeille, jossa tallennetaan pieni määrä raaka-aine olioita kantaan
      */
     private void saveFoods() {
-        foodDao.saveOrUpdate(food1);
-        foodDao.saveOrUpdate(food2);
-        foodDao.saveOrUpdate(food3);
-        foodDao.saveOrUpdate(food4);
-        foodDao.saveOrUpdate(food5);
+        foodDao.save(food1);
+        foodDao.save(food2);
+        foodDao.save(food3);
+        foodDao.save(food4);
+        foodDao.save(food5);
     }
 
     /*@Test
@@ -67,9 +67,9 @@ public class FoodDaoTest extends Application{
         Food food2 = new Food("juusto", "valio", "jääkaappi", 1, 2, 1);
         Food food3 = new Food("leipä", "fazer", "kuivakaappi", 2, 1, 3);
 
-        foodDao.saveOrUpdate(food1);
-        foodDao.saveOrUpdate(food2);
-        foodDao.saveOrUpdate(food3);
+        foodDao.save(food1);
+        foodDao.save(food2);
+        foodDao.save(food3);
 
         List<Food> all = foodDao.findAll();
 
@@ -85,8 +85,8 @@ public class FoodDaoTest extends Application{
      * Testaan että tietokantaan Food objektin tallennus onnistuu
      */
     @Test
-    public void saveOrUpdate() throws SQLException {
-        foodDao.saveOrUpdate(food1);
+    public void save()  {
+        foodDao.save(food1);
         List<Food> all = foodDao.findAll();
         assertEquals(1, all.size());
         assertEquals("milk", all.get(0).getName());
