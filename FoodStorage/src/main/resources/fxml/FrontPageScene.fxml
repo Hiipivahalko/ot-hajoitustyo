@@ -21,9 +21,9 @@
          <center>
             <HBox alignment="CENTER" spacing="20.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#goShoppingBasket" prefHeight="48.0" prefWidth="119.0" text="Luo ostoslista" />
-                  <Button mnemonicParsing="false" onAction="#goRecipeList" prefHeight="48.0" prefWidth="129.0" text="Valmista ruokia" />
-                  <Button mnemonicParsing="false" onAction="#goBackToFoodList" prefHeight="48.0" prefWidth="194.0" text="Tarkastele ruokavarastoa" />
+                  <Button mnemonicParsing="false" onAction="#goShoppingBasket" prefHeight="48.0" prefWidth="119.0" text="ostoslista" />
+                  <Button mnemonicParsing="false" onAction="#goRecipeList" prefHeight="48.0" prefWidth="129.0" text="reseptit" />
+                  <Button mnemonicParsing="false" onAction="#goBackToFoodList" prefHeight="48.0" prefWidth="152.0" text="varasto" />
                </children>
                <BorderPane.margin>
                   <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />

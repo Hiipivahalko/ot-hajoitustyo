@@ -22,6 +22,7 @@
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
               <buttons>
                 <Button mnemonicParsing="false" onAction="#goShoppingBasket" text="ostoslista" />
+                  <Button mnemonicParsing="false" onAction="#goRecipeList" text="reseptit" />
                   <Button mnemonicParsing="false" onAction="#goBackToFoodList" text="varasto" />
               </buttons>
             </ButtonBar>

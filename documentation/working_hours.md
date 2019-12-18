@@ -13,4 +13,5 @@
 | 14.12. | 2    | reseptin lisäys toiminnon viimeistely + testien refaktorointia  |
 | 15.12. | 2    | ostoslistan tietokantatallennuksen teko + UI korjailuja |
 | 17.12. | 4    | valmiin reseptin teko saatavilla olevista raaka-aineista mahdollinen |
-| yth.   | 41   |  |
+| 18.12. | 1    | appservice luokka jaettu pienemmiksi service luokiksi |
+| yth.   | 42   |  |
