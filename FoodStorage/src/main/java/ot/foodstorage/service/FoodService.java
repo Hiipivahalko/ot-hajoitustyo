@@ -36,7 +36,11 @@ public class FoodService {
         return foodsMap;
     }
 
-    private void initializeMap(List<Food> foods) {
+    public void setFoodsMap(Map<Food, Integer> foodsMap) {
+        this.foodsMap = foodsMap;
+    }
+
+    public void initializeMap(List<Food> foods) {
         for (Food f : foods) {
             foodsMap.put(f, f.getAmount());
         }
@@ -64,7 +68,7 @@ public class FoodService {
                 newFood.getWeight());
         boolean already = false;
         for  (Food l : layouts) {
-            if (l.getName().equals(newFood.getName()) && l.getManufacturer().equals(newFood.getManufacturer())) {
+            if (l.equals(newLayout)) {
                 already = true;
                 break;
             }
@@ -87,8 +91,8 @@ public class FoodService {
         for (Food f : allFoods) {
             if (f.equals(food)) {
                 found = true;
-                food.setAmount(food.getAmount() + f.getAmount());
-                //newValue += f.getAmount();
+                f.setAmount(food.getAmount() + f.getAmount());
+                food.setAmount(f.getAmount());
                 break;
             }
         }
@@ -98,7 +102,7 @@ public class FoodService {
             allFoods.add(food);
             foodDao.save(food);
         }
-        foodsMap.put(food, foodsMap.getOrDefault(food, 0) + food.getAmount());
+        foodsMap.put(food, food.getAmount());
     }
 
     /**
@@ -126,7 +130,7 @@ public class FoodService {
      * @param food vähennettävä objekti
      * @throws Exception
      */
-    public void deleteFood(Food food) throws Exception {
+    public void deleteFood(Food food) {
         Iterator<Food> it = allFoods.iterator();
         while (it.hasNext()) {
             Food f = it.next();
@@ -134,14 +138,13 @@ public class FoodService {
                 if (f.getAmount() > 1) {
                     f.setAmount(f.getAmount() - 1);
                     foodDao.update(f);
-                    f.setAmount(f.getAmount() - 1);
                     foodsMap.put(f, f.getAmount());
                 } else if (f.getAmount() == 1) {
                     it.remove();
                     foodDao.delete(f);
                     foodsMap.remove(f);
                 } else {
-                    throw new Exception("Yritetään poistaa tuoteta mitä ei pitäisi olla varastossa");
+                    throw new NullPointerException("Yritetään poistaa tuoteta mitä ei pitäisi olla varastossa");
                 }
             }
         }

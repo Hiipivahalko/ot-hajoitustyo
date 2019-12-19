@@ -27,10 +27,10 @@ public class AppService {
      * @param recipeDao objekti josta päästään käsiksi "Recipe" tietokantatauluun
      * @param shoppingBasketDao objekti josta päästään käsiksi "ShoppingBasket" tietokantatauluun
      */
-    public AppService(FoodDao foodDao, LayoutDao layoutDao, RecipeDao recipeDao, ShoppingBasketDao shoppingBasketDao,
-                      ReadyReacipesDao readyReacipesDao) {
+    public AppService(FoodDao foodDao, LayoutDao layoutDao, RecipeDao recipeDao, ReadyRecipesDao readyRecipesDao,
+                      ShoppingBasketDao shoppingBasketDao) {
         this.foodService = new FoodService(foodDao, layoutDao);
-        this.recipeService = new RecipeService(recipeDao, readyReacipesDao);
+        this.recipeService = new RecipeService(recipeDao, readyRecipesDao);
         this.shoppingBasketService = new ShoppingBasketService(shoppingBasketDao);
     }
 
@@ -66,6 +66,44 @@ public class AppService {
             }
         }
         return possibleRecipes;
+    }
+
+    /**
+     * valmistaa reseptin käytettävissä olevista raaka-aineista
+     * @param recipe valmistettava resepti
+     */
+    public void cookRecipe(Recipe recipe) {
+        recipe.setAmount(1);
+        for (Food f : recipe.getFoods()) {
+            foodService.deleteFood(f);
+        }
+        boolean allReady = false;
+        for (Recipe r : recipeService.getAllReadyRecipes()) {
+            if (r.getName().equals(recipe.getName())) {
+                r.addOneAmountMore();
+                recipe = r;
+                allReady = true;
+                break;
+            }
+        }
+        if (!allReady) {
+            recipeService.getAllReadyRecipes().add(recipe);
+            recipeService.getReadyRecipesDao().save(recipe);
+        } else {
+            recipeService.getReadyRecipesDao().update(recipe);
+        }
+    }
+
+    public boolean addBasketItemsToStorageAndClearItemList() {
+        if (shoppingBasketService.getShoppingBasket().getItems().size() > 0) {
+            for (Food next : shoppingBasketService.getShoppingBasket().getItems()) {
+                foodService.saveNewFood(next);
+            }
+            shoppingBasketService.getShoppingBasket().setItems(new ArrayList<>());
+            shoppingBasketService.getShoppingBasketDao().delete(null);
+            return true;
+        }
+        return false;
     }
 
 }

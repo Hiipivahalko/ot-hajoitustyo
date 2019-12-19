@@ -6,7 +6,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
 import ot.foodstorage.domain.Food;
 import ot.foodstorage.domain.Recipe;
 import ot.foodstorage.service.FoodService;
@@ -77,7 +76,7 @@ public class ShoppingBasketSceneController extends Controller{
 
     @FXML
     public void addItemsToStorage(ActionEvent event) {
-        if (basketService.addBasketItemsToStorageAndClearItemList(foodService)) {
+        if (appService.addBasketItemsToStorageAndClearItemList()) {
             setUpBasket();
         }
     }

@@ -10,9 +10,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ReadyReacipesDao extends RecipeDao {
+public class ReadyRecipesDao extends RecipeDao {
 
-    public ReadyReacipesDao(Database db, String tableName) {
+    public ReadyRecipesDao(Database db, String tableName) {
         super(db, tableName);
     }
 

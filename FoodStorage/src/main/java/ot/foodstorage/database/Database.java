@@ -51,9 +51,8 @@ public class Database {
             stmt.execute("DROP TABLE food");
             stmt.execute("DROP TABLE layout");
             stmt.execute("DROP TABLE recipe");
-            stmt.execute("DROP TABLE shoppingbasket");
             stmt.execute("DROP TABLE readyRecipes");
-            //stmt.execute("DROP TABLE ");
+            stmt.execute("DROP TABLE shoppingbasket");
             createTables(stmt);
             stmt.close();
             conn.close();
@@ -72,8 +71,8 @@ public class Database {
         stmt.execute(createFoodTable());
         stmt.execute(createLayoutTable());
         stmt.execute(createRecipeTable());
-        stmt.execute(createShoppingBasketTable());
         stmt.execute(createReadyRecipes());
+        stmt.execute(createShoppingBasketTable());
     }
 
     /**
@@ -123,19 +122,6 @@ public class Database {
                 ");";
     }
 
-    /**
-     * Kysely ShoppingBasket-taulun luontiin
-     * @return tietokantakysely kokonaisuudessaan
-     */
-    private String createShoppingBasketTable() {
-        return "CREATE TABLE IF NOT EXISTS" +
-                " shoppingbasket(" +
-                " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
-                " name TEXT NOT NULL," +
-                " items TEXT NOT NULL" +
-                ");";
-    }
-
     private String createReadyRecipes() {
         return "CREATE TABLE IF NOT EXISTS" +
                 " readyRecipes(" +
@@ -149,5 +135,17 @@ public class Database {
                 ");";
     }
 
+    /**
+     * Kysely ShoppingBasket-taulun luontiin
+     * @return tietokantakysely kokonaisuudessaan
+     */
+    private String createShoppingBasketTable() {
+        return "CREATE TABLE IF NOT EXISTS" +
+                " shoppingbasket(" +
+                " id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT," +
+                " name TEXT NOT NULL," +
+                " items TEXT NOT NULL" +
+                ");";
+    }
 
 }

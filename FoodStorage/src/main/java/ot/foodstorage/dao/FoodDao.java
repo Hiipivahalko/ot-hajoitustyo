@@ -73,7 +73,7 @@ public class FoodDao  implements Dao<Food> {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("UPDATE " + tableName + " SET amount = " + food.getAmount() +
                     " WHERE name = '" + food.getName() + "' AND manufacturer = '" + food.getManufacturer() + "' " +
-                    "AND preservation = '" + food.getPreservation() + "' AND weight = '" + food.getWeight() + "';");
+                    "AND preservation = '" + food.getPreservation() + "' AND weight = " + food.getWeight() + ";");
 
             stmt.executeUpdate();
             stmt.close();

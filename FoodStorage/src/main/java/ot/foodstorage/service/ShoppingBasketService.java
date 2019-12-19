@@ -26,6 +26,10 @@ public class ShoppingBasketService {
         return shoppingBasket;
     }
 
+    public ShoppingBasketDao getShoppingBasketDao() {
+        return shoppingBasketDao;
+    }
+
     /**
      * Lisää tuotteen ostokoriin
      * @param f lisättyävä raaka-aine
@@ -59,15 +63,5 @@ public class ShoppingBasketService {
         }
     }
 
-    public boolean addBasketItemsToStorageAndClearItemList(FoodService foodService) {
-        if (shoppingBasket.getItems().size() > 0) {
-            for (Food next : shoppingBasket.getItems()) {
-                foodService.saveNewFood(next);
-            }
-            shoppingBasket.setItems(new ArrayList<>());
-            shoppingBasketDao.delete(null);
-            return true;
-        }
-        return false;
-    }
+
 }

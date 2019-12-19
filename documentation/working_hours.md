@@ -15,4 +15,5 @@
 | 17.12. | 4    | valmiin reseptin teko saatavilla olevista raaka-aineista mahdollinen |
 | 18.12. | 1    | appservice luokka jaettu pienemmiksi service luokiksi |
 | 18.12. | 3    | testausta ja refaktorointia |
-| yth.   | 45   |  |
+| 19.12. | 4    | testausta ja refaktorointia |
+| yth.   | 49   |  |

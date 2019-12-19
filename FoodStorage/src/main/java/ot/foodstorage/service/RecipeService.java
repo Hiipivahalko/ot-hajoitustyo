@@ -1,6 +1,6 @@
 package ot.foodstorage.service;
 
-import ot.foodstorage.dao.ReadyReacipesDao;
+import ot.foodstorage.dao.ReadyRecipesDao;
 import ot.foodstorage.dao.RecipeDao;
 import ot.foodstorage.domain.Food;
 import ot.foodstorage.domain.Recipe;
@@ -12,16 +12,18 @@ import java.util.List;
 public class RecipeService {
 
     private RecipeDao recipeDao;
-    private ReadyReacipesDao readyRecipesDao;
+    private ReadyRecipesDao readyRecipesDao;
     private List<Recipe> allRecipes;
     private List<Recipe> readyRecipes;
 
-    public RecipeService(RecipeDao recipeDao, ReadyReacipesDao readyRecipesDao) {
+    public RecipeService(RecipeDao recipeDao, ReadyRecipesDao readyRecipesDao) {
         this.recipeDao = recipeDao;
         this.readyRecipesDao = readyRecipesDao;
         this.allRecipes = recipeDao.findAll();
         this.readyRecipes = readyRecipesDao.findAll();
     }
+
+    /// GETTERIT ja SETTERIT
 
     public List<Recipe> getAllRecipes() {
         return allRecipes;
@@ -31,11 +33,25 @@ public class RecipeService {
         return readyRecipes;
     }
 
+    public RecipeDao getRecipeDao() {
+        return recipeDao;
+    }
+
+    public ReadyRecipesDao getReadyRecipesDao() {
+        return readyRecipesDao;
+    }
+
+    public void setReadyRecipes(List<Recipe> readyRecipes) {
+        this.readyRecipes = readyRecipes;
+    }
+
+    ////
+
     /**
      * Tallentaa uuden reseptin, jos sen nimistä ei löydy jo
      * @param recipe resepti
      */
-    public boolean addNewRecipe(Recipe recipe, List<Food> foods) throws Exception {
+    public boolean addNewRecipe(Recipe recipe, List<Food> foods) {
         boolean sameAlready = false;
         for (Recipe next : allRecipes) {
             if (next.getName().equals(recipe.getName())) {
@@ -44,7 +60,7 @@ public class RecipeService {
         }
         foods = checkBoxes(foods);
         if (foods == null || sameAlready || foods.size() == 0) {
-            throw new Exception("Raaka-aineita ei ollut tai saman niminen resepti löytyy jo varastosta");
+            throw new NullPointerException("Raaka-aineita ei ollut tai saman niminen resepti löytyy jo varastosta");
         }
         recipe.setFoods(foods);
         recipeDao.save(recipe);
@@ -66,57 +82,14 @@ public class RecipeService {
             if (!next.getCheckBox().isSelected()) {
                 continue;
             }
-            if (next.getAmountField().getText() != null || next.getAmountField().getText().length() > 0) {
-                try {
-                    int amount = Integer.parseInt(next.getAmountField().getText());
-                    temp.setAmount(amount);
-                } catch (Exception e) {
-                    System.out.println(e.getMessage());
-                    e.printStackTrace();
-                    return null;
-                }
-            } else {
-                return null;
-            }
+            int amount = Integer.parseInt(next.getAmountField().getText());
+            temp.setAmount(amount);
             selected.add(temp);
         }
         return selected;
     }
 
-    /**
-     * valmistaa reseptin käytettävissä olevista raaka-aineista
-     * @param recipe valmistettava resepti
-     */
-    public void cookRecipe(Recipe recipe, FoodService foodService) {
-        recipe.setAmount(1);
-        for (Food f : recipe.getFoods()) {
-            try {
-                foodService.deleteFood(f);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-                e.printStackTrace();
-            }
-        }
-        boolean allReady = false;
-        for (Recipe r : readyRecipes) {
-            if (r.getName().equals(recipe.getName())) {
-                r.addOneAmountMore();
-                recipe = r;
-                allReady = true;
-                break;
-            }
-        }
-        if (!allReady) {
-            readyRecipes.add(recipe);
-            readyRecipesDao.save(recipe);
-        } else {
-            readyRecipesDao.update(recipe);
-        }
-    }
-
-
-
-    public void deleteRecipe(Recipe recipe) {
+    public void deleteReadyRecipe(Recipe recipe) {
         Iterator<Recipe> it = readyRecipes.iterator();
         while (it.hasNext()) {
             Recipe r = it.next();

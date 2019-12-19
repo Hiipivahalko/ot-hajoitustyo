@@ -98,12 +98,12 @@ public class Food {
         this.amount = amount;
     }
 
-    public void setAmountField(TextField amountField) {
-        this.amountField = amountField;
+    public void setAmountField(String amountField) {
+        this.amountField.setText(amountField);
     }
 
-    public void setCheckBox(CheckBox checkBox) {
-        this.checkBox = checkBox;
+    public void setCheckBox(boolean on) {
+        this.checkBox.setSelected(on);
     }
 
 

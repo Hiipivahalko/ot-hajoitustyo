@@ -96,7 +96,7 @@ public class AllFoodsSceneController extends Controller {
     @FXML
     public void deleteRecipe() {
         try {
-            appService.getRecipeService().deleteRecipe(readyRecipeView.getSelectionModel().getSelectedItem());
+            appService.getRecipeService().deleteReadyRecipe(readyRecipeView.getSelectionModel().getSelectedItem());
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
@@ -117,7 +117,6 @@ public class AllFoodsSceneController extends Controller {
 
     public void setUpScene() {
         setAllFoods();
-        //possibleRecipeView.setItems(FXCollections.observableList(appService.checkPossibleRecipes()));
         possibleRecipeView.setItems(FXCollections.observableList(appService.checkPossibleRecipes()));
         possibleRecipeView.refresh();
         setReadyRecipeView();
@@ -127,7 +126,7 @@ public class AllFoodsSceneController extends Controller {
     public void cook(ActionEvent event) {
         try {
             Recipe r = possibleRecipeView.getSelectionModel().getSelectedItem();
-            appService.getRecipeService().cookRecipe(r, appService.getFoodService());
+            appService.cookRecipe(r);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
