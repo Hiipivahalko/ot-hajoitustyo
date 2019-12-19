@@ -31,23 +31,6 @@ public class FoodDao  implements Dao<Food> {
     }
 
     /**
-     * Etsii tietyn rivin tietokannasta
-     * @param food etsittävä rivi
-     * @return rivistä muodostettu raaka-aine objekti
-     */
-    public Food findOne(Food food) {
-        Food f = null;
-        List<Food> foods = selectQuery("SELECT * FROM " + tableName +
-                " WHERE name = '" + food.getName() + "' AND manufacturer = '" + food.getManufacturer() + "' " +
-                "AND preservation = '" + food.getPreservation() + "' AND weight = '" + food.getWeight() + "';");
-
-        if (foods.size() == 1) {
-            return foods.get(0);
-        }
-        return f;
-    }
-
-    /**
      * Hakee tietokantataulusta Food kaikki rivit.
      * Rivit on järjestetty aakkosittain nimen mukaan.
      * @return Food taulun kaikki rivit
@@ -124,7 +107,6 @@ public class FoodDao  implements Dao<Food> {
      * @param filter sääntö millä haravoidaan
      * @return osajoukko kaikista tietokannan riveistä
      */
-    @Override
     public List<Food> filterFromAll(String filter)  {
         return selectQuery("SELECT * FROM " + tableName +
                 " WHERE name LIKE '%" + filter + "%' OR manufacturer LIKE '%" + filter + "%' ORDER BY name;");
@@ -165,8 +147,7 @@ public class FoodDao  implements Dao<Food> {
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 Food food = new Food(rs.getString("name"), rs.getString("manufacturer"),
-                        rs.getString("preservation"), rs.getInt("weight"),
-                        rs.getInt("id"), rs.getInt("amount"));
+                        rs.getString("preservation"), rs.getInt("weight"), rs.getInt("amount"));
                 foods.add(food);
             }
             rs.close();

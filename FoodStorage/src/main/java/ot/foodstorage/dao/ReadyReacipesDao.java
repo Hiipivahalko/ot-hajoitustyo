@@ -17,11 +17,6 @@ public class ReadyReacipesDao extends RecipeDao {
     }
 
     @Override
-    public Recipe findOne(Recipe recipe) throws SQLException {
-        return null;
-    }
-
-    @Override
     public List<Recipe> findAll() {
         return selectQuery("SELECT * FROM " + getTableName() + ";");
     }
@@ -84,9 +79,8 @@ public class ReadyReacipesDao extends RecipeDao {
             PreparedStatement stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Recipe recipe = new Recipe(rs.getInt("id"), rs.getString("name"),
-                        super.filterFoods(rs.getString("rawMaterials")), rs.getInt("cookTime"),
-                        rs.getString("description"), rs.getString("instruction"),
+                Recipe recipe = new Recipe(rs.getString("name"), super.filterFoods(rs.getString("rawMaterials")),
+                        rs.getInt("cookTime"), rs.getString("description"), rs.getString("instruction"),
                         rs.getInt("amount"));
                 readyRecipes.add(recipe);
             }

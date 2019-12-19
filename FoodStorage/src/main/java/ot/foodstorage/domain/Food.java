@@ -7,10 +7,7 @@ package ot.foodstorage.domain;
 
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
-import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Food {
 
@@ -23,16 +20,6 @@ public class Food {
     private TextField amountField;
     private CheckBox checkBox;
 
-    public Food(String name, String manufacturer, String preservation, int weight, int id, int amount) {
-        this.name = name;
-        this.manufacturer = manufacturer;
-        this.preservation = preservation;
-        this.weight = weight;
-        this.id = id;
-        this.amount = amount;
-        this.amountField = new TextField();
-        this.checkBox = new CheckBox();
-    }
 
     public Food(String name, String manufacturer, String preservation, int weight,  int amount) {
         this.name = name;
@@ -45,12 +32,12 @@ public class Food {
         this.checkBox = new CheckBox();
     }
 
-    public Food(int id, String name, String manufacturer, String preservation, int weight) {
+    public Food(String name, String manufacturer, String preservation, int weight) {
         this.name = name;
         this.manufacturer = manufacturer;
         this.preservation = preservation;
         this.weight = weight;
-        this.id = id;
+        this.id = -1;
         this.amount = -1;
         this.amountField = new TextField();
         this.checkBox = new CheckBox();
@@ -120,10 +107,13 @@ public class Food {
     }
 
 
-
+    /**
+     * Tarkataa ovatko kaksi objektia samat
+     * @param o verrattava objekti
+     * @return true/false, riippuen ovatko samat vai ei
+     */
     @Override
     public boolean equals(Object o) {
-
         if (this.getClass() != o.getClass()) {
             return false;
         }
@@ -134,17 +124,23 @@ public class Food {
                 this.weight != f.getWeight()) {
             return false;
         }
-        //System.out.println("this:" + this.name + " " + this.manufacturer + " " + this.preservation + " " + this.weight + " " + this.amount);
-        //System.out.println("object:" + f.getName() + " " + f.getManufacturer() + " " + f.getPreservation() + " " + f.getWeight() + " " + f.getAmount());
         return true;
     }
 
+    /**
+     * Laskee Food objektille hajautusarvon
+     * @return hajautusarvo
+     */
     @Override
     public int hashCode() {
         String s = this.name + this.getManufacturer() + this.getPreservation();
         return s.hashCode();
     }
 
+    /**
+     * Palauttaa objektin merkkijono esitysmuotona
+     * @return esitysmuoto
+     */
     @Override
     public String toString() {
         return this.name + " " + this.manufacturer + " " + this.preservation + " " + this.weight + " " + this.amount;

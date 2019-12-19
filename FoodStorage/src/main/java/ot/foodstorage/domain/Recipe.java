@@ -15,8 +15,8 @@ public class Recipe {
     private int amount;
     private TextField amountField;
 
-    public Recipe(int id, String name, List<Food> foods, int cookTime, String description, String instruction) {
-        this.id = id;
+    public Recipe(String name, List<Food> foods, int cookTime, String description, String instruction) {
+        this.id = -1;
         this.name = name;
         this.foods = foods;
         this.cookTime = cookTime;
@@ -26,8 +26,8 @@ public class Recipe {
         this.amount = -1;
     }
 
-    public Recipe(int id, String name, List<Food> foods, int cookTime, String description, String instruction, int amount) {
-        this.id = id;
+    public Recipe(String name, List<Food> foods, int cookTime, String description, String instruction, int amount) {
+        this.id = -1;
         this.name = name;
         this.foods = foods;
         this.cookTime = cookTime;

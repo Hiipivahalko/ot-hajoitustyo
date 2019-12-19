@@ -60,7 +60,7 @@ public class FoodService {
      * @param newFood lisättävä raaka-aine
      */
     public void checkIfLayoutExistAndCreate(Food newFood) {
-        Food newLayout = new Food(-1, newFood.getName(), newFood.getManufacturer(), newFood.getPreservation(),
+        Food newLayout = new Food(newFood.getName(), newFood.getManufacturer(), newFood.getPreservation(),
                 newFood.getWeight());
         boolean already = false;
         for  (Food l : layouts) {

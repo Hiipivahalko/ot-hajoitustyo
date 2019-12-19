@@ -14,4 +14,5 @@
 | 15.12. | 2    | ostoslistan tietokantatallennuksen teko + UI korjailuja |
 | 17.12. | 4    | valmiin reseptin teko saatavilla olevista raaka-aineista mahdollinen |
 | 18.12. | 1    | appservice luokka jaettu pienemmiksi service luokiksi |
-| yth.   | 42   |  |
+| 18.12. | 3    | testausta ja refaktorointia |
+| yth.   | 45   |  |

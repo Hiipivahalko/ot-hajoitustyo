@@ -27,7 +27,6 @@ public class ShoppingBasketSceneController extends Controller{
     @FXML private TableView<Food> layoutView;
     @FXML private TableView<Food> basketView;
     @FXML private TableView<Recipe> recepiView;
-    @FXML private TextField amountField;
     @FXML private Label errorLabel;
 
     @FXML
@@ -35,8 +34,7 @@ public class ShoppingBasketSceneController extends Controller{
         try {
             Food temp = layoutView.getSelectionModel().getSelectedItem();
             int a = Integer.parseInt(temp.getAmountField().getText());
-            Food f = new Food(temp.getName(), temp.getManufacturer(), temp.getPreservation(), temp.getWeight(),
-                    -1, a);
+            Food f = new Food(temp.getName(), temp.getManufacturer(), temp.getPreservation(), temp.getWeight(), a);
             appService.getShoppingBasketService().addItemToShoppingBasket(f);
             setUpBasket();
         } catch (Exception e) {

@@ -12,11 +12,9 @@ import java.util.List;
  *  Rajapinta domain-luokkien tietokantatoiminnallisuuksia hoitaville luokille
  */
 public interface Dao<T> {
-    T findOne(T object) throws SQLException;
-    List<T> findAll() throws SQLException;
-    void save(T object) throws SQLException;
-    void update(T object) throws SQLException;
-    void delete(T object) throws SQLException;
-    List<T> filterFromAll(String filter) throws SQLException;
+    List<T> findAll();
+    void save(T object);
+    void update(T object);
+    void delete(T object);
     List<T> selectQuery(String query);
 }

@@ -38,16 +38,6 @@ public class RecipeDao implements Dao<Recipe> {
     }
 
     /**
-     * Etsii tietyn rivin tietokannasta
-     * @param recipe tietokanta rivi
-     * @return rivistä muodostettu Recipe objekti
-     */
-    @Override
-    public Recipe findOne(Recipe recipe) throws SQLException {
-        return null;
-    }
-
-    /**
      * Hakee tietokantataulusta Recipe kaikki rivit.
      * Rivit on järjestetty aakkosittain nimen mukaan.
      * @return Recipe taulun kaikki rivit
@@ -91,13 +81,8 @@ public class RecipeDao implements Dao<Recipe> {
      * @param recipe poistettavan rivin ID
      */
     @Override
-    public void delete(Recipe recipe) throws SQLException {
+    public void delete(Recipe recipe) {
 
-    }
-
-    @Override
-    public List<Recipe> filterFromAll(String filter) throws SQLException {
-        return null;
     }
 
     /**
@@ -113,7 +98,7 @@ public class RecipeDao implements Dao<Recipe> {
             PreparedStatement stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Recipe recipe = new Recipe(rs.getInt("id"), rs.getString("name"), filterFoods(rs.getString("rawMaterials")),
+                Recipe recipe = new Recipe(rs.getString("name"), filterFoods(rs.getString("rawMaterials")),
                         rs.getInt("cookTime"), rs.getString("description"), rs.getString("instruction"));
                 recipes.add(recipe);
             }
@@ -140,7 +125,7 @@ public class RecipeDao implements Dao<Recipe> {
             String[] item = part.split(";");
             int weight = Integer.parseInt(item[3]);
             int amount = Integer.parseInt(item[4]);
-            foods.add(new Food(item[0], item[1], item[2], weight, -1, amount));
+            foods.add(new Food(item[0], item[1], item[2], weight, amount));
         }
         return foods;
     }

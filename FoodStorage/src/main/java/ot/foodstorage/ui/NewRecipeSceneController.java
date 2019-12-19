@@ -31,7 +31,7 @@ public class NewRecipeSceneController extends Controller {
             name = newNameField.getText();
             description = newDescriptonField.getText();
             instruction = newInstructionField.getText();
-            Recipe r = new Recipe(-1, name, recipeFoods, cookTime
+            Recipe r = new Recipe(name, recipeFoods, cookTime
                     , description, instruction);
             appService.getRecipeService().addNewRecipe(r, foodTable.getItems());
         } catch (Exception e) {

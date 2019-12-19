@@ -19,11 +19,11 @@ public class LayoutDaoTest  extends Application {
     private LayoutDao layoutDao;
     private Database db;
 
-    private Food layout1 = new Food(1, "milk", "valio", "jääkaappi", 1);
-    private Food layout2 = new Food(1, "milk", "arla", "jääkaappi", 1);
-    private Food layout3 = new Food(1, "milk", "nönnönnöö", "jääkaappi", 2);
-    private Food layout4 = new Food(1, "juusto", "valio", "jääkaappi", 1);
-    private Food layout5 = new Food(1, "juusto", "arla", "jääkaappi", 1);
+    private Food layout1 = new Food("milk", "valio", "jääkaappi", 1);
+    private Food layout2 = new Food("milk", "arla", "jääkaappi", 1);
+    private Food layout3 = new Food("milk", "nönnönnöö", "jääkaappi", 2);
+    private Food layout4 = new Food("juusto", "valio", "jääkaappi", 1);
+    private Food layout5 = new Food("juusto", "arla", "jääkaappi", 1);
 
     @BeforeClass
     public static void setClass() {

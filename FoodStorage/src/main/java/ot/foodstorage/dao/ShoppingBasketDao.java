@@ -21,7 +21,6 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket> {
         this.tableName = tableName;
     }
 
-    @Override
     public ShoppingBasket findOne(ShoppingBasket shoppingBasket) {
         List<ShoppingBasket> baskets = selectQuery("SELECT * FROM " + tableName + " WHERE name = 'basket';");
         if (baskets.size() > 0) {
@@ -63,7 +62,6 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket> {
 
     @Override
     public void update(ShoppingBasket basket) {
-        System.out.println("here");
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("UPDATE " + tableName + " SET items = ? " +
@@ -91,11 +89,6 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket> {
     }
 
     @Override
-    public List<ShoppingBasket> filterFromAll(String filter) throws SQLException {
-        return null;
-    }
-
-    @Override
     public List<ShoppingBasket> selectQuery(String query) {
         List<ShoppingBasket> baskets = new ArrayList<>();
         try {
@@ -119,7 +112,7 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket> {
         return baskets;
     }
 
-    private List<Food> handleItems(String s) {
+    public List<Food> handleItems(String s) {
         List<Food> shoppingItems = new ArrayList<>();
         String[] items = s.split(",");
         for (String next : items) {
@@ -129,7 +122,7 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket> {
             String[] item = next.split(";");
             int weight = Integer.parseInt(item[3]);
             int amount = Integer.parseInt(item[4]);
-            shoppingItems.add(new Food(item[0], item[1], item[2], weight, -1, amount));
+            shoppingItems.add(new Food(item[0], item[1], item[2], weight, amount));
         }
         return shoppingItems;
     }

@@ -56,6 +56,9 @@ public class ShoppingBasket {
     }
 
     public void updateItem(int index, int addedAmount, String name) {
+        if (addedAmount < 1) {
+            throw new IllegalArgumentException("addedAmount oli negatiivinen tai nolla");
+        }
         int newAmount = items.get(index).getAmount() + addedAmount;
         StringBuilder sb = new StringBuilder();
         items.get(index).setAmount(newAmount);

@@ -26,16 +26,6 @@ public class LayoutDao implements Dao<Food> {
     }
 
     /**
-     * Etsii tietyn rivin tietokannasta
-     * @param food tietokanta rivin
-     * @return rivistä muodostettu Layout objekti
-     */
-    @Override
-    public Food findOne(Food food) throws SQLException {
-        return null;
-    }
-
-    /**
      * Hakee tietokantataulusta Layout kaikki rivit.
      * Rivit on järjestetty aakkosittain nimen mukaan.
      * @return Layout taulun kaikki rivit
@@ -79,13 +69,8 @@ public class LayoutDao implements Dao<Food> {
      * @param food poistettavan rivi
      */
     @Override
-    public void delete(Food food) throws SQLException {
+    public void delete(Food food) {
 
-    }
-
-    @Override
-    public List<Food> filterFromAll(String filter) throws SQLException {
-        return null;
     }
 
     @Override
@@ -96,9 +81,8 @@ public class LayoutDao implements Dao<Food> {
             PreparedStatement stmt = conn.prepareStatement(query);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                Food food = new Food(rs.getInt("id"), rs.getString("name"),
-                        rs.getString("manufacturer"), rs.getString("preservation"),
-                        rs.getInt("weight"));
+                Food food = new Food(rs.getString("name"), rs.getString("manufacturer"),
+                        rs.getString("preservation"), rs.getInt("weight"));
                 foods.add(food);
             }
             rs.close();

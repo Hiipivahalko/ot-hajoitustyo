@@ -19,11 +19,11 @@ public class FoodDaoTest extends Application{
 
     private Database database;
     private FoodDao foodDao;
-    private Food food1 = new Food("milk", "valio", "jääkaappi", 1, 1);
-    private Food food2 = new Food("milk2", "arla", "jääkaappi", 1, 1);
-    private Food food3 = new Food("milk3", "arla", "kuivakaappi", 1, 3);
-    private Food food4 = new Food("milk4", "valio", "jääkaappi", 1, 1);
-    private Food food5 = new Food("jäätelö", "valio", "pakastin", 1, 2);
+    private Food food1;
+    private Food food2;
+    private Food food3;
+    private Food food4;
+    private Food food5;
 
     @BeforeClass
     public static void setClass() {
@@ -34,9 +34,18 @@ public class FoodDaoTest extends Application{
         }
     }
 
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Platform.exit();
+    }
+
     @Before
     public void setUp() throws Exception {
-
+        food1 = new Food("milk", "valio", "jääkaappi", 1, 1);
+        food2 = new Food("milk2", "arla", "jääkaappi", 1, 1);
+        food3 = new Food("milk3", "arla", "kuivakaappi", 1, 3);
+        food4 = new Food("milk4", "valio", "jääkaappi", 1, 1);
+        food5 = new Food("jäätelö", "valio", "pakastin", 1, 2);
         database = new Database("jdbc:sqlite:test.db");
         foodDao = new FoodDao(database, "Food");
         database.initializeDatabase();
@@ -54,18 +63,14 @@ public class FoodDaoTest extends Application{
         foodDao.save(food5);
     }
 
-    /*@Test
-    public void findOne() {
-    }*/
-
     /**
      * Testataan että tietokanta palauttaa kaikki ruokarivit sitä pyydettäessä
      * @throws SQLException
      */
     @Test
     public void findAll() throws SQLException {
-        Food food2 = new Food("juusto", "valio", "jääkaappi", 1, 2, 1);
-        Food food3 = new Food("leipä", "fazer", "kuivakaappi", 2, 1, 3);
+        Food food2 = new Food("juusto", "valio", "jääkaappi", 1, 1);
+        Food food3 = new Food("leipä", "fazer", "kuivakaappi", 2, 3);
 
         foodDao.save(food1);
         foodDao.save(food2);
@@ -93,8 +98,29 @@ public class FoodDaoTest extends Application{
         assertNotEquals("myllynparas", all.get(0).getManufacturer());
     }
 
+    /**
+     * Testaan että delete-funktio poistaa tietokannasta oiekan rivin
+     */
     @Test
     public void delete() {
+        saveFoods();
+        foodDao.delete(food1);
+        List<Food> items = foodDao.findAll();
+        assertEquals(4, items.size());
+
+        for (Food f : items) {
+            assertEquals(false, f.equals(food1));
+        }
+    }
+
+    @Test
+    public void delete2() {
+        saveFoods();
+        assertEquals(5, foodDao.findAll().size());
+
+        Food del = new Food("poisto", "manu", "jääkaappi", 1, 1);
+        foodDao.delete(del);
+        assertEquals(5, foodDao.findAll().size());
     }
 
     /**
@@ -185,9 +211,40 @@ public class FoodDaoTest extends Application{
         assertTrue(foods.size() == 0);
     }
 
+    /**
+     * raaka-aineen päivtys tietokantaan onnistuu, kun tietokannassa yksi rivi
+     */
+    @Test
+    public void update() {
+        foodDao.save(food1);
+        assertEquals(1, foodDao.findAll().size());
+        Food savedOne = foodDao.findAll().get(0);
+        food1.setAmount(food1.getAmount() + 4);
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Platform.exit();
+        foodDao.update(food1);
+        List<Food> afterUpdateList = foodDao.findAll();
+
+        assertEquals(1, afterUpdateList.size());
+        assertEquals(true, food1.equals(afterUpdateList.get(0)));
+        assertEquals(savedOne.getAmount() + 4, afterUpdateList.get(0).getAmount());
     }
+
+    /**
+     * raaka-aineen päivitys toimii kun tietokannassa monta riviä
+     */
+    @Test
+    public void update2() {
+        saveFoods();
+        assertEquals(5, foodDao.findAll().size());
+        Food savedOne = foodDao.findAll().get(1);
+        food1.setAmount(food1.getAmount() + 7);
+
+        foodDao.update(food1);
+        Food afterUpdate = foodDao.findAll().get(1);
+
+        assertEquals(5, foodDao.findAll().size());
+        assertEquals(true, food1.equals(afterUpdate));
+        assertEquals(savedOne.getAmount() + 7, afterUpdate.getAmount());
+    }
+
 }
