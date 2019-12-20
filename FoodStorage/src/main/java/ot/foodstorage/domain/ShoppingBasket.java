@@ -70,8 +70,8 @@ public class ShoppingBasket {
                 part = food[0] + ";" + food[1] + ";" + food[2] + ";" + food[3] + ";" + food[4];
             }
             sb.append(part + ",");
-            itemsAtString = sb;
         }
+        itemsAtString = sb;
     }
 
 }

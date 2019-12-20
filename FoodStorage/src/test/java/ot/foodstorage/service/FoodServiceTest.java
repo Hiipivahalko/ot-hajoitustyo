@@ -324,7 +324,7 @@ public class FoodServiceTest extends Application {
      */
     @Test
     public void deleteFood() throws Exception {
-        service.deleteFood(food1);
+        service.deleteFood(food1, 1);
         assertEquals(3, service.getAllFoods().size());
         assertEquals(3, foodDao.findAll().size());
         assertEquals(4, service.getLayouts().size());
@@ -351,7 +351,7 @@ public class FoodServiceTest extends Application {
     @Test
     public void deleteFood2() throws Exception {
         int amountAfterDelete = food2.getAmount() - 1;
-        service.deleteFood(food2);
+        service.deleteFood(food2, 1);
         assertEquals(4, service.getAllFoods().size());
         assertEquals(4, foodDao.findAll().size());
         assertEquals(4, service.getLayouts().size());

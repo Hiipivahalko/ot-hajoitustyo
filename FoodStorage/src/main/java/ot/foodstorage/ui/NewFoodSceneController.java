@@ -5,8 +5,6 @@
  */
 package ot.foodstorage.ui;
 
-import java.sql.SQLException;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,13 +23,10 @@ public class NewFoodSceneController extends Controller {
     @FXML private TextField manufacturerField;
     @FXML private TextField weightField;
     @FXML private TextField amount;
-    @FXML private DatePicker dueDateField;
     @FXML private ChoiceBox<String> preservationChoice;
-
     private AllFoodsSceneController mainController;
     private LayoutSceneController layoutController;
     private Stage stage;
-
 
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -52,8 +47,6 @@ public class NewFoodSceneController extends Controller {
     public void setLayoutController(LayoutSceneController controller) {
         this.layoutController = controller;
     }
-
-    //public void
 
     /**
      * Tapahtumankäsittelijä "Takaisin" napille, jolla päästään takaisin ruokalistaan
@@ -100,16 +93,7 @@ public class NewFoodSceneController extends Controller {
         Food food = new Food(nameField.getText().toLowerCase(), manufacturerField.getText().toLowerCase(),
                 preservation.toLowerCase(), weigth, Integer.parseInt(amount.getText()));
 
-        if (appService != null) {
-            appService.getFoodService().saveNewFood(food);
-        } else System.out.println("it was null");
-        this.layoutController.getLayoutView().refresh();
-        stage.close();
-    }
-
-    @FXML
-    public void closeWindow(ActionEvent event) {
-        stage.close();
+        super.goLayoutList(event);
     }
     
 }

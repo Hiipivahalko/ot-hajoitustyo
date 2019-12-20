@@ -5,14 +5,11 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import ot.foodstorage.domain.Food;
 import ot.foodstorage.service.AppService;
-
 import java.io.IOException;
 
 
@@ -20,7 +17,6 @@ public class LayoutSceneController extends Controller {
 
     private ObservableList<Food> layoutsList;
     @FXML private TableView<Food> layoutView;
-    @FXML private TextField amountField;
     private NewFoodSceneController newFoodController;
 
     public TableView<Food> getLayoutView() {
@@ -29,15 +25,17 @@ public class LayoutSceneController extends Controller {
 
     @FXML
     public void addNewRawMaterial(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewFoodScene.fxml"));
-        Parent root =  loader.load();
-        newFoodController = loader.getController();
-        newFoodController.setAppService(getAppService());
-        newFoodController.setLayoutController(this);
-        Stage stage = new Stage();
-        stage.setScene(new Scene(root));
-        newFoodController.setStage(stage);
-        stage.showAndWait();
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/NewFoodScene.fxml"));
+            Parent root =  loader.load();
+            newFoodController = loader.getController();
+            newFoodController.setAppService(getAppService());
+            newFoodController.setLayoutController(this);
+            ((Node) event.getSource()).getScene().setRoot(root);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -51,15 +49,11 @@ public class LayoutSceneController extends Controller {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-
     }
 
     public void setUpController(AppService appService) {
         layoutsList = FXCollections.observableList(appService.getFoodService().getLayouts());
         layoutView.setItems(layoutsList);
     }
-
-
-
 
 }

@@ -20,9 +20,10 @@
             </ButtonBar>
          </top>
          <left>
-            <VBox prefHeight="336.0" prefWidth="163.0" BorderPane.alignment="CENTER">
+            <VBox prefHeight="920.0" prefWidth="176.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#addExistRawMaterial" prefHeight="41.0" prefWidth="163.0" text="Lisää" VBox.vgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#addExistRawMaterial" prefHeight="41.0" prefWidth="176.0" text="Lisää valittu raaka-aine" VBox.vgrow="ALWAYS" />
+                  <Button mnemonicParsing="false" onAction="#addNewRawMaterial" prefHeight="48.0" prefWidth="176.0" text="Lisää uusi raaka-aine" />
                </children>
             </VBox>
          </left>
@@ -58,11 +59,7 @@
             </TableView>
          </center>
          <bottom>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-               <buttons>
-                  <Button mnemonicParsing="false" onAction="#addNewRawMaterial" prefHeight="27.0" prefWidth="168.0" text="Lisää uusi raaka-aine" />
-               </buttons>
-            </ButtonBar>
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
          </bottom>
       </BorderPane>
    </children>

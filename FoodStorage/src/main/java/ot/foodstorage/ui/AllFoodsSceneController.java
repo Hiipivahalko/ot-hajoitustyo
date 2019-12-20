@@ -34,12 +34,12 @@ public class AllFoodsSceneController extends Controller {
      * Vaihtaa sivun jossa voi lisätä raaka-aineen
      * @param event - tapahtumankäsittelija
      */
-    @FXML
+    /*@FXML
     public void addNewFood(ActionEvent event) {
         super.changeSide(event, "/fxml/LayoutScene.fxml");
         layoutController = (LayoutSceneController) controller;
         layoutController.setUpController(appService);
-    }
+    }*/
 
     /**
      * Asettaa ruokalistaukseen kaikki ruoat mitä tietokannasta löytyy
@@ -83,7 +83,7 @@ public class AllFoodsSceneController extends Controller {
     @FXML
     public void deleteFood() {
         try {
-            appService.getFoodService().deleteFood(tableview.getSelectionModel().getSelectedItem());
+            appService.getFoodService().deleteFood(tableview.getSelectionModel().getSelectedItem(), 1);
             setAllFoods();
         } catch (Exception e) {
             System.out.println(e.getMessage());

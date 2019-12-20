@@ -130,16 +130,16 @@ public class FoodService {
      * @param food vähennettävä objekti
      * @throws Exception
      */
-    public void deleteFood(Food food) {
+    public void deleteFood(Food food, int howMany) {
         Iterator<Food> it = allFoods.iterator();
         while (it.hasNext()) {
             Food f = it.next();
             if (f.equals(food)) {
-                if (f.getAmount() > 1) {
-                    f.setAmount(f.getAmount() - 1);
+                if (f.getAmount() - howMany >= 1) {
+                    f.setAmount(f.getAmount() - howMany);
                     foodDao.update(f);
                     foodsMap.put(f, f.getAmount());
-                } else if (f.getAmount() == 1) {
+                } else if (f.getAmount() - howMany == 0) {
                     it.remove();
                     foodDao.delete(f);
                     foodsMap.remove(f);

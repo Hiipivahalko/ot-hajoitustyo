@@ -98,8 +98,8 @@ public class Recipe {
         this.cookTime = cookTime;
     }
 
-    public void setAmountField(TextField amountField) {
-        this.amountField = amountField;
+    public void setAmountField(String amount) {
+        this.amountField.setText(amount);
     }
 
     public void setAmount(int amount) {

@@ -6,6 +6,7 @@ import ot.foodstorage.domain.Recipe;
 import ot.foodstorage.domain.ShoppingBasket;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ShoppingBasketService {
 
@@ -53,13 +54,15 @@ public class ShoppingBasketService {
     /**
      * Lisätään kaikki reseptin ainekset ostoskoriin
      * @param recipe lisättävän reseptin ainekset
-     * @param amount kuinka monta kertaa reseptin tuotteet halutaan
      */
-    public void addRecipeToBasket(Recipe recipe, int amount) {
-        for (int i = 0; i < amount; i++) {
-            for (Food next : recipe.getFoods()) {
-                addItemToShoppingBasket(next);
-            }
+    public void addRecipeToBasket(Recipe recipe) {
+        if (recipe.getAmount() < 1) {
+            throw new IllegalArgumentException("lisättävä määrä reseptin tuotteita oli alle yhden");
+        }
+        for (Food f : recipe.getFoods()) {
+            Food next = new Food(f.getName(), f.getManufacturer(), f.getPreservation(), f.getWeight(), f.getAmount());
+            next.setAmount(next.getAmount() * recipe.getAmount());
+            addItemToShoppingBasket(next);
         }
     }
 

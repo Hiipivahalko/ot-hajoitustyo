@@ -44,7 +44,7 @@ public class NewRecipeSceneController extends Controller {
     }
 
     public void setUpPage() {
-        foodsList = FXCollections.observableList(appService.getFoodService().getAllFoods());
+        foodsList = FXCollections.observableList(appService.getFoodService().getLayouts());
         foodTable.setItems(foodsList);
         errorLabel.setVisible(false);
 

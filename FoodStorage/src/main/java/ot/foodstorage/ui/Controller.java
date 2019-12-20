@@ -27,6 +27,7 @@ public class Controller {
     Controller controller;
     ShoppingBasketSceneController shopController;
     AllFoodsSceneController allFoodsController;
+    LayoutSceneController layoutController;
     RecipeSceneController recipeSceneController;
     NewRecipeSceneController newRecipeSceneController;
     
@@ -64,6 +65,17 @@ public class Controller {
         changeSide(event, "/fxml/AllFoodsScene.fxml");
         allFoodsController = (AllFoodsSceneController) controller;
         allFoodsController.setUpScene();
+    }
+
+    /**
+     * Vaihtaa sivun jossa voi lisätä raaka-aineen
+     * @param event - tapahtumankäsittelija
+     */
+    @FXML
+    public void goLayoutList(ActionEvent event) {
+        changeSide(event, "/fxml/LayoutScene.fxml");
+        layoutController = (LayoutSceneController) controller;
+        layoutController.setUpController(appService);
     }
 
     /**

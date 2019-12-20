@@ -20,7 +20,7 @@
          <left>
             <VBox prefHeight="400.0" prefWidth="126.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#addNewFood" prefHeight="53.0" prefWidth="126.0" text="Lisää raaka-aine" />
+                  <Button mnemonicParsing="false" onAction="#goLayoutList" prefHeight="53.0" prefWidth="126.0" text="Lisää raaka-aine" />
                   <Button mnemonicParsing="false" onAction="#setAllFoods" prefHeight="38.0" prefWidth="126.0" text="Kaikki ruoat" />
                   <Button mnemonicParsing="false" onAction="#filterDryFoods" prefHeight="30.0" prefWidth="126.0" text="Kuivakaappi" />
                   <Button mnemonicParsing="false" onAction="#filterFridgeFoods" prefHeight="30.0" prefWidth="126.0" text="Jääkaappi" />

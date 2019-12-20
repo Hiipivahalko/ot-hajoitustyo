@@ -63,9 +63,10 @@ public class ShoppingBasketSceneController extends Controller{
     @FXML
     public void AddRecipeToBasket(ActionEvent event) {
         try {
-            Recipe r = recepiView.getSelectionModel().getSelectedItem();
-            int amount = Integer.parseInt(r.getAmountField().getText());
-            basketService.addRecipeToBasket(r, amount);
+            Recipe temp = recepiView.getSelectionModel().getSelectedItem();
+            Recipe r = new Recipe(temp.getName(), temp.getFoods(), temp.getCookTime(), temp.getDescription(),
+                    temp.getInstruction(), Integer.parseInt(temp.getAmountField().getText()));
+            basketService.addRecipeToBasket(r);
             setUpBasket();
         } catch (Exception e) {
             errorLabel.setVisible(true);

@@ -75,7 +75,7 @@ public class AppService {
     public void cookRecipe(Recipe recipe) {
         recipe.setAmount(1);
         for (Food f : recipe.getFoods()) {
-            foodService.deleteFood(f);
+            foodService.deleteFood(f, f.getAmount());
         }
         boolean allReady = false;
         for (Recipe r : recipeService.getAllReadyRecipes()) {
@@ -94,6 +94,10 @@ public class AppService {
         }
     }
 
+    /**
+     * Tyhjentää ostoslistan jos sen koko on isompi kuin nolla. Listan raaka-aineet lisätään varastoon
+     * @return palauttaa true jos ostoslista tyhjennettiin, muuten false
+     */
     public boolean addBasketItemsToStorageAndClearItemList() {
         if (shoppingBasketService.getShoppingBasket().getItems().size() > 0) {
             for (Food next : shoppingBasketService.getShoppingBasket().getItems()) {
@@ -101,6 +105,7 @@ public class AppService {
             }
             shoppingBasketService.getShoppingBasket().setItems(new ArrayList<>());
             shoppingBasketService.getShoppingBasketDao().delete(null);
+            shoppingBasketService.getShoppingBasket().setListToString("");
             return true;
         }
         return false;

@@ -31,8 +31,6 @@ public class RecipeSceneController extends Controller {
         descriptionArea.setText(r.getDescription());
         String ct = String.valueOf(r.getCookTime());
         cookTimeField.setText(ct);
-        System.out.println(r.getFoods().size());
-        System.out.println(r.getFoods());
         recipeFoodsView.setItems(FXCollections.observableList(r.getFoods()));
     }
 
