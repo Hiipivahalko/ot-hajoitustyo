@@ -6,7 +6,6 @@
 package ot.foodstorage.main;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -16,22 +15,17 @@ import javafx.stage.Stage;
 import ot.foodstorage.dao.*;
 import ot.foodstorage.database.Database;
 import ot.foodstorage.service.AppService;
-import ot.foodstorage.ui.FrontPageSceneController;
-import ot.foodstorage.ui.AllFoodsSceneController;
+import ot.foodstorage.ui.Controller;
 
 /**
- *
- * @author osiipola
+ * Sovelluksen main-luokka joka alustaa ja käynnistää ohjelman
  */
 public class Main extends Application {
 
     private Database db;
     private Scene mainScene;
-    private Stage mainStage;
-    private AllFoodsSceneController mainConroller;
-    private FrontPageSceneController controller;
+    private Controller controller;
     private AppService appService;
-
 
     /**
      * @param args the command line arguments
@@ -39,9 +33,13 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    
+
+    /**
+     * Sovelluksen alustus
+     * @throws IOException IO-virheilmoitukset
+     */
     @Override
-    public void init() throws IOException, SQLException {
+    public void init() throws IOException {
         this.db = new Database("jdbc:sqlite:foodStorage.db");
         FoodDao foodDao = new FoodDao(db, "food");
         LayoutDao layoutDao = new LayoutDao(db, "layout");
@@ -58,12 +56,15 @@ public class Main extends Application {
         this.mainScene = new Scene(root, 1000, 1000);
     }
 
+    /**
+     * Käynnistää ohjelman
+     * @param stage UI-objekti
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception {
         stage.setTitle("RuokaVarasto");
         stage.setScene(mainScene);
         stage.show();
     }
-
-    
 }

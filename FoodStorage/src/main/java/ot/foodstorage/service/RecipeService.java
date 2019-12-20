@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Sovelluksen sovelluslogiikka luokka, hoitaa Recipe ja ReadyRecipes objekteihin tapahtuvat toiminnot
+ * sekä johtaa ne myös tietokantaan
+ */
 public class RecipeService {
 
     private RecipeDao recipeDao;
@@ -16,6 +20,11 @@ public class RecipeService {
     private List<Recipe> allRecipes;
     private List<Recipe> readyRecipes;
 
+    /**
+     * Service objekti joka hoitaa Recipe ja ReadyRecipe luokkien toimintoja
+     * @param recipeDao Dao-rajapinta Foodtaulun toimintoihin
+     * @param readyRecipesDao Dao-rajapinta LAyouttaulun toimintoihin
+     */
     public RecipeService(RecipeDao recipeDao, ReadyRecipesDao readyRecipesDao) {
         this.recipeDao = recipeDao;
         this.readyRecipesDao = readyRecipesDao;
@@ -89,6 +98,10 @@ public class RecipeService {
         return selected;
     }
 
+    /**
+     * Poistaa valmiiksi valmistetun reseptin
+     * @param recipe poistettava resepti
+     */
     public void deleteReadyRecipe(Recipe recipe) {
         Iterator<Recipe> it = readyRecipes.iterator();
         while (it.hasNext()) {

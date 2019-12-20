@@ -4,12 +4,12 @@ Lataa varasto sovellus [varasto.jar](https://github.com/Hiipivahalko/ot-hajoitus
 
 ## Tietokanta/Tietojen tallennus ja käyttö
 
-* Ohjelma olettaa että sinulla on luku/kirjoitusoikues kansioon johon tiedoston latasit.
-* Ohjelma tallentaa sovelluksessa käytetyt tiedot tietokantaan. Jos kansiossa jossa suoritat ohjlemaa ei löydy tietokantatiedostoa ```foodstorage.db``` , niin ohjelma itse luo tämän tiedoston. Muuten ohjelma käyttää valmiiksi olevaa tietokantaa. Jos tietokanta on jonkuin muun rakentama kuin ohjelman, niin voi syntyä virhe tilanteita ja ohjelma ei välttämättä toimi halutulla tavalla. Joten tarkasta, että kansioissa jossa suoritat ohjelman ei ole saman nimistä tietokantatiedostoa, ellet ole jo käytäänyt aikaisemmin ohjelmaa
+* Ohjelma olettaa että sinulla on luku/kirjoitusoikues kansioon jossa suoritat ohjelmaa
+* Ohjelma tallentaa sovelluksessa käytetyt tiedot tietokantaan. Jos kansiossa jossa suoritat ohjlemaa ei löydy tietokantatiedostoa ```foodstorage.db``` , niin ohjelma itse luo tämän tiedoston. Muuten ohjelma käyttää valmiiksi olevaa tietokantaa. Jos tietokanta on jonkuin muun rakentama kuin ohjelman, niin voi syntyä virhe tilanteita ja ohjelma ei välttämättä toimi halutulla tavalla. Joten tarkasta, että kansioissa jossa suoritat ohjelman ei ole saman nimistä tietokantatiedostoa, ellet ole jo käyttänyt aikaisemmin ohjelmaa
 
 ## Sovelluksen käynnistäminen
 
-Sovelluksen saa vaivattomasti käyntiin seuraavalla komennolla kansion juuresta jonne sovelluksen latasit (tänne ohjelma myös tallentaa tarvitsemans tietokannan).
+Sovelluksen saa vaivattomasti käyntiin seuraavalla komennolla kansion juuresta jonne sovelluksen latasit (tänne ohjelma myös tallentaa tarvitsemansa tietokannan).
 
 ```
 java -jar varasto.jar
@@ -30,7 +30,7 @@ Klikattuasi etusivun varasto painiketta, pääset näkemään keittiösi raaka-a
 
 ## Raaka-aine mallit
 
-Mallit sivulla pääset helposti lisäämään raaka-aineta varastoon, joita sinulla on jo ennen ollut. Kunhan vain lisäät halutun raaka-aineen kohdalla olevaan "__määrä__" kenttään kuinka monta kyseyistä raaka-ainetta haluat ja painat samaa raaka-ainetta listalla, siten että sen raaka-aineen rivi muuttuu joko siniseksi tai harmaaksi. Tämän jälkeen voit painaa "__Lisää valittu raaka-aine__" ja raaka-aine listään varastoon.
+Mallit sivulla pääset helposti lisäämään raaka-aineita varastoon, joita sinulla on jo ennen ollut. Kunhan vain lisäät halutun raaka-aineen kohdalla olevaan "__määrä__" kenttään kuinka monta kyseyistä raaka-ainetta haluat ja painat samaa raaka-ainetta listalla, siten että sen raaka-aineen rivi muuttuu joko siniseksi tai harmaaksi. Tämän jälkeen voit painaa "__Lisää valittu raaka-aine__" ja raaka-aine listään varastoon.
 
 Jos taas haluat lisätä kokonaan uuden raaka-aineen, niin sinun pitää painaa "__Lisää uusi raaka-aine__", tämän jälkeen sinut ohjataan sivulle jossa pääset lisäämään uuden raaka-aineen
 
@@ -61,3 +61,10 @@ Ostoskori sivulla pääset luomaan seuraavan kerran kauppakassiasi. Voit lisät�
 Sitten kun olet käynyt kaupassa voit tyhjentää ostoslistan tuotteen suoraan varastoosi painikkeen __Tuotteet hankittu -> lisää tuotteet varastoon__ samalla ostoslista siis myös tyhjenee kokonaan.
 
 ![kuva ostoslistasta](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/pictures/shoppingBasket.png)
+
+
+## Ohjelman sulkeminen
+
+Ohjelman voit sulkea käyttösi jälkeen painamalla sovellusikkunan rasti painiketta 
+
+![rasti](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/pictures/rasti.png)

@@ -4,18 +4,23 @@ import ot.foodstorage.dao.ShoppingBasketDao;
 import ot.foodstorage.domain.Food;
 import ot.foodstorage.domain.Recipe;
 import ot.foodstorage.domain.ShoppingBasket;
-
 import java.util.ArrayList;
-import java.util.List;
 
+/**
+ * Sovelluksen sovelluslogiikka luokka, hoitaa ShoppingBasket luokkaan tapahtuvat toiminnot
+ * sekä johtaa ne myös tietokantaan
+ */
 public class ShoppingBasketService {
 
     private ShoppingBasket shoppingBasket;
     private ShoppingBasketDao shoppingBasketDao;
 
+    /**
+     * Service objekti joka hoitaa ShoppingBasket luokan toimintoja
+     * @param shoppingBasketDao Dao-rajapinta Foodtaulun toimintoihin
+     */
     public ShoppingBasketService(ShoppingBasketDao shoppingBasketDao) {
         this.shoppingBasketDao = shoppingBasketDao;
-
         if (shoppingBasketDao.findAll().size() > 0) {
             this.shoppingBasket = shoppingBasketDao.findAll().get(0);
         } else {

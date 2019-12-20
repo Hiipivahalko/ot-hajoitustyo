@@ -12,10 +12,17 @@ Varasto sovellus, sovelluksella pystyt pitämään kirjaa sekä näkemään mit�
 
 * [Arkkitehtuuri](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/arkkitehtuuri.md)
 
+* [Käyttöohje](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/manual.md)
+
+* [Testausdokumentti](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/testing.md)
+
 ## Releaset
 
 [Viikko 5](https://github.com/Hiipivahalko/ot-hajoitustyo/releases/tag/1.0)
+
 [Viikko 6](https://github.com/Hiipivahalko/ot-hajoitustyo/releases/tag/2.0)
+
+[Lopullinen sovellus](https://github.com/Hiipivahalko/ot-hajoitustyo/releases/tag/2.0)
 
 ## Komentorivitoiminnot
 

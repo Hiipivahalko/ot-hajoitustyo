@@ -12,16 +12,14 @@ import ot.foodstorage.domain.Food;
 import ot.foodstorage.service.AppService;
 import java.io.IOException;
 
-
+/**
+ * AllFoodsScene.fxml tiedoston controllerluokka
+ */
 public class LayoutSceneController extends Controller {
 
     private ObservableList<Food> layoutsList;
-    @FXML private TableView<Food> layoutView;
     private NewFoodSceneController newFoodController;
-
-    public TableView<Food> getLayoutView() {
-        return layoutView;
-    }
+    @FXML private TableView<Food> layoutView;
 
     @FXML
     public void addNewRawMaterial(ActionEvent event) throws IOException {

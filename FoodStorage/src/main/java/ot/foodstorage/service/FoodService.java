@@ -4,9 +4,12 @@ import jdk.nashorn.internal.runtime.regexp.joni.exception.ValueException;
 import ot.foodstorage.dao.FoodDao;
 import ot.foodstorage.dao.LayoutDao;
 import ot.foodstorage.domain.Food;
-
 import java.util.*;
 
+/**
+ * Sovelluksen sovelluslogiikka luokka, hoitaa Food ja Layout objekteihin tapahtuvat toiminnot
+ * sekä johtaa ne myös tietokantaan
+ */
 public class FoodService {
 
     private FoodDao foodDao;
@@ -15,6 +18,11 @@ public class FoodService {
     private List<Food> layouts;
     private Map<Food, Integer> foodsMap;
 
+    /**
+     * Service objekti joka hoitaa Food ja Layout luokkien toimintoja
+     * @param foodDao Dao-rajapinta Foodtaulun toimintoihin
+     * @param layoutDao Dao-rajapinta LAyouttaulun toimintoihin
+     */
     public FoodService(FoodDao foodDao, LayoutDao layoutDao) {
         this.foodDao = foodDao;
         this.layoutDao = layoutDao;
@@ -40,6 +48,10 @@ public class FoodService {
         this.foodsMap = foodsMap;
     }
 
+    /**
+     * Alustaa FoodsMaps hajautustaulun tietokannasta saatavilla tiedoilla
+     * @param foods
+     */
     public void initializeMap(List<Food> foods) {
         for (Food f : foods) {
             foodsMap.put(f, f.getAmount());
