@@ -17,20 +17,34 @@ Käyttöliittymä on toteutettu käyttämällä JavaFX:n FXML-tiedostoja. Sovell
 * reseptit
 * ostoslista
 
-Jokaisella FXML-tiedostolla on oma controller.java tiedosto joka pystyy antamaan tietoja ja kertomaan mitä toimintoja pitäisi tehdä sovelluslogiikalle. FXML-tiedostot toimivat vain ns. näkyvänä osapuolena, niin kuin esim HTML-tiedostot. Käyttöliittymän FXML- ja controller-tiedostoilta on siis eriytetty kokonaan pois sovelluslogiikka ja ne vain luovat uusia instasseja eri domain luokista ja antavat tämäm olion eteenpäin sovelluslogiikalle ja kutsuvat sen avulla jotain sovelluslogiikan funktiota. Aina kun sovellus tekee jonkin toiminnon, niin aina jokin lista tai kokosivu päivitetään, ellei sitten siirrytä kokonaan uudelle sivulle jolloin sen sivun tiedon myös päivitetään ennen käyttäjälle näyttämistä
+Jokaisella FXML-tiedostolla on oma [controller.java](https://github.com/Hiipivahalko/ot-hajoitustyo/tree/master/FoodStorage/src/main/java/ot/foodstorage/ui) tiedosto joka pystyy antamaan tietoja ja kertomaan mitä toimintoja sovelluslogiikan pitäisi tehdä. FXML-tiedostot toimivat vain ns. näkyvänä osapuolena, niin kuin esim HTML-tiedostot selaimessa. Käyttöliittymän FXML- ja controller-tiedostoilta on siis eriytetty kokonaan pois sovelluslogiikka ja ne vain luovat uusia instasseja eri [domain luokista](https://github.com/Hiipivahalko/ot-hajoitustyo/tree/master/FoodStorage/src/main/java/ot/foodstorage/domain) ja antavat tämäm olion eteenpäin sovelluslogiikalle ja kutsuvat jotain sovelluslogiikan funktiota. Aina kun sovellus tekee jonkin toiminnon, niin aina jokin lista tai kokosivu päivitetään.
 
 ## Sovelluslogiikka
 
-Sovelluksen tärkeinpänä objektina toimii Food-luokka, johon sovellus nojaa täysin, mikä myös huomataan alla olevasta luokkakaaviosta. Food-luokka kuvaa keittön raaka-aineita, joista sovelluksessa pidetään tietoa.
+Alla olevassa kuvassa on kuvailtuna sovelluksen rakenne ja riippuvuudet toisiinsa
 
-![luokkakaavioSuppea](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/pictures/sovellusLuokkakaavio.jpg)
+![luokkakaavio](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/pictures/luokkakaavio.jpg)
+
+Kuvasta huomataan että appService luokan kautta pääsemme käsitksi kaikkialle sovelluksen tapahtumiin ja se toimiikin myös välikätenä käyttöliitymälle toimitettavasta datasta. Appservice toimii sovelluksen aivoina.
+
+Sovelluksen tärkeinpänä objektina toimii Food-luokka, johon sovellus nojaa täysin, mikä myös huomataan alla olevasta luokkakaaviosta. Food-luokka kuvaa keittön raaka-aineita, joista sovelluksessa pidetään tietoa. Nämä riipuvuudet on jätety pois sovelluksen kokonais luokkakaaviosta, koska nämä vain kuvaavat että ostoskorilla ja reseptillä on raaka-aine objekteja itsellää, mutta kun esim tyhjennämme ostoskorin, niin ostoskorin raaka-aineet tallentuvat tietokantaan appService -> FoodService... polkua pitkin
+
+![luokkakaavioSuppea](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/pictures/suppealuokkakaavio.jpg)
 
 ### Päätoiminnallisuudet
 
+Sovelluksen päätoiminnallisutena voidaan pitää kuutta suurinta toimintoa:
 
+* uuden/malli raaka-aineen lisääminen varastoon
+* uuden raaka-aine mallin luominen
+* ostoslistan rakentaminen resepteistä ja raaka-aineista
+* ostoslistan tyhjentäminen ja tuotteiden siirto varastoon
+* uusien reseptine luonti
+* reseptien valmistaminen saatavilla olevista raaka-ainesta
+
+Alle on kuvattuna kahden toiminnallisuuden sekvensiikaaviot selventämään niiden toimimista käyttäjälle
 
 #### Muut toiminnallisuudet
-![luokkakaavio](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/pictures/luokkakaavio.jpg)
 
 ![sekvenssikaavio](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/pictures/tuotteenlisäysSekvenssi.png)
 
@@ -38,7 +52,9 @@ Sovelluksen tärkeinpänä objektina toimii Food-luokka, johon sovellus nojaa t�
 
 Sovelluksen tietojentallennuksesta vastaavat ot.foodstorage.dao pakkauksen luokat.
 
-Sovellus käyttää tietojen pysyväisyystallennukseen tietokantaa joka koostuu viidestä eri taulusta (Food, Layout, Recipe, ReadyRecipes, ShoppinBasket). Jos tietokantatiedostoa ```foodstorage.db``` ei löydy ohjelman suorittevasta kansiosta luodaan se sinne ja alustetaan tarvittavilla tauluilla. Muuten jos tämä tiedosto on olemassa, niin ohjelma käyttää tätä samaa tiedostoa. Vaikka käyttäjä itse menisi poistamaan jonkin taulun käsin valmiista tietokantatiedostosta, niin ohjelma loisi uudestaan tämän taulun. Ohjelma siis tarkastaa että käytettävästä tietokannasta löytyy tarvittavat taulut, mutta valitettavasti ei tarkasta että taulun rakenne olisi juuri haluttu. Vaikka tietokantataulujen luokilla on omia riippuuvuuksia toisiinsa, niin silti kaikki tietokantataulut ovat muista riippumattomia ja toimivat vaikka muut taulut olisivat tyhjiä. Dao-luokat on toteuttu käyttäen [Data Access Object](https://en.wikipedia.org/wiki/Data_access_object)-suunnittelumallia. Tietokanta Dao-luokkia ei käytetä sovelluslogiikan perustava, vaan niiden avulla alustetaan sovelluslogiikan tietokantarakenteet, joten halutessaa sovelluksen toimintaa ja laajennusta voi helposti toteuttaa. 
+Sovellus käyttää tietojen pysyväisyystallennukseen tietokantaa joka koostuu viidestä eri taulusta (Food, Layout, Recipe, ReadyRecipes, ShoppinBasket). Jos tietokantatiedostoa ```foodstorage.db``` ei löydy ohjelman suorittevasta kansiosta luodaan se sinne ja alustetaan tarvittavilla tauluilla. Muuten jos tämä tiedosto on olemassa, niin ohjelma käyttää tätä samaa tiedostoa. Vaikka käyttäjä itse menisi poistamaan jonkin taulun käsin valmiista tietokantatiedostosta, niin ohjelma luo uudestaan tämän taulun. Ohjelma siis tarkastaa että käytettävästä tietokannasta löytyy tarvittavat taulut, mutta valitettavasti ei tarkasta että taulun rakenne olisi juuri haluttu. 
+
+Vaikka tietokantataulujen luokilla on omia riippuuvuuksia toisiinsa, niin silti kaikki tietokantataulut ovat muista riippumattomia ja toimivat vaikka muut taulut olisivat tyhjiä. Dao-luokat on toteuttu käyttäen [Data Access Object](https://en.wikipedia.org/wiki/Data_access_object)-suunnittelumallia. Tietokanta Dao-luokkia ei käytetä sovelluslogiikan perustava, vaan niiden avulla alustetaan sovelluslogiikan tietokantarakenteet, joten halutessaa sovelluksen toimintaa ja laajennusta voi helposti toteuttaa. 
 
 ### Tietokantataulujen rakenne
 

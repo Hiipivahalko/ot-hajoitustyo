@@ -19,7 +19,7 @@ Yksikkötestauksessä on myös tarkastettu että [foodstorage.domain](https://gi
 
 ### Dao-rajapinnat
 
-Dao-rajapinnan toteuttavat luokat on myös testattu käyttäen omia testi tietokantoja, jotta tiedämme että tietokantaan tallentuu tieto juuri siten kun haluammekin.
+Dao-rajapinnan toteuttavat luokat on myös testattu käyttäen omia testitietokantoja, jotta tiedämme että tietokantaan tallentuu tieto juuri siten kun haluammekin.
 
 ### testauskattavuus
 
@@ -30,6 +30,12 @@ Sovellusta on testauttu seuraavanlaisesti:
 
 ![testauskattavuus kuva](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/pictures/jacoco.png)
 
+Testikattavuuden voi saada selville seuraavalla komennolla
+
+```
+mvn test jacoco:report
+```
+Kattavuusraporttia voi tarkastella avaamalla selaimella tiedosto FoodStorage/target/site/jacoco/index.html
 
 ## Järjestelmätestaus
 
