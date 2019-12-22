@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * Sovelluksen sovelluslogiikka luokka, hoitaa Recipe ja ReadyRecipes objekteihin tapahtuvat toiminnot
- * sekä johtaa ne myös tietokantaan
+ * sekä johtaa ne myös tietokantaan.
  */
 public class RecipeService {
 
@@ -21,7 +21,7 @@ public class RecipeService {
     private List<Recipe> readyRecipes;
 
     /**
-     * Service objekti joka hoitaa Recipe ja ReadyRecipe luokkien toimintoja
+     * Service objekti joka hoitaa Recipe ja ReadyRecipe luokkien toimintoja.
      * @param recipeDao Dao-rajapinta Foodtaulun toimintoihin
      * @param readyRecipesDao Dao-rajapinta LAyouttaulun toimintoihin
      */
@@ -57,8 +57,10 @@ public class RecipeService {
     ////
 
     /**
-     * Tallentaa uuden reseptin, jos sen nimistä ei löydy jo
+     * Tallentaa uuden reseptin, jos sen nimistä ei löydy jo.
      * @param recipe resepti
+     * @param foods lisättävän reseptin tarvittavat raaka-aineet
+     * @return palauttaa true jos lisäys onnistuu
      */
     public boolean addNewRecipe(Recipe recipe, List<Food> foods) {
         boolean sameAlready = false;
@@ -78,7 +80,7 @@ public class RecipeService {
     }
 
     /**
-     * Tarkistaa mitkä annetun Food-listan Food objetien checkBoxit on valittuna
+     * Tarkistaa mitkä annetun Food-listan Food objetien checkBoxit on valittuna.
      * @param foods Food lista
      * @return valitut Food objektit
      */
@@ -99,7 +101,7 @@ public class RecipeService {
     }
 
     /**
-     * Poistaa valmiiksi valmistetun reseptin
+     * Poistaa valmiiksi valmistetun reseptin.
      * @param recipe poistettava resepti
      */
     public void deleteReadyRecipe(Recipe recipe) {
@@ -115,6 +117,28 @@ public class RecipeService {
                     readyRecipesDao.delete(r);
                 }
             }
+        }
+    }
+
+    /**
+     * Lisää uuden valmiin reseptin tai päivittää jo olemassa olevan valmiin reseptin määrää.
+     * @param recipe lisättävä resepti
+     */
+    public void addNewReadyRecipe(Recipe recipe) {
+        boolean allReady = false;
+        for (Recipe r : readyRecipes) {
+            if (r.getName().equals(recipe.getName())) {
+                r.addOneAmountMore();
+                recipe = r;
+                allReady = true;
+                break;
+            }
+        }
+        if (!allReady) {
+            readyRecipes.add(recipe);
+            readyRecipesDao.save(recipe);
+        } else {
+            readyRecipesDao.update(recipe);
         }
     }
 }

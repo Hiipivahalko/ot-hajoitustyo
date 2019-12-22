@@ -44,7 +44,6 @@
          <bottom>
             <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
                <buttons>
-                <Button mnemonicParsing="false" text="Näytä tarkemmin" />
                   <Button mnemonicParsing="false" onAction="#deleteFood" text="syö raaka-aine" />
                   <Button mnemonicParsing="false" onAction="#deleteRecipe" text="syö valmis resepti" />
                </buttons>
@@ -123,6 +122,7 @@
                            </font>
                         </Label>
                         <Button alignment="CENTER" mnemonicParsing="false" onAction="#cook" prefHeight="26.0" prefWidth="181.0" text="valmista resepti" />
+                        <Label fx:id="errorLabel" prefHeight="16.0" prefWidth="363.0" text="valitse ensin resepti minkä valmistat" />
                         <TableView fx:id="possibleRecipeView" prefHeight="918.0" prefWidth="191.0" VBox.vgrow="ALWAYS">
                           <columns>
                               <TableColumn prefWidth="144.0" text="nimi">

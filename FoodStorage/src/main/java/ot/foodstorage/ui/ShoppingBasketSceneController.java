@@ -14,7 +14,9 @@ import ot.foodstorage.service.ShoppingBasketService;
 
 import java.util.List;
 
-
+/**
+ * ShoppingBasketScene.fxml tiedoston controllerluokka.
+ */
 public class ShoppingBasketSceneController extends Controller{
 
     private ObservableList<Food> layouts;
@@ -28,27 +30,20 @@ public class ShoppingBasketSceneController extends Controller{
     @FXML private TableView<Recipe> recepiView;
     @FXML private Label errorLabel;
 
-    @FXML
-    public void addLayoutToBasket(ActionEvent event) {
-        try {
-            Food temp = layoutView.getSelectionModel().getSelectedItem();
-            int a = Integer.parseInt(temp.getAmountField().getText());
-            Food f = new Food(temp.getName(), temp.getManufacturer(), temp.getPreservation(), temp.getWeight(), a);
-            appService.getShoppingBasketService().addItemToShoppingBasket(f);
-            setUpBasket();
-        } catch (Exception e) {
-            errorLabel.setVisible(true);
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-    }
 
+    /**
+     * Alustaa ostoskorin.
+     */
     private void setUpBasket() {
         this.basketItems = FXCollections.observableList(basketService.getShoppingBasket().getItems());
         this.basketView.refresh();
         this.basketView.setItems(basketItems);
     }
 
+    /**
+     * alustaa sivun.
+     * @param layouts alustettavat raaka-aine mallit
+     */
     public void setUpPage(List<Food> layouts) {
         this.basketService = appService.getShoppingBasketService();
         this.recipeService = appService.getRecipeService();
@@ -60,6 +55,10 @@ public class ShoppingBasketSceneController extends Controller{
         errorLabel.setVisible(false);
     }
 
+    /**
+     * Lisää reseptin tuotteet ostoskoriin.
+     * @param event tapahtumankäsittelija
+     */
     @FXML
     public void AddRecipeToBasket(ActionEvent event) {
         try {
@@ -68,6 +67,7 @@ public class ShoppingBasketSceneController extends Controller{
                     temp.getInstruction(), Integer.parseInt(temp.getAmountField().getText()));
             basketService.addRecipeToBasket(r);
             setUpBasket();
+            errorLabel.setVisible(false);
         } catch (Exception e) {
             errorLabel.setVisible(true);
             System.out.println(e.getMessage());
@@ -75,11 +75,34 @@ public class ShoppingBasketSceneController extends Controller{
         }
     }
 
+    /**
+     * Lisää raaka-aineen ostoskoriin.
+     * @param event tapahtumankäsittelija
+     */
+    @FXML
+    public void addLayoutToBasket(ActionEvent event) {
+        try {
+            Food temp = layoutView.getSelectionModel().getSelectedItem();
+            int a = Integer.parseInt(temp.getAmountField().getText());
+            Food f = new Food(temp.getName(), temp.getManufacturer(), temp.getPreservation(), temp.getWeight(), a);
+            appService.getShoppingBasketService().addItemToShoppingBasket(f);
+            setUpBasket();
+            errorLabel.setVisible(false);
+        } catch (Exception e) {
+            errorLabel.setVisible(true);
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Lisää ostoskorin tuotteet varastoon ja tyhjentää varaston.
+     * @param event tapahtumankäsittelija
+     */
     @FXML
     public void addItemsToStorage(ActionEvent event) {
         if (appService.addBasketItemsToStorageAndClearItemList()) {
             setUpBasket();
         }
     }
-
 }

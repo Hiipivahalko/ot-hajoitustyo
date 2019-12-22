@@ -36,7 +36,10 @@
             </VBox>
          </left>
          <bottom>
-            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+            <ButtonBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <buttons>
+                  <Label fx:id="errorLabel" prefHeight="16.0" prefWidth="956.0" text="Valitse ensin resepti minkä haluat näkyvän, paina sen jälkeen &quot;näytä resepti&quot; nappia" />
+               </buttons></ButtonBar>
          </bottom>
          <center>
             <HBox prefHeight="100.0" prefWidth="200.0" BorderPane.alignment="CENTER">
@@ -69,7 +72,7 @@
                         <Label alignment="CENTER" prefHeight="16.0" prefWidth="598.0" />
                         <AnchorPane prefHeight="837.0" prefWidth="553.0" VBox.vgrow="ALWAYS">
                            <children>
-                              <Label fx:id="recipeNameLabel" alignment="CENTER" layoutX="52.0" layoutY="25.0" prefHeight="31.0" prefWidth="418.0" text="RESEPTIN NIMI" />
+                              <Label fx:id="recipeNameLabel" alignment="CENTER" layoutX="52.0" layoutY="25.0" prefHeight="31.0" prefWidth="418.0" />
                               <Label alignment="CENTER" layoutX="19.0" layoutY="64.0" prefHeight="31.0" prefWidth="156.0" text="ohjeet valmistukseen:" />
                               <Label alignment="CENTER" layoutX="90.0" layoutY="175.0" prefHeight="31.0" prefWidth="70.0" text="kuvaus:" />
                               <Label alignment="CENTER" layoutX="19.0" layoutY="282.0" prefHeight="31.0" prefWidth="142.0" text="valmistusaika (min):" />

@@ -8,7 +8,9 @@ package ot.foodstorage.domain;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
 
-
+/**
+ * Raaka-aine luokka.
+ */
 public class Food {
 
     private String name;
@@ -21,6 +23,14 @@ public class Food {
     private CheckBox checkBox;
 
 
+    /**
+     * Alustaa raaka-aineen.
+     * @param name nimi
+     * @param manufacturer valmistaja
+     * @param preservation säilytys
+     * @param weight paino
+     * @param amount määrä
+     */
     public Food(String name, String manufacturer, String preservation, int weight,  int amount) {
         this.name = name;
         this.manufacturer = manufacturer;
@@ -32,6 +42,13 @@ public class Food {
         this.checkBox = new CheckBox();
     }
 
+    /**
+     * Alustaa raaka-aine mallin.
+     * @param name nimi
+     * @param manufacturer valmistaja
+     * @param preservation säilytys
+     * @param weight paino
+     */
     public Food(String name, String manufacturer, String preservation, int weight) {
         this.name = name;
         this.manufacturer = manufacturer;
@@ -98,17 +115,25 @@ public class Food {
         this.amount = amount;
     }
 
+    /**
+     * Asettaa javaFX Textfield kenttään annetun arvon.
+     * @param amountField asetettava merkkijono
+     */
     public void setAmountField(String amountField) {
         this.amountField.setText(amountField);
     }
 
+    /**
+     * Asettaa valintalaatikon joko valituksi tai ei.
+     * @param on true/false
+     */
     public void setCheckBox(boolean on) {
         this.checkBox.setSelected(on);
     }
 
 
     /**
-     * Tarkataa ovatko kaksi objektia samat
+     * Tarkataa ovatko kaksi objektia samat.
      * @param o verrattava objekti
      * @return true/false, riippuen ovatko samat vai ei
      */
@@ -128,7 +153,7 @@ public class Food {
     }
 
     /**
-     * Laskee Food objektille hajautusarvon
+     * Laskee Food objektille hajautusarvon.
      * @return hajautusarvo
      */
     @Override
@@ -138,12 +163,11 @@ public class Food {
     }
 
     /**
-     * Palauttaa objektin merkkijono esitysmuotona
+     * Palauttaa objektin merkkijono esitysmuotona.
      * @return esitysmuoto
      */
     @Override
     public String toString() {
         return this.name + " " + this.manufacturer + " " + this.preservation + " " + this.weight + " " + this.amount;
     }
-
 }

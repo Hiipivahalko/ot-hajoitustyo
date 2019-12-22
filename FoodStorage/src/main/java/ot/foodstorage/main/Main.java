@@ -18,7 +18,7 @@ import ot.foodstorage.service.AppService;
 import ot.foodstorage.ui.Controller;
 
 /**
- * Sovelluksen main-luokka joka alustaa ja käynnistää ohjelman
+ * Sovelluksen main-luokka joka alustaa ja käynnistää ohjelman.
  */
 public class Main extends Application {
 
@@ -28,6 +28,7 @@ public class Main extends Application {
     private AppService appService;
 
     /**
+     * Sovelluksen käynnistys.
      * @param args the command line arguments
      */
     public static void main(String[] args) {
@@ -35,7 +36,7 @@ public class Main extends Application {
     }
 
     /**
-     * Sovelluksen alustus
+     * Sovelluksen alustus.
      * @throws IOException IO-virheilmoitukset
      */
     @Override
@@ -57,7 +58,7 @@ public class Main extends Application {
     }
 
     /**
-     * Käynnistää ohjelman
+     * Käynnistää käyttöliittymän.
      * @param stage UI-objekti
      * @throws Exception
      */

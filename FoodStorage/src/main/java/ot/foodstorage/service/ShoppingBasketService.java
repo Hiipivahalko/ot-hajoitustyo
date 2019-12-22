@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 /**
  * Sovelluksen sovelluslogiikka luokka, hoitaa ShoppingBasket luokkaan tapahtuvat toiminnot
- * sekä johtaa ne myös tietokantaan
+ * sekä johtaa ne myös tietokantaan.
  */
 public class ShoppingBasketService {
 
@@ -16,7 +16,7 @@ public class ShoppingBasketService {
     private ShoppingBasketDao shoppingBasketDao;
 
     /**
-     * Service objekti joka hoitaa ShoppingBasket luokan toimintoja
+     * Service objekti joka hoitaa ShoppingBasket luokan toimintoja.
      * @param shoppingBasketDao Dao-rajapinta Foodtaulun toimintoihin
      */
     public ShoppingBasketService(ShoppingBasketDao shoppingBasketDao) {
@@ -37,7 +37,7 @@ public class ShoppingBasketService {
     }
 
     /**
-     * Lisää tuotteen ostokoriin
+     * Lisää tuotteen ostokoriin.
      * @param f lisättyävä raaka-aine
      */
     public void addItemToShoppingBasket(Food f) {
@@ -57,7 +57,7 @@ public class ShoppingBasketService {
     }
 
     /**
-     * Lisätään kaikki reseptin ainekset ostoskoriin
+     * Lisätään kaikki reseptin ainekset ostoskoriin.
      * @param recipe lisättävän reseptin ainekset
      */
     public void addRecipeToBasket(Recipe recipe) {
@@ -70,6 +70,4 @@ public class ShoppingBasketService {
             addItemToShoppingBasket(next);
         }
     }
-
-
 }

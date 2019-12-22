@@ -17,4 +17,5 @@
 | 18.12. | 3    | testausta ja refaktorointia |
 | 19.12. | 4    | testausta ja refaktorointia |
 | 20.12. | 6    | testausta, refaktorointia ja dokumentaation kirjoitusta |
-| yth.   | 55   |  |
+| 21.12. | 3    | refaktorointia ja dokumentaation kirjoitusta |
+| yth.   | 58   |  |

@@ -11,16 +11,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Luokka ShoppingBasket-luokkien tietokanta käsittelyille/tapahtumille.
+ */
 public class ShoppingBasketDao implements Dao<ShoppingBasket> {
 
     private Database db;
     private String tableName;
 
+    /**
+     * ShoppingBasketDao objekti jolla voidaan totetuttaa tarvittavia kyselyitä Recipe-tauluun.
+     * @param db tietokanta
+     * @param tableName tietokantataulun nimi
+     */
     public ShoppingBasketDao(Database db, String tableName) {
         this.db = db;
         this.tableName = tableName;
     }
 
+    /**
+     * Etsii tietyn rivin tietokannasta.
+     * @param shoppingBasket etsittävä shoppingBasket
+     * @return ShoppingBasket, jos ei löydy, niin null
+     */
     public ShoppingBasket findOne(ShoppingBasket shoppingBasket) {
         List<ShoppingBasket> baskets = selectQuery("SELECT * FROM " + tableName + " WHERE name = 'basket';");
         if (baskets.size() > 0) {
@@ -29,12 +42,20 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket> {
         return null;
     }
 
+    /**
+     * Etsii kaikki rivit tietokannasta.
+     * @return
+     */
     @Override
     public List<ShoppingBasket> findAll() {
         List<ShoppingBasket> baskets = selectQuery("SELECT * FROM " + tableName + ";");
         return baskets;
     }
 
+    /**
+     * Päivityyää tai tallentaa uuden rivin tietokantaa.
+     * @param basket tallennettava shoppingBasket
+     */
     public void saveOrUpdate(ShoppingBasket basket) {
         ShoppingBasket sb = findOne(null);
         if (sb == null) {
@@ -44,6 +65,10 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket> {
         }
     }
 
+    /**
+     * Tallentaa uuden rivin tietokantaan.
+     * @param basket tallennettava rivi
+     */
     @Override
     public void save(ShoppingBasket basket) {
         try {
@@ -60,13 +85,17 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket> {
         }
     }
 
+    /**
+     * Päivittää tietokannan tiettyjä rivejä.
+     * @param basket
+     */
     @Override
     public void update(ShoppingBasket basket) {
         try {
             Connection conn = db.getConnection();
             PreparedStatement stmt = conn.prepareStatement("UPDATE " + tableName + " SET items = ? " +
                     "WHERE name = 'basket'");
-            stmt.setString(1,basket.listToString());
+            stmt.setString(1, basket.listToString());
             stmt.execute();
             stmt.close();
             conn.close();
@@ -76,6 +105,10 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket> {
         }
     }
 
+    /**
+     * Poistaa rivin tietokannasta.
+     * @param shoppingBasket
+     */
     @Override
     public void delete(ShoppingBasket shoppingBasket) {
         try {
@@ -88,6 +121,11 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket> {
         }
     }
 
+    /**
+     * Toteuttaa annetun kyselyn ja palauttaa mahdolliset rivit tietokannasta.
+     * @param query SQL-kysely
+     * @return rivit tietokannasta
+     */
     @Override
     public List<ShoppingBasket> selectQuery(String query) {
         List<ShoppingBasket> baskets = new ArrayList<>();
@@ -112,6 +150,11 @@ public class ShoppingBasketDao implements Dao<ShoppingBasket> {
         return baskets;
     }
 
+    /**
+     * Rakentaa merkkijonosta listan Food olioita.
+     * @param s merkkijono Food olioina
+     * @return lista Food olioita
+     */
     public List<Food> handleItems(String s) {
         List<Food> shoppingItems = new ArrayList<>();
         String[] items = s.split(",");

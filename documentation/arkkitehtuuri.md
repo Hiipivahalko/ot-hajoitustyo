@@ -41,12 +41,22 @@ Sovelluksen päätoiminnallisutena voidaan pitää kuutta suurinta toimintoa:
 * ostoslistan tyhjentäminen ja tuotteiden siirto varastoon
 * uusien reseptine luonti
 * reseptien valmistaminen saatavilla olevista raaka-ainesta
+* valmiin reseptin tai raaka-aineen poistaminen varastosta (syöminen)
 
-Alle on kuvattuna kahden toiminnallisuuden sekvensiikaaviot selventämään niiden toimimista käyttäjälle
+Alle on kuvattuna yhden toiminnallisuuden sekvensiikaavio selventämään toimintojen toimimista
+
+### Reseptin valmistaminen (kokkaaminen)
+
+Sekvenssikaavio reseptin valmistamisesta, kun käyttäjä valitsee mahdollisten reseptien listalta mitä pystytään mahdollisesti valmistamaan.
+
+![reseptin valmistus](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/pictures/reseptinValmistus.png)
+
+Sama periaate toimii kaikissa muissakin toiminnoissa, eli luodaan jokin uusi instanssi ja kutsutaan appService luokkaa, joka jatkaa toiminnon funktiota johonkin muuhun service luokkaa ja sieltä aina Dao-luokan kautta tietokantaan.
 
 #### Muut toiminnallisuudet
 
-![sekvenssikaavio](https://github.com/Hiipivahalko/ot-hajoitustyo/blob/master/documentation/pictures/tuotteenlisäysSekvenssi.png)
+Muut sovelluksen toiminnot perustuvat enemänkin vain käyttöliittymän näkyviin rajauksiin, tietojen näyttämiseen tai jonkin tietyn asian hakua. Toki näissäkin toiminnoissa tarvitaan appService luokkaa joka tuo käyttöliittymälle tarvittavat tiedot
+
 
 ## Tietojen pysyväisyystallennus
 

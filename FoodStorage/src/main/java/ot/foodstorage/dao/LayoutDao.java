@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Luokka Layout-luokkien tietokanta käsittelyille/tapahtumille
+ * Luokka Layout-luokkien tietokanta käsittelyille/tapahtumille.
  */
 public class LayoutDao implements Dao<Food> {
 
@@ -16,7 +16,7 @@ public class LayoutDao implements Dao<Food> {
     private String tableName;
 
     /**
-     * LayoutDao objekti jolla voidaan totetuttaa tarvittavia kyselyitä Layout-tauluun
+     * LayoutDao objekti jolla voidaan totetuttaa tarvittavia kyselyitä Layout-tauluun.
      * @param db tietokanta
      * @param tableName tietokantataulun nimi
      */
@@ -36,7 +36,7 @@ public class LayoutDao implements Dao<Food> {
     }
 
     /**
-     * Tallentaa uuden rivin Layout tietokantatauluun
+     * Tallentaa uuden rivin Layout tietokantatauluun.
      * @param object tallennettava layout
      */
     @Override
@@ -57,22 +57,27 @@ public class LayoutDao implements Dao<Food> {
         }
     }
 
-
+    /**
+     * Layout objetin päivitys.
+     * @param object
+     */
     @Override
     public void update(Food object) {
-
     }
 
-
     /**
-     * Poistaa tietyn rivin tietokannasta
+     * Poistaa tietyn rivin tietokannasta.
      * @param food poistettavan rivi
      */
     @Override
     public void delete(Food food) {
-
     }
 
+    /**
+     * Toteuttaa tietyn kyselyn tietokantaan ja palauttaa löydetyt rivit.
+     * @param query toteutettva kysely
+     * @return
+     */
     @Override
     public List<Food> selectQuery(String query) {
         List<Food> foods = new ArrayList<>();

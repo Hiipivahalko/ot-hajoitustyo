@@ -11,14 +11,14 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Luokka tietkantannan alustukseen, jossa alustetaan sovelluksen tarvittavat taulut sekä pääsy tietokantaa "fyysisesti"
+ * Luokka tietkantannan alustukseen, jossa alustetaan sovelluksen tarvittavat taulut sekä pääsy tietokantaa "fyysisesti".
  */
 public class Database {
 
     private String databaseAddress;
 
     /**
-     * Tietokanta objekti, joka alustaa tietokannan
+     * Tietokanta objekti, joka alustaa tietokannan.
      * @param databaseAddress osoite tietokantaan
      */
     public Database(String databaseAddress) {
@@ -36,13 +36,18 @@ public class Database {
         }
     }
 
+    /**
+     * Palauttaa Connection olion.
+     * @return Connection olio
+     * @throws SQLException sql virhe
+     */
     public Connection getConnection() throws SQLException {
         return DriverManager.getConnection(databaseAddress);
     }
 
     /**
      * Alustaa tietokannan siten että poistaa ennen alustusta kaiken pois sieltä.
-     * Tietokanta lähtee tällöin ns. "tyhjältä pöydältä"
+     * Tietokanta lähtee tällöin ns. "tyhjältä pöydältä".
      */
     public void initializeDatabase() {
         try {
@@ -63,7 +68,7 @@ public class Database {
     }
 
     /**
-     * Totetuttaa tietokantakyselyt joissa luodaan sovelluksen tietokantataulut
+     * Totetuttaa tietokantakyselyt joissa luodaan sovelluksen tietokantataulut.
      * @param stmt tietokantakyselyiden toteuttaja
      * @throws SQLException virhe tietokantakyselyn toteutuksessa
      */
@@ -76,7 +81,7 @@ public class Database {
     }
 
     /**
-     * Kysely Food-taulun luontiin
+     * Kysely Food-taulun luontiin.
      * @return tietokantakysely kokonaisuudessaan
      */
     private String createFoodTable() {
@@ -92,7 +97,7 @@ public class Database {
     }
 
     /**
-     * Kysely Layout-taulun luontiin
+     * Kysely Layout-taulun luontiin.
      * @return tietokantakysely kokonaisuudessaan
      */
     private String createLayoutTable() {
@@ -107,7 +112,7 @@ public class Database {
     }
 
     /**
-     * Kysely Recipe-taulun luontiin
+     * Kysely Recipe-taulun luontiin.
      * @return tietokantakysely kokonaisuudessaan
      */
     private String createRecipeTable() {
@@ -122,6 +127,10 @@ public class Database {
                 ");";
     }
 
+    /**
+     * Kysely ReadyRecipe-taulun luontiin.
+     * @return Create table kysely
+     */
     private String createReadyRecipes() {
         return "CREATE TABLE IF NOT EXISTS" +
                 " readyRecipes(" +
@@ -136,7 +145,7 @@ public class Database {
     }
 
     /**
-     * Kysely ShoppingBasket-taulun luontiin
+     * Kysely ShoppingBasket-taulun luontiin.
      * @return tietokantakysely kokonaisuudessaan
      */
     private String createShoppingBasketTable() {

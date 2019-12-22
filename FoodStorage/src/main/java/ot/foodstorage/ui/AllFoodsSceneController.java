@@ -10,13 +10,14 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import ot.foodstorage.domain.Food;
 import ot.foodstorage.domain.Recipe;
 
 /**
- * AllFoodsScene.fxml tiedoston controllerluokka
+ * AllFoodsScene.fxml tiedoston controllerluokka.
  */
 public class AllFoodsSceneController extends Controller {
     
@@ -25,16 +26,46 @@ public class AllFoodsSceneController extends Controller {
     @FXML private TableView<Food> tableview;
     @FXML private TableView<Recipe> readyRecipeView;
     @FXML private TableView<Recipe> possibleRecipeView;
+    @FXML private Label errorLabel;
 
     /**
-     * Asettaa ruokalistaukseen kaikki ruoat mitä tietokannasta löytyy
+     * Alustaa taulun, joka sisältää kaikki raaka-aineet.
+     * @param foods asetettava lista
+     */
+    private void setTableview(List<Food> foods) {
+        foodList = FXCollections.observableArrayList(foods);
+        tableview.setItems(foodList);
+        tableview.refresh();
+    }
+
+    /**
+     * Päivittää valmiit reseptit-taulun.
+     */
+    private void setReadyRecipeView() {
+        readyRecipeView.setItems(FXCollections.observableList(appService.getRecipeService().getAllReadyRecipes()));
+        readyRecipeView.refresh();
+    }
+
+    /**
+     * Alustaa varastosivun kokonaan (AllFoodsScene).
+     */
+    public void setUpScene() {
+        setAllFoods();
+        possibleRecipeView.setItems(FXCollections.observableList(appService.checkPossibleRecipes()));
+        possibleRecipeView.refresh();
+        setReadyRecipeView();
+        errorLabel.setVisible(false);
+    }
+
+    /**
+     * Asettaa ruokalistaukseen kaikki ruoat mitä tietokannasta löytyy.
      */
     public void setAllFoods() {
         setTableview(appService.getFoodService().getAllFoods());
     }
 
     /**
-     * Asettaa ruokalistaa ruoat joiden nimet tai valmistaja nimet sisältyvät annettuun hakuehtoon
+     * Asettaa ruokalistaa ruoat joiden nimet tai valmistaja nimet sisältyvät annettuun hakuehtoon.
      */
     @FXML
     public void filterByNameOrManufacturer() {
@@ -42,7 +73,7 @@ public class AllFoodsSceneController extends Controller {
     }
 
     /**
-     * Asettaa ruokalistaukseen ruoat, joita säilytetään vain jääkaapissa
+     * Asettaa ruokalistaukseen ruoat, joita säilytetään vain jääkaapissa.
      */
     @FXML
     public void filterFridgeFoods() {
@@ -50,7 +81,7 @@ public class AllFoodsSceneController extends Controller {
     }
 
     /**
-     * Asettaa ruokalistaukseen ruoat, joita säilytetään kuivakaapeissa
+     * Asettaa ruokalistaukseen ruoat, joita säilytetään kuivakaapeissa.
      */
     @FXML
     public void filterDryFoods() {
@@ -58,7 +89,7 @@ public class AllFoodsSceneController extends Controller {
     }
 
     /**
-     * Asettaa ruokalistaukseen ruoat, joita säilytetään pakastimessa
+     * Asettaa ruokalistaukseen ruoat, joita säilytetään pakastimessa.
      */
     @FXML
     public void filterFreezerFoods() {
@@ -66,7 +97,7 @@ public class AllFoodsSceneController extends Controller {
     }
 
     /**
-     * Poistaa raaka-aineen raaka-aine listalta (tableView)
+     * Poistaa raaka-aineen raaka-aine listalta (tableView).
      */
     @FXML
     public void deleteFood() {
@@ -82,7 +113,7 @@ public class AllFoodsSceneController extends Controller {
     }
 
     /**
-     * Poistaa valmiiksi tehdyn reseptin listalta (readyRecipeView)
+     * Poistaa valmiiksi tehdyn reseptin listalta (readyRecipeView).
      */
     @FXML
     public void deleteRecipe() {
@@ -96,35 +127,7 @@ public class AllFoodsSceneController extends Controller {
     }
 
     /**
-     * Alustaa taulun, joka sisältää kaikki raaka-aineet
-     * @param foods
-     */
-    private void setTableview(List<Food> foods) {
-        foodList = FXCollections.observableArrayList(foods);
-        tableview.setItems(foodList);
-        tableview.refresh();
-    }
-
-    /**
-     * Päivittää valmiit reseptit-taulun
-     */
-    private void setReadyRecipeView() {
-        readyRecipeView.setItems(FXCollections.observableList(appService.getRecipeService().getAllReadyRecipes()));
-        readyRecipeView.refresh();
-    }
-
-    /**
-     * Alustaa varastosivun kokonaan (AllFoodsScene)
-     */
-    public void setUpScene() {
-        setAllFoods();
-        possibleRecipeView.setItems(FXCollections.observableList(appService.checkPossibleRecipes()));
-        possibleRecipeView.refresh();
-        setReadyRecipeView();
-    }
-
-    /**
-     * Valmistaa reseptin mukaisen annoksen varastoon, saatavilla olevista raaka-aineista
+     * Valmistaa reseptin mukaisen annoksen varastoon, saatavilla olevista raaka-aineista.
      * @param event
      */
     @FXML
@@ -132,12 +135,12 @@ public class AllFoodsSceneController extends Controller {
         try {
             Recipe r = possibleRecipeView.getSelectionModel().getSelectedItem();
             appService.cookRecipe(r);
+            errorLabel.setVisible(false);
+            setUpScene();
         } catch (Exception e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
+            errorLabel.setVisible(true);
         }
-        setUpScene();
     }
-
-
 }

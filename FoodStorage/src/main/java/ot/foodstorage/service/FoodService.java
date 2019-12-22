@@ -8,7 +8,7 @@ import java.util.*;
 
 /**
  * Sovelluksen sovelluslogiikka luokka, hoitaa Food ja Layout objekteihin tapahtuvat toiminnot
- * sekä johtaa ne myös tietokantaan
+ * sekä johtaa ne myös tietokantaan.
  */
 public class FoodService {
 
@@ -19,7 +19,7 @@ public class FoodService {
     private Map<Food, Integer> foodsMap;
 
     /**
-     * Service objekti joka hoitaa Food ja Layout luokkien toimintoja
+     * Service objekti joka hoitaa Food ja Layout luokkien toimintoja.
      * @param foodDao Dao-rajapinta Foodtaulun toimintoihin
      * @param layoutDao Dao-rajapinta LAyouttaulun toimintoihin
      */
@@ -49,8 +49,8 @@ public class FoodService {
     }
 
     /**
-     * Alustaa FoodsMaps hajautustaulun tietokannasta saatavilla tiedoilla
-     * @param foods
+     * Alustaa FoodsMaps hajautustaulun tietokannasta saatavilla tiedoilla.
+     * @param foods lista raaka-aineita
      */
     public void initializeMap(List<Food> foods) {
         for (Food f : foods) {
@@ -59,7 +59,7 @@ public class FoodService {
     }
 
     /**
-     * Validoi annetun objetin. Tarkastaa onko int arvot epänegatiiviset sekä onko string arvot epätyhjät
+     * Validoi annetun objetin. Tarkastaa onko int arvot epänegatiiviset sekä onko string arvot epätyhjät.
      * @param food tarkastettava objekti
      */
     private void validateFood(Food food) {
@@ -72,10 +72,11 @@ public class FoodService {
     }
 
     /**
-     * Tarkastaa löytyykö jo kyseistä raaka-aine mallia
+     * Tarkastaa löytyykö jo kyseistä raaka-aine mallia.
      * @param newFood lisättävä raaka-aine
      */
     public void checkIfLayoutExistAndCreate(Food newFood) {
+        validateFood(newFood);
         Food newLayout = new Food(newFood.getName(), newFood.getManufacturer(), newFood.getPreservation(),
                 newFood.getWeight());
         boolean already = false;
@@ -92,13 +93,12 @@ public class FoodService {
     }
 
     /**
-     * Luo uuden ruoka-olion ja tallentaa sen tietokantaan
+     * Luo uuden ruoka-olion ja tallentaa sen tietokantaan.
      * @param food tallennettava ruoka
      */
     public void saveNewFood(Food food) {
         validateFood(food);
         checkIfLayoutExistAndCreate(food);
-        int newValue = food.getAmount();
         boolean found = false;
         for (Food f : allFoods) {
             if (f.equals(food)) {
@@ -118,7 +118,7 @@ public class FoodService {
     }
 
     /**
-     * Suodattaa listan raaka-aineita, kaikista raaka-aineista
+     * Suodattaa listan raaka-aineita, kaikista raaka-aineista.
      * @param filter haluttu ominaisuus raaka-aineilla
      * @param option suodatusmuoto
      * @return lista raaka-aine olioita
@@ -138,8 +138,9 @@ public class FoodService {
 
     /**
      * Vähentää yhden Food objektin varastosta, jos Food objetin määrä tippuu nollaan, poistetaan tuote kokonaan
-     * tietokannasta
+     * tietokannasta.
      * @param food vähennettävä objekti
+     * @param howMany kuinka monta poistetaan
      * @throws Exception
      */
     public void deleteFood(Food food, int howMany) {
@@ -161,6 +162,4 @@ public class FoodService {
             }
         }
     }
-
-
 }

@@ -12,7 +12,7 @@ import ot.foodstorage.domain.Recipe;
 import java.util.*;
 
 /**
- * Käyttöliittymän toiminnallisuuksien toteuttaja luokka, josta päästää käsiksi kaikkiin soveluksen rakenteisiin
+ * Käyttöliittymän toiminnallisuuksien toteuttaja luokka, josta päästää käsiksi kaikkiin soveluksen rakenteisiin.
  */
 public class AppService {
 
@@ -21,10 +21,11 @@ public class AppService {
     private ShoppingBasketService shoppingBasketService;
 
     /**
-     * Toiminnallisuuksien totetuttaja
+     * Toiminnallisuuksien totetuttaja.
      * @param foodDao objekti josta päästään käsiksi "Food" tietokantatauluun
      * @param layoutDao objekti josta päästään käsiksi "Layout" tietokantatauluun
      * @param recipeDao objekti josta päästään käsiksi "Recipe" tietokantatauluun
+     * @param readyRecipesDao objekti josta päästään käsiksi "ReadyRecipe" tietokantatauluun
      * @param shoppingBasketDao objekti josta päästään käsiksi "ShoppingBasket" tietokantatauluun
      */
     public AppService(FoodDao foodDao, LayoutDao layoutDao, RecipeDao recipeDao, ReadyRecipesDao readyRecipesDao,
@@ -47,7 +48,7 @@ public class AppService {
     }
 
     /**
-     * Tarkastaa mitä kaikkia reseptejä pystyttäisiin valmistamaan saatavilla olevista raaka-aineista
+     * Tarkastaa mitä kaikkia reseptejä pystyttäisiin valmistamaan saatavilla olevista raaka-aineista.
      * @return listan reseptejä
      */
     public List<Recipe> checkPossibleRecipes() {
@@ -69,7 +70,7 @@ public class AppService {
     }
 
     /**
-     * valmistaa reseptin käytettävissä olevista raaka-aineista
+     * Valmistaa reseptin käytettävissä olevista raaka-aineista.
      * @param recipe valmistettava resepti
      */
     public void cookRecipe(Recipe recipe) {
@@ -77,25 +78,11 @@ public class AppService {
         for (Food f : recipe.getFoods()) {
             foodService.deleteFood(f, f.getAmount());
         }
-        boolean allReady = false;
-        for (Recipe r : recipeService.getAllReadyRecipes()) {
-            if (r.getName().equals(recipe.getName())) {
-                r.addOneAmountMore();
-                recipe = r;
-                allReady = true;
-                break;
-            }
-        }
-        if (!allReady) {
-            recipeService.getAllReadyRecipes().add(recipe);
-            recipeService.getReadyRecipesDao().save(recipe);
-        } else {
-            recipeService.getReadyRecipesDao().update(recipe);
-        }
+        recipeService.addNewReadyRecipe(recipe);
     }
 
     /**
-     * Tyhjentää ostoslistan jos sen koko on isompi kuin nolla. Listan raaka-aineet lisätään varastoon
+     * Tyhjentää ostoslistan. Listan raaka-aineet lisätään varastoon.
      * @return palauttaa true jos ostoslista tyhjennettiin, muuten false
      */
     public boolean addBasketItemsToStorageAndClearItemList() {
@@ -110,5 +97,4 @@ public class AppService {
         }
         return false;
     }
-
 }

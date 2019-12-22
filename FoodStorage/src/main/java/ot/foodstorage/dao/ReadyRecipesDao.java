@@ -2,7 +2,6 @@ package ot.foodstorage.dao;
 
 import ot.foodstorage.database.Database;
 import ot.foodstorage.domain.Recipe;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,24 +9,41 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Luokka Recipe-luokkien tietokanta käsittelyille/tapahtumille.
+ */
 public class ReadyRecipesDao extends RecipeDao {
 
+    /**
+     * ReadyRecipeDao objekti jolla voidaan totetuttaa tarvittavia kyselyitä Recipe-tauluun.
+     * @param db tietokanta
+     * @param tableName tietokantataulun nimi
+     */
     public ReadyRecipesDao(Database db, String tableName) {
         super(db, tableName);
     }
 
+    /**
+     * Hakee tietokantataulusta ReadyRecipe kaikki rivit.
+     * Rivit on järjestetty aakkosittain nimen mukaan.
+     * @return ReadyRecipe taulun kaikki rivit
+     */
     @Override
     public List<Recipe> findAll() {
         return selectQuery("SELECT * FROM " + getTableName() + ";");
     }
 
+    /**
+     * Tallentaa uuden rivin ReadyRecipe tietokantatauluun.
+     * @param recipe tallennettava ruoka
+     */
     public void save(Recipe recipe) {
         try {
             Connection conn = getDb().getConnection();
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + getTableName() + " (name, rawMaterials, " +
                     "cookTime, description, instruction, amount) VALUES (?,?,?,?,?,?)");
             stmt.setString(1, recipe.getName());
-            stmt.setString(2,recipe.listToString());
+            stmt.setString(2, recipe.listToString());
             stmt.setInt(3, recipe.getCookTime());
             stmt.setString(4, recipe.getDescription());
             stmt.setString(5, recipe.getInstruction());
@@ -42,6 +58,10 @@ public class ReadyRecipesDao extends RecipeDao {
         }
     }
 
+    /**
+     * Päivittää tietty riviä tietokannassa.
+     * @param recipe päivtettävä resepti
+     */
     public void update(Recipe recipe) {
         try {
             Connection conn = getDb().getConnection();
@@ -56,6 +76,10 @@ public class ReadyRecipesDao extends RecipeDao {
         }
     }
 
+    /**
+     * Poistaa rivin taulusta.
+     * @param recipe poistettavan rivin ID
+     */
     @Override
     public void delete(Recipe recipe) {
         try {
@@ -71,6 +95,11 @@ public class ReadyRecipesDao extends RecipeDao {
         }
     }
 
+    /**
+     * Toteuttaa annetun kyselyn ja palauttaa mahdolliset rivit tietokannasta.
+     * @param query tietokantaan tehtävä kysely
+     * @return
+     */
     @Override
     public List<Recipe> selectQuery(String query) {
         List<Recipe> readyRecipes = new ArrayList<>();
@@ -92,6 +121,4 @@ public class ReadyRecipesDao extends RecipeDao {
         }
         return readyRecipes;
     }
-
-
 }

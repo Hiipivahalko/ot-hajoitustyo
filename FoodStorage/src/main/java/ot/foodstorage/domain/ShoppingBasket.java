@@ -1,8 +1,10 @@
 package ot.foodstorage.domain;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Ostoskoriluokka.
+ */
 public class ShoppingBasket {
 
     private List<Food> items;
@@ -10,6 +12,11 @@ public class ShoppingBasket {
     private String name;
     private StringBuilder itemsAtString;
 
+    /**
+     * Alustaa ostoskorin.
+     * @param id id
+     * @param items ostoskorin tuotteet
+     */
     public ShoppingBasket(int id, List<Food> items) {
         this.id = id;
         this.items = items;
@@ -29,6 +36,10 @@ public class ShoppingBasket {
         return name;
     }
 
+    /**
+     * Palauttaa listan merkkijonona.
+     * @return lista merkkijonona
+     */
     public String listToString() {
         return itemsAtString.toString();
     }
@@ -49,12 +60,22 @@ public class ShoppingBasket {
         itemsAtString = new StringBuilder(items);
     }
 
+    /**
+     * Lisää tuotteen ostoskoriin.
+     * @param food lisättävä raaka-aine
+     */
     public void addItem(Food food) {
         items.add(food);
         itemsAtString.append(food.getName() + ";" + food.getManufacturer() + ";" + food.getPreservation() + ";" +
                 food.getWeight() + ";" + food.getAmount() + ",");
     }
 
+    /**
+     * Päivittää ostoskorissa olevaa tuotetta.
+     * @param index indeksi listalla
+     * @param addedAmount lisättävä määrä
+     * @param name tuotteen nimi
+     */
     public void updateItem(int index, int addedAmount, String name) {
         if (addedAmount < 1) {
             throw new IllegalArgumentException("addedAmount oli negatiivinen tai nolla");

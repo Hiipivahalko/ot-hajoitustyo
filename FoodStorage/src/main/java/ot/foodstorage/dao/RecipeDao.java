@@ -3,7 +3,6 @@ package ot.foodstorage.dao;
 import ot.foodstorage.database.Database;
 import ot.foodstorage.domain.Food;
 import ot.foodstorage.domain.Recipe;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Luokka Recipe-luokkien tietokanta käsittelyille/tapahtumille
+ * Luokka Recipe-luokkien tietokanta käsittelyille/tapahtumille.
  */
 public class RecipeDao implements Dao<Recipe> {
 
@@ -20,7 +19,7 @@ public class RecipeDao implements Dao<Recipe> {
     private String tableName;
 
     /**
-     * RecipeDao objekti jolla voidaan totetuttaa tarvittavia kyselyitä Recipe-tauluun
+     * RecipeDao objekti jolla voidaan totetuttaa tarvittavia kyselyitä Recipe-tauluun.
      * @param db tietokanta
      * @param tableName tietokantataulun nimi
      */
@@ -48,7 +47,7 @@ public class RecipeDao implements Dao<Recipe> {
     }
 
     /**
-     * Tallentaa uuden rivin Recipe tietokantatauluun
+     * Tallentaa uuden rivin Recipe tietokantatauluun.
      * @param recipe tallennettava ruoka
      */
     @Override
@@ -58,7 +57,7 @@ public class RecipeDao implements Dao<Recipe> {
             PreparedStatement stmt = conn.prepareStatement("INSERT INTO " + tableName + " (name, rawMaterials, " +
                     "cookTime, description, instruction) VALUES (?,?,?,?,?)");
             stmt.setString(1, recipe.getName());
-            stmt.setString(2,recipe.listToString());
+            stmt.setString(2, recipe.listToString());
             stmt.setInt(3, recipe.getCookTime());
             stmt.setString(4, recipe.getDescription());
             stmt.setString(5, recipe.getInstruction());
@@ -71,22 +70,24 @@ public class RecipeDao implements Dao<Recipe> {
         }
     }
 
+    /**
+     * Päivittää rivin tietokannassa.
+     * @param recipe
+     */
     @Override
     public void update(Recipe recipe) {
-
     }
 
     /**
-     * Poistaa tietyn rivin tietokannasta
+     * Poistaa tietyn rivin tietokannasta.
      * @param recipe poistettavan rivin ID
      */
     @Override
     public void delete(Recipe recipe) {
-
     }
 
     /**
-     * Apufunktio totetuttamaan haluttu kysely tietokantaan
+     * Apufunktio totetuttamaan haluttu kysely tietokantaan.
      * @param query tietokantaan tehtävä kysely
      * @return lista Recipe olioita
      */
@@ -114,7 +115,7 @@ public class RecipeDao implements Dao<Recipe> {
     /**
      * Käsittelee hajoittaa foods-merkkijonon tietokantarivissä osiin.
      * Muodastaa merkkijonosta Food objekteja. Food objektit on eroteltu "tab" symbolilla.
-     * Food objektin omat ominaisuudet on eroteltu ";" symbolilla
+     * Food objektin omat ominaisuudet on eroteltu ";" symbolilla.
      * @param items Food objektit yhtenä merkkijonona
      * @return lista Food objekteja
      */

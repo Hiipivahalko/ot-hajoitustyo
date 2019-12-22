@@ -10,6 +10,9 @@ import ot.foodstorage.domain.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * NewRecipeScene.fxml FXML-tiedoston controllerluokka.
+ */
 public class NewRecipeSceneController extends Controller {
 
     @FXML private TextField newNameField;
@@ -20,10 +23,22 @@ public class NewRecipeSceneController extends Controller {
     @FXML private Label errorLabel;
     private ObservableList<Food> foodsList;
 
+    /**
+     * Alustaa sivun.
+     */
+    public void setUpPage() {
+        foodsList = FXCollections.observableList(appService.getFoodService().getLayouts());
+        foodTable.setItems(foodsList);
+        errorLabel.setVisible(false);
+    }
+
+    /**
+     * Tallentaa uuden reseptin.
+     * @param event tapahtumankäsittelijä
+     */
     @FXML
     public void saveNewRecipe(ActionEvent event) {
         List<Food> recipeFoods = new ArrayList<>();
-        //recipeFoods.add(foodsComboBox.getValue());
         int cookTime = -1;
         String name, description, instruction;
         try {
@@ -42,13 +57,4 @@ public class NewRecipeSceneController extends Controller {
         }
         goRecipeList(event);
     }
-
-    public void setUpPage() {
-        foodsList = FXCollections.observableList(appService.getFoodService().getLayouts());
-        foodTable.setItems(foodsList);
-        errorLabel.setVisible(false);
-
-    }
-
-
 }

@@ -42,7 +42,8 @@
                   </Label>
                   <TextField fx:id="amount" layoutX="273.0" layoutY="241.0" />
                   <Label layoutX="214.0" layoutY="238.0" text="Määrä:" />
-                  <Button layoutX="317.0" layoutY="322.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="222.0" text="Lisää uusi raaka-aine malli" />
+                  <Button layoutX="317.0" layoutY="322.0" mnemonicParsing="false" onAction="#addNewLayout" prefHeight="26.0" prefWidth="222.0" text="Lisää uusi raaka-aine malli" />
+                  <Label fx:id="errorLabel" layoutX="77.0" layoutY="363.0" prefHeight="16.0" prefWidth="511.0" text="Tallennus yritys epäonnistui, tarkasta että kentät on täytetty oikein" />
                </children>
             </AnchorPane>
          </center>

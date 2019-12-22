@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Luokka Food-luokkien tietokanta käsittelyille/tapahtumille
+ * Luokka Food-luokkien tietokanta käsittelyille/tapahtumille.
  */
 public class FoodDao  implements Dao<Food> {
 
@@ -21,7 +21,7 @@ public class FoodDao  implements Dao<Food> {
     private String tableName;
 
     /**
-     * FoodDao objekti jolla voidaan totetuttaa tarvittavia kyselyitä Food-tauluun
+     * FoodDao objekti jolla voidaan totetuttaa tarvittavia kyselyitä Food-tauluun.
      * @param db tietokanta
      * @param tableName tietokantataulun nimi
      */
@@ -43,7 +43,7 @@ public class FoodDao  implements Dao<Food> {
     }
 
     /**
-     * Tallentaa annetun raaka-aineen tietokantaan
+     * Tallentaa annetun raaka-aineen tietokantaan.
      * @param food tallennettava raaka-aine
      */
     public void save(Food food) {
@@ -65,7 +65,7 @@ public class FoodDao  implements Dao<Food> {
     }
 
     /**
-     * Päivittää tietyn raaka-aineen amount arvoa tietokannassa
+     * Päivittää tietyn raaka-aineen amount arvoa tietokannassa.
      * @param food päivitettävä raaka-aine
      */
     public void update(Food food) {
@@ -84,7 +84,7 @@ public class FoodDao  implements Dao<Food> {
     }
 
     /**
-     * Poistaa tietyn rivin tietokannasta
+     * Poistaa tietyn rivin tietokannasta.
      * @param food poistettavan rivin
      */
     @Override
@@ -103,7 +103,7 @@ public class FoodDao  implements Dao<Food> {
     }
 
     /**
-     * Haravoi vain tietyn säännän/nimen omaavat tietokantarivit
+     * Haravoi vain tietyn säännän/nimen omaavat tietokantarivit.
      * @param filter sääntö millä haravoidaan
      * @return osajoukko kaikista tietokannan riveistä
      */
@@ -113,7 +113,7 @@ public class FoodDao  implements Dao<Food> {
     }
 
     /**
-     * Etsitään tietokannasta raaka-aineita tietyn nimen ja valmistajan perusteella
+     * Etsitään tietokannasta raaka-aineita tietyn nimen ja valmistajan perusteella.
      * @param name nimi
      * @param manufacture valmistaja
      * @return lista raaka-aineita
@@ -124,7 +124,7 @@ public class FoodDao  implements Dao<Food> {
     }
 
     /**
-     * Hakee tietokannasta rivit joilla on tietty sama säilytysmuoto
+     * Hakee tietokannasta rivit joilla on tietty sama säilytysmuoto.
      * @param filter - säilytysmuoto
      * @return - raaka-aineet
      */
@@ -134,7 +134,7 @@ public class FoodDao  implements Dao<Food> {
     }
 
     /**
-     * Apufunktio totetuttamaan haluttu kysely tietokantaan
+     * Apufunktio totetuttamaan haluttu kysely tietokantaan.
      * @param query tietokantaan tehtävä kysely
      * @return lista Food olioita
      */

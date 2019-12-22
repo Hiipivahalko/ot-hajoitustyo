@@ -7,16 +7,14 @@ package ot.foodstorage.ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import ot.foodstorage.domain.Food;
 
-
+/**
+ * NewFoodScene.fxml FXML-tiedoston controllerluokka.
+ */
 public class NewFoodSceneController extends Controller {
     
     @FXML private TextField nameField;
@@ -24,76 +22,59 @@ public class NewFoodSceneController extends Controller {
     @FXML private TextField weightField;
     @FXML private TextField amount;
     @FXML private ChoiceBox<String> preservationChoice;
-    private AllFoodsSceneController mainController;
-    private LayoutSceneController layoutController;
-    private Stage stage;
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
-    public void setNameField(String nameField) {
-        this.nameField.setText(nameField);
-    }
-
-    public void setManufacturerField(String manufacturerField) {
-        this.manufacturerField.setText(manufacturerField);
-    }
-
-    public void setPreservationChoice(String preservationChoice) {
-        this.preservationChoice.setValue(preservationChoice);
-    }
+    @FXML private Label errorLabel;
 
     public void setLayoutController(LayoutSceneController controller) {
         this.layoutController = controller;
     }
 
     /**
-     * Tapahtumankäsittelijä "Takaisin" napille, jolla päästään takaisin ruokalistaan
-     * @param event tapahtumankäsittelijä
+     * Alustaa sivun.
      */
-    @Override
-    @FXML
-    public void goBackToFoodList(ActionEvent event) {
-        try {
-            FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/fxml/AllFoodsScene.fxml"));
-            Parent root = pageLoader.load();
-            mainController = pageLoader.getController();
-            mainController.setAppService(getAppService());
-            mainController.setAllFoods();
-            ((Node) event.getSource()).getScene().setRoot(root);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
-    }
-
-    @FXML
-    public void goBackToLayoutList(ActionEvent event) {
-        try {
-            FXMLLoader pageLoader = new FXMLLoader(getClass().getResource("/fxml/LayoutScene.fxml"));
-            Parent root = pageLoader.load();
-            layoutController = pageLoader.getController();
-            layoutController.setAppService(getAppService());
-            ((Node) event.getSource()).getScene().setRoot(root);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        }
+    public void setUpPage() {
+        errorLabel.setVisible(false);
     }
 
     /**
-     * Funktio "Lisää ruoka" napille, joka lisää uuden ruoan varastoon
+     * Funktio "Lisää ruoka" napille, joka lisää uuden ruoan varastoon.
      * @param event tapahtumankäsitelijä
      */
     @FXML
     public void addNewFood(ActionEvent event) {
-        int weigth = Integer.parseInt(weightField.getText());
-        String preservation = preservationChoice.getValue();
-        Food food = new Food(nameField.getText().toLowerCase(), manufacturerField.getText().toLowerCase(),
-                preservation.toLowerCase(), weigth, Integer.parseInt(amount.getText()));
 
-        super.goLayoutList(event);
+        try {
+            Food food = getFoodObject();
+            appService.getFoodService().saveNewFood(food);
+            super.goLayoutList(event);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            errorLabel.setVisible(true);
+        }
+    }
+
+    private Food getFoodObject() {
+        Food food = new Food(nameField.getText().toLowerCase(), manufacturerField.getText().toLowerCase(),
+                preservationChoice.getValue().toLowerCase(), Integer.parseInt(weightField.getText()),
+                Integer.parseInt(amount.getText()));
+        return food;
+    }
+
+    /**
+     * Lisätään uusi mallin raaka-ainetta.
+     * @param event tapahtumankäsittelija
+     */
+    @FXML
+    public void addNewLayout(ActionEvent event) {
+        try {
+            Food food = getFoodObject();
+            appService.getFoodService().checkIfLayoutExistAndCreate(food);
+            super.goLayoutList(event);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            errorLabel.setVisible(true);
+        }
     }
     
 }

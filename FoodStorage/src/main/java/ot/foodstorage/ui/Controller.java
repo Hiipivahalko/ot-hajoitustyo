@@ -19,7 +19,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author osiipola
+ * Controllerluokkien yläluokka, jolla toiminnallisuuksia/muuttujia kaikki tarvitsee.
  */
 public class Controller {
     
@@ -30,7 +30,12 @@ public class Controller {
     LayoutSceneController layoutController;
     RecipeSceneController recipeSceneController;
     NewRecipeSceneController newRecipeSceneController;
-    
+
+    /**
+     * Vaihtaa sivua käyttöliittymässä.
+     * @param event tapahtumankäsittelijä
+     * @param file vaihdettava tiedosto
+     */
     public void changeSide(ActionEvent event, String file) {
         try {
             FXMLLoader pageLoader = new FXMLLoader(getClass().getResource(file));
@@ -60,16 +65,20 @@ public class Controller {
         this.controller = controller;
     }
 
+    /**
+     * Siirtyy varasto näkymään.
+     * @param event tapahtumankäsittelija
+     */
     @FXML
-    public void goBackToFoodList(ActionEvent event) throws SQLException {
+    public void goBackToFoodList(ActionEvent event) {
         changeSide(event, "/fxml/AllFoodsScene.fxml");
         allFoodsController = (AllFoodsSceneController) controller;
         allFoodsController.setUpScene();
     }
 
     /**
-     * Vaihtaa sivun jossa voi lisätä raaka-aineen
-     * @param event - tapahtumankäsittelija
+     * Vaihtaa sivun jossa voi lisätä raaka-aineen.
+     * @param event tapahtumankäsittelija
      */
     @FXML
     public void goLayoutList(ActionEvent event) {
@@ -79,7 +88,7 @@ public class Controller {
     }
 
     /**
-     *
+     * Siirtyy ostoskori sivulle käyttöliittymässä.
      * @param event tapahtumankäsittelija
      */
     @FXML
@@ -97,6 +106,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Siirtyy reseptit sivulle käyttöliittymässä.
+     * @param event tapahtumankäsittelija
+     */
     @FXML
     public void goRecipeList(ActionEvent event) {
         try {
@@ -112,6 +125,10 @@ public class Controller {
         }
     }
 
+    /**
+     * Siirtyy sivulle jossa voit lisätä uusia raaka-aineita.
+     * @param event tapahtumankäsittelija
+     */
     @FXML
     public void goNewRecipeScene(ActionEvent event) {
         try {
@@ -126,6 +143,4 @@ public class Controller {
             e.printStackTrace();
         }
     }
-
-
 }

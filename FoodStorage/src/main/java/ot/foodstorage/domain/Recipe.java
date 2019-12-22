@@ -4,6 +4,9 @@ import javafx.scene.control.TextField;
 
 import java.util.List;
 
+/**
+ * Resepti luokka.
+ */
 public class Recipe {
 
     private int id;
@@ -15,6 +18,14 @@ public class Recipe {
     private int amount;
     private TextField amountField;
 
+    /**
+     * Reseptin alustus.
+     * @param name nimi
+     * @param foods raaka-aineet
+     * @param cookTime valmistusaika
+     * @param description kuvaus
+     * @param instruction ohje
+     */
     public Recipe(String name, List<Food> foods, int cookTime, String description, String instruction) {
         this.id = -1;
         this.name = name;
@@ -26,6 +37,15 @@ public class Recipe {
         this.amount = -1;
     }
 
+    /**
+     * Valmiin reseptin alustus.
+     * @param name nimi
+     * @param foods raaka-aineet
+     * @param cookTime valmistusaika
+     * @param description kuvaus
+     * @param instruction ohje
+     * @param amount määrä
+     */
     public Recipe(String name, List<Food> foods, int cookTime, String description, String instruction, int amount) {
         this.id = -1;
         this.name = name;
@@ -98,6 +118,10 @@ public class Recipe {
         this.cookTime = cookTime;
     }
 
+    /**
+     * Asettaa TextField kenttään annetun arvon.
+     * @param amount asetettava arvo
+     */
     public void setAmountField(String amount) {
         this.amountField.setText(amount);
     }
@@ -106,10 +130,17 @@ public class Recipe {
         this.amount = amount;
     }
 
+    /**
+     * Lisää amount arvoa yhdellä.
+     */
     public void addOneAmountMore() {
         this.amount++;
     }
 
+    /**
+     * Rakentaa merkkijonon food listasta.
+     * @return lista merkkijonona
+     */
     public String listToString() {
         StringBuilder sb = new StringBuilder();
         for (Food f : foods) {
